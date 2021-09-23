@@ -7,6 +7,7 @@
 package SaveAndLoad;
 import org.json.simple.JSONObject;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class SaveFileManager
 {
@@ -17,11 +18,13 @@ public class SaveFileManager
 	public SaveFileManager()
 	{
 		this.pathToSaveFile = "save.json";
+		this.saveObjects = new ArrayList<>();
 	}
 	//supplied filename
 	public SaveFileManager(String pathToSaveFile)
 	{
 		this.pathToSaveFile = pathToSaveFile;
+		this.saveObjects = new ArrayList<>();
 	}
 	
 	//adds a Saveable to the saveobjects list
@@ -46,6 +49,12 @@ public class SaveFileManager
 	}
 	
 	//getter
+	public ArrayList<Saveable> getSaveObjects()
+	{
+		return saveObjects;
+	}
+	
+	//getter
 	public String getPathToSaveFile()
 	{
 		return pathToSaveFile;
@@ -59,10 +68,14 @@ public class SaveFileManager
 	
 	//calls save() on every Saveable in saveObjects 
 	//and returns a giant JSON with all of them 
+	@SuppressWarnings("unchecked")
 	public JSONObject save()
 	{
 		JSONObject obj = new JSONObject();
-		//todo
+		for (int i = 0; i < saveObjects.size(); i++)
+		{
+			obj.put(String.format("%d", i), saveObjects.get(i).save());
+		}
 		return obj;
 	}
 	
@@ -79,7 +92,24 @@ public class SaveFileManager
 	//calling their respective load() functions
 	public void load(JSONObject dataToLoad)
 	{
-		//todo
+		clearSaveObjects();
+		for(@SuppressWarnings("unchecked")
+		Iterator<String> iterator = dataToLoad.keySet().iterator(); iterator.hasNext();) 
+		{
+			  String key = (String) iterator.next();
+			  JSONObject val = (JSONObject) dataToLoad.get(key);
+			  String type = (String)val.get("type");
+			  switch(type)
+			  {
+			  		case "SaveableString":
+			  			SaveableString newObject = new SaveableString();
+			  			newObject.load(val);
+			  			saveObjects.add(newObject);
+			  			break;
+			  		default:
+			  			break;
+			  }
+		}
 	}
 	
 	//opens the file at pathToSaveFile and calls

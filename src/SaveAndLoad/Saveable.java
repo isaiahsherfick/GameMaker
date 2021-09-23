@@ -16,4 +16,5 @@ public interface Saveable
 
 	//Default constructed objects will rebuild themselves with those JSONs
 	public void load(JSONObject saveJSON);
+	
 }
