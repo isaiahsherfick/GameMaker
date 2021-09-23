@@ -11,6 +11,7 @@ import java.util.Iterator;
 
 public class SaveFileManager
 {
+
 	private String pathToSaveFile;
 	private ArrayList<Saveable> saveObjects;
 	
