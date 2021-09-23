@@ -14,6 +14,6 @@ public class SaveAndLoadTest
 	@Test
 	public void SaveFileTest()
 	{
-		assertTrue(true);
+		SaveFileManager sfm = new SaveFileManager();
 	}
 }
