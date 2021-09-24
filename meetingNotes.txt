@@ -1,0 +1,22 @@
+
+
+Isaiah
+    Has done some save/load
+    planning on looking into object pool for handling storage of objects
+
+Raghu
+    Has created 3 command classes just to get started
+    Command interface
+    Will be targeting 
+
+Snehal
+    Looking into how Ethan's team implemented composite pattern
+
+Satin
+    Has some shapes ready but needs to get the window started
+
+Targets:
+    Isaiah - sprites and strategy and save/load
+    Raghu - target audio and command invoker
+    Snehal - will review composite from previous groups and try to do it right
+    Satin - Will pair with Snehal to get the UI up and running
