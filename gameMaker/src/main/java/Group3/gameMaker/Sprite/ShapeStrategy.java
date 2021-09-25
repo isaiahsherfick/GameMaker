@@ -12,4 +12,6 @@ public interface ShapeStrategy extends Saveable
 	//TODO figure out what to pass this
 	//in order to 
 	public void draw();
+	public int getWidth();
+	public int getHeight();
 }
