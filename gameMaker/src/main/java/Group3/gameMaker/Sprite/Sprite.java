@@ -10,12 +10,13 @@ package Group3.gameMaker.Sprite;
 import org.json.simple.JSONObject;
 
 import Group3.gameMaker.SaveAndLoad.Saveable;
+import Group3.gameMaker.Sprite.Shape.ShapeStrategy;
 
 public abstract class Sprite implements Saveable
 {
 	private Point coordinates;
 	private ShapeStrategy shapeStrategy;
-	//private CollisionStrategy collisionStrategy;
+	private CollisionStrategy collisionStrategy;
 	//private CommandInvoker commandInvoker;
 	
 	public int getX()
