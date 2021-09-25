@@ -6,6 +6,16 @@
 //   Last change: Created SaveFileManager.java
 package Group3.gameMaker.SaveAndLoad;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -81,11 +91,16 @@ public class SaveFileManager
 	}
 	
 	//attempts to write the JSONObject created by save()
-	//to pathToSaveFile, returns true on success false otherwise
-	public boolean saveFile()
+	//to pathToSaveFile
+	public void saveFile() throws IOException
 	{
-		//todo
-		return true;
+		JSONObject saveJSON = save();
+		File file = new File(pathToSaveFile);
+		file.createNewFile();
+		FileWriter fileWriter = new FileWriter(pathToSaveFile);
+		fileWriter.write(saveJSON.toString());
+		fileWriter.flush();
+		fileWriter.close();
 	}
 	
 	//Populates the saveObjects list with objects
@@ -115,8 +130,12 @@ public class SaveFileManager
 	
 	//opens the file at pathToSaveFile and calls
 	//load() on the JSON found there
-	public void loadFile()
+	public void loadFile() throws IOException, ParseException
 	{
-		//todo
+		Path path = FileSystems.getDefault().getPath(pathToSaveFile);
+    	String fileContent = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);	
+    	JSONParser parser = new JSONParser();
+    	JSONObject JObj = (JSONObject)parser.parse(fileContent);
+    	load(JObj);
 	}
 }

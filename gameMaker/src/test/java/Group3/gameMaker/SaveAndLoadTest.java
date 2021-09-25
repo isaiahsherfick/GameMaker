@@ -7,14 +7,17 @@
 package Group3.gameMaker;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.*;
 
 import Group3.gameMaker.SaveAndLoad.SaveFileManager;
 import Group3.gameMaker.SaveAndLoad.Saveable;
 import Group3.gameMaker.SaveAndLoad.SaveableString;
+import Group3.gameMaker.Sprite.Point;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class SaveAndLoadTest
@@ -39,11 +42,6 @@ public class SaveAndLoadTest
 	public void SaveTest()
 	{
 		SaveFileManager sfm = new SaveFileManager();
-		//Note: These will not save in any order
-		//JSON can't do that
-		//We COULD make a saveable arraylist of strings
-		//if we really cared about that
-		//I don't see it as necessary
 		SaveableString ss1 = new SaveableString("I");
 		SaveableString ss2 = new SaveableString(" want");
 		SaveableString ss3 = new SaveableString(" this");
@@ -74,8 +72,6 @@ public class SaveAndLoadTest
 			assertTrue(loader.getSaveObjects().contains(saveStrings.get(i)));
 		}
 
-		//Somehow their ordering is preserved automatically
-		//seeing as this passes too
 		for (int i = 0; i < loader.getSaveObjects().size(); i++)
 		{
 			assertEquals(loader.getSaveObjects().get(i), sfm.getSaveObjects().get(i));
@@ -85,11 +81,6 @@ public class SaveAndLoadTest
 	public void SaveFileTest()
 	{
 		SaveFileManager sfm = new SaveFileManager();
-		//Note: These will not save in any order
-		//JSON can't do that
-		//We COULD make a saveable arraylist of strings
-		//if we really cared about that
-		//I don't see it as necessary
 		SaveableString ss1 = new SaveableString("I");
 		SaveableString ss2 = new SaveableString(" want");
 		SaveableString ss3 = new SaveableString(" this");
@@ -98,18 +89,52 @@ public class SaveAndLoadTest
 		SaveableString ss6 = new SaveableString(" and");
 		SaveableString ss7 = new SaveableString(" load");
 		SaveableString ss8 = new SaveableString(" without issue!");
+		Point point = new Point(1,2);
 		
-		ArrayList<Saveable> saveStrings = new ArrayList<>();
-		saveStrings.add(ss1);
-		saveStrings.add(ss2);
-		saveStrings.add(ss3);
-		saveStrings.add(ss4);
-		saveStrings.add(ss5);
-		saveStrings.add(ss6);
-		saveStrings.add(ss7);
-		saveStrings.add(ss8);
+		ArrayList<Saveable> saveables = new ArrayList<>();
+		saveables.add(ss1);
+		saveables.add(ss2);
+		saveables.add(ss3);
+		saveables.add(ss4);
+		saveables.add(ss5);
+		saveables.add(ss6);
+		saveables.add(ss7);
+		saveables.add(ss8);
+		saveables.add(point);
+		
+		sfm.addSaveObjects(saveables);
+		
+		//saving and loading to default location
+		try 
+		{
+			sfm.saveFile();
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		SaveFileManager loader = new SaveFileManager();
 
+		try 
+		{
+			loader.loadFile();
+		} 
+		catch (IOException | ParseException e) 
+		{
+			e.printStackTrace();
+		}
 		
-		sfm.addSaveObjects(saveStrings);
+		for (int i = 0; i < loader.getSaveObjects().size(); i++)
+		{
+			assertTrue(loader.getSaveObjects().contains(saveables.get(i)));
+		}
+
+		//Somehow their ordering is preserved automatically
+		//seeing as this passes too
+		for (int i = 0; i < loader.getSaveObjects().size(); i++)
+		{
+			assertEquals(loader.getSaveObjects().get(i), sfm.getSaveObjects().get(i));
+		}
 	}
 }
