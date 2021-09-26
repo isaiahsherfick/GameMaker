@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import Group3.gameMaker.SaveAndLoad.Saveable;
 import Group3.gameMaker.SaveAndLoad.StrategyLoader;
 import Group3.gameMaker.Sprite.Shape.ShapeStrategy;
+import Group3.gameMaker.Sprite.Sound.Sound;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Sprite implements Saveable
@@ -20,6 +21,7 @@ public class Sprite implements Saveable
 	private int spriteId = -2;
 	private Point coordinates;
 	private ShapeStrategy shapeStrategy;
+	private Sound sound;
 	//private CollisionStrategy collisionStrategy;
 	//private CommandInvoker commandInvoker;
 	
@@ -36,6 +38,15 @@ public class Sprite implements Saveable
 		this.spriteId = spriteId;
 	}
 
+	public Sprite(int x, int y, ShapeStrategy shape, int spriteId, Sound sound)
+	{
+		coordinates = new Point(x,y);
+		shapeStrategy = shape;
+		this.spriteId = spriteId;
+		this.sound = sound;
+	}
+
+
 	public Sprite(Point point, ShapeStrategy shape)
 	{
 		coordinates = point;
@@ -48,7 +59,15 @@ public class Sprite implements Saveable
 		shapeStrategy = shape;
 		this.spriteId = spriteId;
 	}
-	
+
+	public void setSound(Sound sound) {
+		this.sound = sound;
+	}
+
+	public Sound getSound() {
+		return sound;
+	}
+
 	public void setSpriteId(int id)
 	{
 		spriteId = id;
