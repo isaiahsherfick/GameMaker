@@ -7,7 +7,7 @@
 
 package Group3.gameMaker.CreateGameView;
 
-import src.composite.pattern.LayoutType;
+import CreateGameView.Location.LayoutType;
 
 public interface Layable {
 	public void changeLayout(LayoutType currentLayout, int parentX, int parentY, int index);
