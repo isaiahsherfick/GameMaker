@@ -4,18 +4,12 @@
 //     Edited by:
 //Edited last by: Snehal Patare
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> master
 package Group3.gameMaker.CreateGameView;
 
 import java.util.ArrayList;
 
-import CreateGameView.Layable;
-import CreateGameView.Location.LayoutType;
+import Group3.gameMaker.CreateGameView.Layable;
+import Group3.gameMaker.CreateGameView.Location.LayoutType;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -46,9 +40,13 @@ import javafx.stage.*;
 public class LayoutManager implements Layable {
 	
 	// Main Window
+	
+	//TODO fix the encapsulation issue
+	//make all of these private, use getters/setters
 	public Stage appStage;
 	public Group rootGroup;
 	public Pane rootPane;
+	public LayoutType currentLayout = LayoutType.RIGHT; 
 	
 	public LayablePane controlPane;
 	public Scene gameScene;
@@ -138,15 +136,16 @@ public class LayoutManager implements Layable {
 //		        }
 //		      });
 		button = new LayableButton("Rectangle");
-		button.setOnAction(value -> {
+		//TODO
+		//button.setOnAction(value -> {
 //			gameEngine.reset();
-		});
+		//});
 		addButtonToControlPanel(button);
 
 		button = new LayableButton("Triangle");
-		button.setOnAction(value -> {
+		//button.setOnAction(value -> {
 //			gameEngine.pause();
-		});
+		//});
 		addButtonToControlPanel(button);
 		changeLayout(currentLayout, 0, 0, 0);
         
@@ -160,22 +159,7 @@ public class LayoutManager implements Layable {
 		}
 		System.out.println("Layout has been changed to: " + layout);
 	}
-        
-		
-	}
-		//button.setOnAction(value -> {
-////			gameEngine.reset();
-		//});
-		addButtonToControlPanel(button);
 
-		button = new LayableButton("Triangle");
-		//button.setOnAction(value -> {
-//			gameEngine.pause();
-		//});
-		addButtonToControlPanel(button);
-        
-		
-	}
 	public void showStage() {
 		appStage.show();
 	}

@@ -10,10 +10,7 @@
 
 
 package Group3.gameMaker.Application;
-<<<<<<< HEAD
-=======
 
->>>>>>> c5cad0c0161a5114180e56e8dac315e07b80419d
 import Group3.gameMaker.CreateGameView.LayoutManager;
 //import CreateGameView.LayoutManager;
 import javafx.application.Application;
