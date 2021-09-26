@@ -10,6 +10,7 @@ package Group3.gameMaker.CreateGameModel;
 import java.util.ArrayList;
 
 import Group3.gameMaker.Sprite.Sprite;
+import javafx.scene.canvas.GraphicsContext;
 
 public class SpriteMaster
 {
@@ -22,11 +23,11 @@ public class SpriteMaster
 	{
 		return sprites;
 	}
-	public void drawSprites()
+	public void drawSprites(GraphicsContext g)
 	{
 		for (int i = 0; i < sprites.size(); i++)
 		{
-			sprites.get(i).draw();
+			sprites.get(i).draw(g);
 		}
 	}
 	public void add(Sprite s)

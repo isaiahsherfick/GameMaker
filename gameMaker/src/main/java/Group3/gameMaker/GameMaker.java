@@ -6,7 +6,7 @@
 //   Last change: Created GameMaker.java 
 
 
-package Group3.gameMaker.Application;
+package Group3.gameMaker;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;

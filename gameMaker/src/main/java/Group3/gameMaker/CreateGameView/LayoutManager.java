@@ -4,20 +4,19 @@
 //     Edited by:
 //Edited last by: Snehal Patare
 
+
+
+
 package Group3.gameMaker.CreateGameView;
 
 import java.util.ArrayList;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.TextInputDialog;
+import javax.swing.JRootPane;
+
+import Group3.gameMaker.CreateGameView.Layable;
+import javafx.scene.*;
 import javafx.scene.layout.Pane;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
-
-
+import javafx.stage.*;
 
 
 
@@ -42,7 +41,7 @@ public class LayoutManager implements Layable {
 	public void makeStage () {
 		// Build root group and root pane
 				rootGroup = new Group();
-				rootPane = new Pane();
+				Pane rootPane = new Pane();
 				rootPane.setPrefSize(Location.RightLayout.rootPaneWidth, Location.RightLayout.rootPaneHeight);
 				rootPane.setStyle("-fx-background-color: #FF00FF");
 				rootGroup.getChildren().add(rootPane);
@@ -84,15 +83,15 @@ public class LayoutManager implements Layable {
 //		        }
 //		      });
 		button = new LayableButton("Rectangle");
-		button.setOnAction(value -> {
-//			gameEngine.reset();
-		});
+		//button.setOnAction(value -> {
+////			gameEngine.reset();
+		//});
 		addButtonToControlPanel(button);
 
 		button = new LayableButton("Triangle");
-		button.setOnAction(value -> {
+		//button.setOnAction(value -> {
 //			gameEngine.pause();
-		});
+		//});
 		addButtonToControlPanel(button);
         
 		

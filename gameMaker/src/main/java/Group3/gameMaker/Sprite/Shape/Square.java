@@ -2,11 +2,16 @@ package Group3.gameMaker.Sprite.Shape;
 
 import org.json.simple.JSONObject;
 
+import javafx.scene.canvas.GraphicsContext;
+
 public class Square implements ShapeStrategy
 {
 	private String shape = "Square";
 	
 	public Square()
+	{
+
+	}
 
 	public JSONObject save() {
 		// TODO Auto-generated method stub
@@ -36,6 +41,12 @@ public class Square implements ShapeStrategy
 	public String getShape() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void draw(GraphicsContext g) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
