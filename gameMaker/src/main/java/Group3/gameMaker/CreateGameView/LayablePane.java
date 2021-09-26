@@ -76,7 +76,7 @@ public class LayablePane extends Pane implements Layable {
 				parentX = 0;
 				parentY = 75;
 			}
-			((LayablePane) lay).changeLayout(layout, parentX, parentY, index);
+			lay.changeLayout(layout, parentX, parentY, index);
 			index++;
 		}
 		layoutChildren();

@@ -4,12 +4,29 @@
 //     Edited by:
 //Edited last by: Snehal Patare
 
-
-
-
 package Group3.gameMaker.CreateGameView;
 
 import java.util.ArrayList;
+
+import Group3.gameMaker.CreateGameView.Layable;
+import Group3.gameMaker.CreateGameView.Location.LayoutType;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.GridPane;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.Pane;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 
 import javax.swing.JRootPane;
 
@@ -23,9 +40,13 @@ import javafx.stage.*;
 public class LayoutManager implements Layable {
 	
 	// Main Window
+	
+	//TODO fix the encapsulation issue
+	//make all of these private, use getters/setters
 	public Stage appStage;
 	public Group rootGroup;
 	public Pane rootPane;
+	public LayoutType currentLayout = LayoutType.RIGHT; 
 	
 	public LayablePane controlPane;
 	public Scene gameScene;
@@ -41,7 +62,9 @@ public class LayoutManager implements Layable {
 	public void makeStage () {
 		// Build root group and root pane
 				rootGroup = new Group();
+				rootPane = new Pane();
 				Pane rootPane = new Pane();
+
 				rootPane.setPrefSize(Location.RightLayout.rootPaneWidth, Location.RightLayout.rootPaneHeight);
 				rootPane.setStyle("-fx-background-color: #FF00FF");
 				rootGroup.getChildren().add(rootPane);
@@ -61,11 +84,42 @@ public class LayoutManager implements Layable {
 				// Not sure if this is right...
 				appStage.setScene(gameScene);
 	}
+	public void Dialogue() {
+		GridPane grid = new GridPane();
+		grid.setPadding(new Insets(10, 10, 10, 10));
+		grid.setVgap(5);
+		grid.setHgap(5);
+		//Defining the Name text field
+		final TextField name = new TextField();
+		name.setPromptText("Enter your first name.");
+		name.setPrefColumnCount(10);
+		name.getText();
+		GridPane.setConstraints(name, 0, 0);
+		grid.getChildren().add(name);
+		//Defining the Last Name text field
+		final TextField lastName = new TextField();
+		lastName.setPromptText("Enter your last name.");
+		GridPane.setConstraints(lastName, 0, 1);
+		grid.getChildren().add(lastName);
+		//Defining the Comment text field
+		final TextField comment = new TextField();
+		comment.setPrefColumnCount(15);
+		comment.setPromptText("Enter your comment.");
+		GridPane.setConstraints(comment, 0, 2);
+		grid.getChildren().add(comment);
+		//Defining the Submit button
+		Button submit = new Button("Submit");
+		GridPane.setConstraints(submit, 1, 0);
+		grid.getChildren().add(submit);
+		//Defining the Clear button
+		Button clear = new Button("Clear");
+		GridPane.setConstraints(clear, 1, 1);
+		grid.getChildren().add(clear);
+	}
 	
 	
 	public void createButtons () {
 		 
-		    
 		 // create a text input dialog
 //	        TextInputDialog td = new TextInputDialog("Enter X co-ordinates");
 //	        TextInputDialog td1 = new TextInputDialog("Enter Y co-ordinates");
@@ -74,7 +128,6 @@ public class LayoutManager implements Layable {
 //	        
 //	        final Popup popup = new Popup(); popup.setX(300); popup.setY(200);
 //		    popup.getContent().add(td,td1);
-//	  
 		
 		LayableButton button = new LayableButton("Circle");
 //		button.setOnAction(value -> {new EventHandler<ActionEvent>() {
@@ -83,8 +136,9 @@ public class LayoutManager implements Layable {
 //		        }
 //		      });
 		button = new LayableButton("Rectangle");
+		//TODO
 		//button.setOnAction(value -> {
-////			gameEngine.reset();
+//			gameEngine.reset();
 		//});
 		addButtonToControlPanel(button);
 
@@ -93,9 +147,19 @@ public class LayoutManager implements Layable {
 //			gameEngine.pause();
 		//});
 		addButtonToControlPanel(button);
+		changeLayout(currentLayout, 0, 0, 0);
         
 		
 	}
+	
+	public void changeLayout(LayoutType layout, int parentX, int parentY, int index) {
+		for (Layable lay : layables) {
+			lay.changeLayout(layout, parentX, parentY, 0);
+			index++;
+		}
+		System.out.println("Layout has been changed to: " + layout);
+	}
+
 	public void showStage() {
 		appStage.show();
 	}
