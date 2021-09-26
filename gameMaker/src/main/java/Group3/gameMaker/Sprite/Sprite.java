@@ -10,6 +10,8 @@ package Group3.gameMaker.Sprite;
 import org.json.simple.JSONObject;
 
 import Group3.gameMaker.SaveAndLoad.Saveable;
+import Group3.gameMaker.Sprite.Shape.ShapeStrategy;
+import javafx.scene.canvas.GraphicsContext;
 
 public abstract class Sprite implements Saveable
 {
@@ -39,9 +41,9 @@ public abstract class Sprite implements Saveable
 	}
 	
 	//TODO figure out what to pass this
-	public void draw()
+	public void draw(GraphicsContext g)
 	{
-		shapeStrategy.draw();
+		shapeStrategy.draw(g);
 	}
 
 	@SuppressWarnings("unchecked")

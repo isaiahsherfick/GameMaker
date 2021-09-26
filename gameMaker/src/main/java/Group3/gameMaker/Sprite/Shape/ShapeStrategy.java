@@ -4,14 +4,18 @@
 //     Edited by:
 //Edited last by: Isaiah Sherfick
 //   Last change: Created interface for shape strategies
-package Group3.gameMaker.Sprite;
+package Group3.gameMaker.Sprite.Shape;
 import Group3.gameMaker.SaveAndLoad.Saveable;
+import javafx.scene.canvas.GraphicsContext;
 
 public interface ShapeStrategy extends Saveable
 {
-	//TODO figure out what to pass this
-	//in order to 
-	public void draw();
+	public void draw(GraphicsContext g);
 	public int getWidth();
 	public int getHeight();
+	
+	//Returns the shape that the strategy object
+	//is representing
+	//used for save/load restoration 
+	public String getShape();
 }

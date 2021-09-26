@@ -1,16 +1,36 @@
+//GameMaker.java
+//    Created by: Isaiah Sherfick
+//    Created on: 22 Sep 2021
+//     Edited by:
+//Edited last by: Isaiah Sherfick
+//   Last change: Created GameMaker.java 
+
+
 package Group3.gameMaker;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 
-/**
- * Hello world!
- *
- */
-public class App extends Application
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+
+
+
+public class GameMaker extends Application
 {
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {

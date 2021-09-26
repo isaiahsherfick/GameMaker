@@ -30,10 +30,14 @@
     <artifactId>json-simple</artifactId>
     <version>1.1.1</version>
 <<<<<<< HEAD
+<<<<<<< HEAD
 </dependency> 
 =======
 </dependency>  
 >>>>>>> c5cad0c0161a5114180e56e8dac315e07b80419d
+=======
+</dependency>  
+>>>>>>> master
 <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
 <dependency>
     <groupId>org.openjfx</groupId>
@@ -53,11 +57,16 @@
     <version>17</version>
 </dependency>
 <<<<<<< HEAD
+<<<<<<< HEAD
  </dependencies>
 =======
 
 </dependencies>
 >>>>>>> c5cad0c0161a5114180e56e8dac315e07b80419d
+=======
+
+</dependencies>
+>>>>>>> master
 
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->

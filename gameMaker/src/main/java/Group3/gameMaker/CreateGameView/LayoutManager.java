@@ -4,11 +4,16 @@
 //     Edited by:
 //Edited last by: Snehal Patare
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> master
 package Group3.gameMaker.CreateGameView;
 
 import java.util.ArrayList;
 
-<<<<<<< HEAD
 import CreateGameView.Layable;
 import CreateGameView.Location.LayoutType;
 import javafx.event.ActionEvent;
@@ -20,18 +25,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
-=======
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.TextInputDialog;
->>>>>>> c5cad0c0161a5114180e56e8dac315e07b80419d
 import javafx.scene.layout.Pane;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
+import javax.swing.JRootPane;
 
+import Group3.gameMaker.CreateGameView.Layable;
+import javafx.scene.*;
+import javafx.scene.layout.Pane;
+import javafx.stage.*;
 
 
 
@@ -57,6 +65,8 @@ public class LayoutManager implements Layable {
 		// Build root group and root pane
 				rootGroup = new Group();
 				rootPane = new Pane();
+				Pane rootPane = new Pane();
+
 				rootPane.setPrefSize(Location.RightLayout.rootPaneWidth, Location.RightLayout.rootPaneHeight);
 				rootPane.setStyle("-fx-background-color: #FF00FF");
 				rootGroup.getChildren().add(rootPane);
@@ -76,7 +86,6 @@ public class LayoutManager implements Layable {
 				// Not sure if this is right...
 				appStage.setScene(gameScene);
 	}
-<<<<<<< HEAD
 	public void Dialogue() {
 		GridPane grid = new GridPane();
 		grid.setPadding(new Insets(10, 10, 10, 10));
@@ -109,15 +118,10 @@ public class LayoutManager implements Layable {
 		GridPane.setConstraints(clear, 1, 1);
 		grid.getChildren().add(clear);
 	}
-=======
->>>>>>> c5cad0c0161a5114180e56e8dac315e07b80419d
 	
 	
 	public void createButtons () {
 		 
-<<<<<<< HEAD
-=======
-		    
 		 // create a text input dialog
 //	        TextInputDialog td = new TextInputDialog("Enter X co-ordinates");
 //	        TextInputDialog td1 = new TextInputDialog("Enter Y co-ordinates");
@@ -126,8 +130,6 @@ public class LayoutManager implements Layable {
 //	        
 //	        final Popup popup = new Popup(); popup.setX(300); popup.setY(200);
 //		    popup.getContent().add(td,td1);
->>>>>>> c5cad0c0161a5114180e56e8dac315e07b80419d
-//	  
 		
 		LayableButton button = new LayableButton("Circle");
 //		button.setOnAction(value -> {new EventHandler<ActionEvent>() {
@@ -146,7 +148,6 @@ public class LayoutManager implements Layable {
 //			gameEngine.pause();
 		});
 		addButtonToControlPanel(button);
-<<<<<<< HEAD
 		changeLayout(currentLayout, 0, 0, 0);
         
 		
@@ -159,11 +160,22 @@ public class LayoutManager implements Layable {
 		}
 		System.out.println("Layout has been changed to: " + layout);
 	}
-=======
         
 		
 	}
->>>>>>> c5cad0c0161a5114180e56e8dac315e07b80419d
+		//button.setOnAction(value -> {
+////			gameEngine.reset();
+		//});
+		addButtonToControlPanel(button);
+
+		button = new LayableButton("Triangle");
+		//button.setOnAction(value -> {
+//			gameEngine.pause();
+		//});
+		addButtonToControlPanel(button);
+        
+		
+	}
 	public void showStage() {
 		appStage.show();
 	}
