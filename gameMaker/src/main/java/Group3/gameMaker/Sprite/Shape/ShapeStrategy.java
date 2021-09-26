@@ -9,7 +9,7 @@ import Group3.gameMaker.SaveAndLoad.Saveable;
 
 public interface ShapeStrategy extends Saveable
 {
-	public void draw();
+	public void draw(Graphics g);
 	public int getWidth();
 	public int getHeight();
 	
