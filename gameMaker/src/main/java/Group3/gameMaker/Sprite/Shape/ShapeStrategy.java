@@ -13,9 +13,4 @@ public interface ShapeStrategy extends Saveable
 	public void draw(GraphicsContext g);
 	public int getWidth();
 	public int getHeight();
-	
-	//Returns the shape that the strategy object
-	//is representing
-	//used for save/load restoration 
-	public String getShape();
 }
