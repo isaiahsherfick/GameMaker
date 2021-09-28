@@ -30,8 +30,15 @@ import javafx.stage.Stage;
 
 import javax.swing.JRootPane;
 
+//import Group3.gameMaker.CreateGameView.LayableMenuButton;
+import Group3.gameMaker.CreateGameView.Location.LayoutType;
 import Group3.gameMaker.CreateGameView.Layable;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.*;
+import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.*;
 
@@ -147,6 +154,48 @@ public class LayoutManager implements Layable {
 //			gameEngine.pause();
 		//});
 		addButtonToControlPanel(button);
+		
+		MenuItem menuItem1 = new MenuItem("Audio1");
+		menuItem1.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override
+		    public void handle(ActionEvent event) {
+		        System.out.println("Option 3 selected");
+		    }
+		});
+		
+		MenuItem menuItem2 = new MenuItem("Audio2");
+		menuItem2.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override
+		    public void handle(ActionEvent event) {
+		        System.out.println("Option 3 selected");
+		    }
+		});
+		
+		MenuItem menuItem3 = new MenuItem("Audio3");
+		menuItem3.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override
+		    public void handle(ActionEvent event) {
+		        System.out.println("Option 3 selected");
+		    }
+		});
+		
+		//TODO get these working
+		//I get a bad URI on my machine - Isaiah
+		//We need to figure out a way to make it work on all development platforms
+		menuItem1.setGraphic(new ImageView(new Image("icons8-audio-30.png")));
+		menuItem2.setGraphic(new ImageView(new Image("icons8-audio-30.png")));
+		menuItem3.setGraphic(new ImageView(new Image("icons8-audio-30.png")));
+		
+		
+		LayableMenuButton menubutton = new LayableMenuButton ("Audio");
+		
+		menubutton.getItems().add(menuItem1);
+		menubutton.getItems().add(menuItem2);
+		menubutton.getItems().add(menuItem3);
+		menubutton.setGraphic(new ImageView(new Image("icons8-audio-30.png")));
+		addMenuButtonToControlPanel(menubutton);
+		
+		//Not sure if this goes here, it was leftover from a bad merge
 		changeLayout(currentLayout, 0, 0, 0);
         
 		
@@ -154,18 +203,21 @@ public class LayoutManager implements Layable {
 	
 	public void changeLayout(LayoutType layout, int parentX, int parentY, int index) {
 		for (Layable lay : layables) {
-			lay.changeLayout(layout, parentX, parentY, 0);
+			 lay.changeLayout(layout, parentX, parentY, 0);
 			index++;
 		}
 		System.out.println("Layout has been changed to: " + layout);
 	}
-
 	public void showStage() {
 		appStage.show();
 	}
 	
 	public void addButtonToControlPanel(LayableButton button) {
 		controlPane.AddChild(button);
+	}
+	
+	public void addMenuButtonToControlPanel(LayableMenuButton menubutton) {
+		controlPane.AddChild(menubutton);
 	}
 	
 	public Scene getGameScene() {
