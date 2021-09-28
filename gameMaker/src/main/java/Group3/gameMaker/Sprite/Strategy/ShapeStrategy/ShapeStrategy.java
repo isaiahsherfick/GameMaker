@@ -4,7 +4,7 @@
 //     Edited by:
 //Edited last by: Isaiah Sherfick
 //   Last change: Created interface for shape strategies
-package Group3.gameMaker.Sprite.Shape;
+package Group3.gameMaker.Sprite.Strategy.ShapeStrategy;
 import Group3.gameMaker.SaveAndLoad.Saveable;
 import javafx.scene.canvas.GraphicsContext;
 

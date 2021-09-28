@@ -11,8 +11,8 @@ import org.junit.jupiter.api.*;
 
 import Group3.gameMaker.SaveAndLoad.SaveFileManager;
 import Group3.gameMaker.SaveAndLoad.Saveable;
+import Group3.gameMaker.SaveAndLoad.SaveablePoint;
 import Group3.gameMaker.SaveAndLoad.SaveableString;
-import Group3.gameMaker.Sprite.Point;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,11 +27,11 @@ public class SpriteTest
 		int x,y;
 		x = 1;
 		y = 5;
-		Point p = new Point(x,y);
+		SaveablePoint p = new SaveablePoint(x,y);
 		assertEquals(p.getX(),x);
 		assertEquals(p.getY(),y);
 		JSONObject saveObj = p.save();
-		Point p2 = new Point();
+		SaveablePoint p2 = new SaveablePoint();
 		assertNotEquals(p,p2);
 		p2.load(saveObj);
 		assertEquals(p,p2);

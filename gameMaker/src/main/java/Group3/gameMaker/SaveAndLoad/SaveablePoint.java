@@ -4,24 +4,22 @@
 //     Edited by:
 //Edited last by: Isaiah Sherfick
 //   Last change: Created saveable Point class
-package Group3.gameMaker.Sprite;
+package Group3.gameMaker.SaveAndLoad;
 
 import org.json.simple.JSONObject;
 
-import Group3.gameMaker.SaveAndLoad.Saveable;
-
-public class Point implements Saveable
+public class SaveablePoint implements Saveable
 {
 	private int x;
 	private int y;
 	
-	public Point()
+	public SaveablePoint()
 	{
 		x = 0;
 		y = 0;
 	}
 	
-	public Point(int x, int y)
+	public SaveablePoint(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
@@ -66,9 +64,9 @@ public class Point implements Saveable
 	@Override
 	public boolean equals(Object o)
 	{
-		if (o instanceof Point)
+		if (o instanceof SaveablePoint)
 		{
-			Point p = (Point) o;
+			SaveablePoint p = (SaveablePoint) o;
 			return x == p.getX() && y == p.getY();
 		}
 		return false;

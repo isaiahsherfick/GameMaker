@@ -1,4 +1,4 @@
-package Group3.gameMaker.Sprite.Shape;
+package Group3.gameMaker.Sprite.Strategy.ShapeStrategy;
 
 import org.json.simple.JSONObject;
 
@@ -9,11 +9,11 @@ public class CircleStrategy implements ShapeStrategy
 {
 	private int radius;
 	private SaveableColor color;
+	
+	//Default Circle
 	public CircleStrategy()
 	{
-		//TODO null object
-		//both null
-		this.radius = -1;
+		this.radius = 5;
 		this.color = new SaveableColor();
 	}
 	

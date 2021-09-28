@@ -2,8 +2,8 @@ package Group3.gameMaker.SaveAndLoad;
 
 import org.json.simple.JSONObject;
 
-import Group3.gameMaker.Sprite.Shape.*;
-import Null.NullObject;
+import Group3.gameMaker.Null.NullObject;
+import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.*;
 
 public class StrategyLoader 
 {

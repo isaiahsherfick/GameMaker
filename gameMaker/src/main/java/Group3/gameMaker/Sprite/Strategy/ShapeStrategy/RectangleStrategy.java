@@ -1,4 +1,4 @@
-package Group3.gameMaker.Sprite.Shape;
+package Group3.gameMaker.Sprite.Strategy.ShapeStrategy;
 
 import org.json.simple.JSONObject;
 

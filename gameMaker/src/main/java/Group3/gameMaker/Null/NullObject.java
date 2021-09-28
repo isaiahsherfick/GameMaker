@@ -1,4 +1,4 @@
-package Null;
+package Group3.gameMaker.Null;
 
 public class NullObject 
 {

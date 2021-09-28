@@ -1,10 +1,9 @@
-package Group3.gameMaker.Sprite.Sound;
+package Group3.gameMaker.Sprite;
 
 import org.json.simple.JSONObject;
 
 import Group3.gameMaker.Exception.PathNotDefinedException;
 import Group3.gameMaker.SaveAndLoad.Saveable;
-import Group3.gameMaker.Sprite.Point;
 import javafx.scene.media.Media;
 import java.nio.file.Paths;
 import javafx.scene.media.MediaPlayer;

@@ -10,54 +10,67 @@ package Group3.gameMaker.Sprite;
 import org.json.simple.JSONObject;
 
 import Group3.gameMaker.SaveAndLoad.Saveable;
+import Group3.gameMaker.SaveAndLoad.SaveablePoint;
 import Group3.gameMaker.SaveAndLoad.StrategyLoader;
-import Group3.gameMaker.Sprite.Shape.ShapeStrategy;
-import Group3.gameMaker.Sprite.Sound.Sound;
+import Group3.gameMaker.Sprite.MovementStrategy.AutomaticMovementStrategy;
+import Group3.gameMaker.Sprite.MovementStrategy.MovementStrategy;
+import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.CircleStrategy;
+import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.ShapeStrategy;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Sprite implements Saveable
 {
 	//This is -2 so that it doesn't conflict with using -1 in SpriteMaster
 	private int spriteId = -2;
-	private Point coordinates;
+	private SaveablePoint coordinates;
 	private ShapeStrategy shapeStrategy;
 	private Sound sound;
-	//private CollisionStrategy collisionStrategy;
+	private MovementStrategy movementStrategy;
 	//private CommandInvoker commandInvoker;
 	
-	public Sprite(int x, int y, ShapeStrategy shape)
+	//TODO sort out this constructor spaghetti field
+	public Sprite(int x, int y, ShapeStrategy shape, MovementStrategy movement)
 	{
-		coordinates = new Point(x,y);
+		coordinates = new SaveablePoint(x,y);
 		shapeStrategy = shape;
+		movementStrategy = movement;
 	}
 
 	public Sprite(int x, int y, ShapeStrategy shape, int spriteId)
 	{
-		coordinates = new Point(x,y);
+		coordinates = new SaveablePoint(x,y);
 		shapeStrategy = shape;
 		this.spriteId = spriteId;
 	}
 
 	public Sprite(int x, int y, ShapeStrategy shape, int spriteId, Sound sound)
 	{
-		coordinates = new Point(x,y);
+		coordinates = new SaveablePoint(x,y);
 		shapeStrategy = shape;
 		this.spriteId = spriteId;
 		this.sound = sound;
 	}
 
 
-	public Sprite(Point point, ShapeStrategy shape)
+	public Sprite(SaveablePoint point, ShapeStrategy shape)
 	{
 		coordinates = point;
 		shapeStrategy = shape;
 	}
 
-	public Sprite(Point point, ShapeStrategy shape, int spriteId)
+	public Sprite(SaveablePoint point, ShapeStrategy shape, int spriteId)
 	{
 		coordinates = point;
 		shapeStrategy = shape;
 		this.spriteId = spriteId;
+	}
+	
+	//Default Sprite
+	public Sprite()
+	{
+		coordinates = new SaveablePoint(0,0);
+		shapeStrategy = new CircleStrategy();
+		movementStrategy = new AutomaticMovementStrategy(this);
 	}
 
 	public void setSound(Sound sound) {
@@ -88,7 +101,7 @@ public class Sprite implements Saveable
 		return coordinates.getY();
 	}
 	
-	public Point getCoordinates()
+	public SaveablePoint getCoordinates()
 	{
 		return coordinates;
 	}
@@ -126,7 +139,7 @@ public class Sprite implements Saveable
 	
 	public void load(JSONObject saveData)
 	{
-		coordinates = new Point();
+		coordinates = new SaveablePoint();
 		coordinates.load((JSONObject)saveData.get("coordinates"));
 		StrategyLoader sl = new StrategyLoader();
 		sl.load((JSONObject)saveData.get("shapeStrategy"));

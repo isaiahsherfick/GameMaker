@@ -8,7 +8,7 @@ package Group3.gameMaker.SaveAndLoad;
 
 import org.json.simple.JSONObject;
 
-import Null.NullObject;
+import Group3.gameMaker.Null.NullObject;
 import javafx.scene.paint.Color;
 
 //Just exists to run some unit tests before the other objects
@@ -19,10 +19,11 @@ import javafx.scene.paint.Color;
 public class SaveableColor implements Saveable
 {
 	private Color color;
+	
+	//default: white
 	public SaveableColor()
 	{
-		//TODO null-object this
-		this.color = null;
+		this.color = new Color(1,1,1,1);
 	}
 	public SaveableColor(Color c)
 	{
