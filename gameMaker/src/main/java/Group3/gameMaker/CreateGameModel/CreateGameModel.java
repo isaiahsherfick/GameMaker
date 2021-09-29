@@ -7,11 +7,15 @@
 
 package Group3.gameMaker.CreateGameModel;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import org.json.simple.parser.ParseException;
 
 import Group3.gameMaker.CreateGameController.CreateGameController;
 import Group3.gameMaker.CreateGameView.CreateGameView;
 import Group3.gameMaker.SaveAndLoad.SaveFileManager;
+import Group3.gameMaker.SaveAndLoad.Saveable;
 import Group3.gameMaker.Sprite.Sprite;
 import Group3.gameMaker.Sprite.SpriteMaster;
 
@@ -76,5 +80,35 @@ public class CreateGameModel
 	public void setSpriteMaster(SpriteMaster sm)
 	{
 		spriteMaster = sm;
+	}
+	
+	//save everything in the spritemaster to the savefilemanager then call savefile
+	public void saveFile() throws IOException
+	{
+		ArrayList<Sprite> sprites = spriteMaster.getAllSprites();
+		for (int i = 0; i < sprites.size(); i++)
+		{
+			saveFileManager.addSaveObject((Saveable)sprites.get(i));
+		}
+		saveFileManager.saveFile();
+	}
+	
+	public void loadFile() throws IOException, ParseException
+	{
+		//reset the spriteMaster so we can insert all of the restored state into it
+		spriteMaster = new SpriteMaster();
+
+		saveFileManager.loadFile();
+		ArrayList<Saveable> restoredObjects = saveFileManager.getSaveObjects();
+		
+		//I don't think we'll save anything that isn't a sprite, but just in case:
+		for (int i = 0; i < restoredObjects.size(); i++)
+		{
+			if (restoredObjects.get(i) instanceof Sprite)
+			{
+				spriteMaster.add((Sprite)restoredObjects.get(i));
+			}
+		}
+			
 	}
 }

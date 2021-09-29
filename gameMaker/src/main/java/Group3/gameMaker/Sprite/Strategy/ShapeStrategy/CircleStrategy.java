@@ -37,7 +37,7 @@ public class CircleStrategy implements ShapeStrategy
 
 	public void load(JSONObject saveJSON) 
 	{
-		radius = (int)saveJSON.get("radius");
+		radius = ((Long)saveJSON.get("radius")).intValue();
 		SaveableColor c = new SaveableColor();
 		c.load((JSONObject)saveJSON.get("color"));
 		color = c;

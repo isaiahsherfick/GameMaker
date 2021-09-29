@@ -57,8 +57,8 @@ public class SaveablePoint implements Saveable
 	
 	public void load(JSONObject saveJSON) 
 	{
-		x = (int)saveJSON.get("x");
-		y = (int)saveJSON.get("y");
+		x = ((Long)saveJSON.get("x")).intValue();
+		y = ((Long)saveJSON.get("y")).intValue();
 	}
 	
 	@Override

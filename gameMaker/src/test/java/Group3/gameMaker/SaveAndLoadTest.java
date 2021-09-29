@@ -29,22 +29,6 @@ public class SaveAndLoadTest
 {
 	
 	@Test
-	public void SaveablePointTest()
-	{
-		int x,y;
-		x = 1;
-		y = 5;
-		SaveablePoint p = new SaveablePoint(x,y);
-		assertEquals(p.getX(),x);
-		assertEquals(p.getY(),y);
-		JSONObject saveObj = p.save();
-		SaveablePoint p2 = new SaveablePoint();
-		assertNotEquals(p,p2);
-		p2.load(saveObj);
-		assertEquals(p,p2);
-	}
-	
-	@Test
 	public void SaveableStringTest()
 	{
 		SaveableString ss1 = new SaveableString("Hello");
@@ -65,8 +49,7 @@ public class SaveAndLoadTest
 	public void SpriteTest()
 	{
 		SaveFileManager sfm = new SaveFileManager();
-		SaveableColor red = new SaveableColor(1,0,0,1);
-		Sprite breakoutBall = new Sprite(1,2,new CircleStrategy(5,red), 0);
+		Sprite breakoutBall = new Sprite();
 		sfm.addSaveObject(breakoutBall);
 		//saving and loading to default location
 		try 
@@ -117,7 +100,6 @@ public class SaveAndLoadTest
 		for (int i = 0; i < sprites.size(); i++)
 		{
 			sm.add(sprites.get(i));
-			System.out.println(sprites.get(i).getSpriteId());
 		}
 
 		for (int i = 0; i < sprites.size(); i++)
@@ -249,13 +231,23 @@ public class SaveAndLoadTest
 		assertNotEquals(before,after);
 
 		
-		cgm.saveFile();
+		try {
+			cgm.saveFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//Reset these guys
 		cgm.setSpriteMaster(new SpriteMaster());
 		cgm.setSaveFileManager(new SaveFileManager());
 		
-		cgm.loadFile();
+		try {
+			cgm.loadFile();
+		} catch (IOException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		assertEquals(automaticBall, cgm.getSprite(after));
 		assertEquals(automaticBall.getMovementStrategy(), cgm.getSprite(after).getMovementStrategy());

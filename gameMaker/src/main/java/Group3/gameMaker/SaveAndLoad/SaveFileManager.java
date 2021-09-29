@@ -9,6 +9,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import Group3.gameMaker.Sprite.Sprite;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -124,17 +126,17 @@ public class SaveFileManager
 			  			break;
 			  			//TODO
 			  		case "Sprite":
-			  			break;
-			  		case "SaveableColor":
+			  			Sprite newSprite = new Sprite();
+			  			newSprite.load(val);
+			  			saveObjects.add(newSprite);
 			  			break;
 			  		case "SaveablePoint":
-			  			break;
-			  		case "Sound":
-			  			break;
-			  		case "CommandInvoker":
+			  			SaveablePoint point = new SaveablePoint();
+			  			point.load(val);
+			  			saveObjects.add(point);
 			  			break;
 			  		default:
-			  			System.out.println(key + "Didn't get handled in SaveFileManager.load()");
+			  			System.out.println(type + "Didn't get handled in SaveFileManager.load()");
 			  			break;
 			  }
 		}

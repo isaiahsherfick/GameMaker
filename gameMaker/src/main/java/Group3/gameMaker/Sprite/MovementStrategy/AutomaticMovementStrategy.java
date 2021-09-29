@@ -46,19 +46,15 @@ public class AutomaticMovementStrategy implements MovementStrategy
 		subject.setX(x + velocityX);
 		subject.setY(y + velocityY);
 	}
-	public void restoreSubject(SpriteMaster sm)
-	{
-		subject = sm.get(subjectId);
-	}
 	public int getXVelocity() 
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		return velocityX;
 	}
 	public int getYVelocity() 
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		return velocityY;
 	}
 	@Override
 	public Sprite getSubject() 
@@ -77,7 +73,7 @@ public class AutomaticMovementStrategy implements MovementStrategy
 	{
 		JSONObject obj = new JSONObject();
 		obj.put("type","AutomaticMovementStrategy");
-		obj.put("subjectID",subject.getSpriteId());
+		obj.put("subjectId",subject.getSpriteId());
 		obj.put("velocityY",velocityY);
 		obj.put("velocityX",velocityX);
 		// TODO Auto-generated method stub
@@ -90,9 +86,9 @@ public class AutomaticMovementStrategy implements MovementStrategy
 	//the subject as an argument
 	public void load(JSONObject saveJSON) 
 	{
-		subjectId = (int)saveJSON.get("subjectId");
-		velocityX = (int)saveJSON.get("velocityX");
-		velocityY = (int)saveJSON.get("velocityY");
+		subjectId = ((Long)saveJSON.get("subjectId")).intValue();
+		velocityX = ((Long)saveJSON.get("velocityX")).intValue();
+		velocityY = ((Long)saveJSON.get("velocityY")).intValue();
 	}
 	
 	public boolean equals(Object o)

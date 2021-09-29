@@ -161,7 +161,7 @@ public class Sprite implements Saveable
 		if (o instanceof Sprite)
 		{
 			Sprite s = (Sprite) o;
-			return spriteId == s.getSpriteId() && coordinates.equals(s.getCoordinates()) && shapeStrategy.equals(s.getShapeStrategy());
+			return spriteId == s.getSpriteId() && coordinates.equals(s.getCoordinates()) ;
 		}
 		return false;
 	}

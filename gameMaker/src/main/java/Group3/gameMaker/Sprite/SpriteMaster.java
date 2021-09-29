@@ -1,6 +1,8 @@
 package Group3.gameMaker.Sprite;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class SpriteMaster 
 {
@@ -29,5 +31,15 @@ public class SpriteMaster
 	public Sprite get(int key)
 	{
 		return spriteMap.get(key);
+	}
+	
+	public ArrayList<Sprite> getAllSprites()
+	{
+		ArrayList<Sprite> returnList = new ArrayList<>();
+		for (Entry<Integer, Sprite> entry : spriteMap.entrySet()) 
+		{
+			returnList.add(entry.getValue());
+		}	
+		return returnList;
 	}
 }
