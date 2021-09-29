@@ -3,12 +3,24 @@ package Group3.gameMaker.Sprite.MovementStrategy;
 import org.json.simple.JSONObject;
 
 import Group3.gameMaker.Sprite.Sprite;
+import Group3.gameMaker.Sprite.SpriteMaster;
 
 public class AutomaticMovementStrategy implements MovementStrategy
 {
 	private int velocityX;
 	private int velocityY;
+	private int subjectId;
 	private Sprite subject;
+
+	
+	public AutomaticMovementStrategy()
+	{
+		velocityX = 0;
+		velocityY = 0;
+		//TODO null Sprite
+		subject = null;
+		subjectId = -2;
+	}
 	
 	//Defualt constructor
 	//By default stuff moves 5 on the x and y so the user can get instant confirmation
@@ -16,12 +28,14 @@ public class AutomaticMovementStrategy implements MovementStrategy
 	public AutomaticMovementStrategy(Sprite s)
 	{
 		subject = s;
+		subjectId = s.getSpriteId();
 		velocityX = 5;
 		velocityY = 5;
 	}
 	public AutomaticMovementStrategy(Sprite s, int xv, int yv)
 	{
 		subject = s;
+		subjectId = s.getSpriteId();
 		velocityX = xv;
 		velocityY = yv;
 	}
@@ -31,6 +45,10 @@ public class AutomaticMovementStrategy implements MovementStrategy
 		int y = subject.getY();
 		subject.setX(x + velocityX);
 		subject.setY(y + velocityY);
+	}
+	public void restoreSubject(SpriteMaster sm)
+	{
+		subject = sm.get(subjectId);
 	}
 	public int getXVelocity() 
 	{
@@ -51,6 +69,7 @@ public class AutomaticMovementStrategy implements MovementStrategy
 	public void setSubject(Sprite s) 
 	{
 		subject = s;
+		subjectId = s.getSpriteId();
 	}
 	@SuppressWarnings("unchecked")
 	@Override
@@ -66,13 +85,23 @@ public class AutomaticMovementStrategy implements MovementStrategy
 	}
 	@Override
 	
-	//TODO figure out how to restore the relationship to Subject
-	//Without brekaing the saveable interface
-	//Going to need to have some kind of static reference to the SpriteMaster
-	//In order to get the Sprite
-	//Possibly put the SpriteMaster into the S/L manager? Something along those lines
+	//After calling load, AutomaticMovementStrategies need
+	//a call to restoreSubject() with the spritemaster containing
+	//the subject as an argument
 	public void load(JSONObject saveJSON) 
 	{
-		
+		subjectId = (int)saveJSON.get("subjectId");
+		velocityX = (int)saveJSON.get("velocityX");
+		velocityY = (int)saveJSON.get("velocityY");
+	}
+	
+	public boolean equals(Object o)
+	{
+		if (o instanceof AutomaticMovementStrategy)
+		{
+			AutomaticMovementStrategy a = (AutomaticMovementStrategy) o;
+			return velocityX == a.getXVelocity() && velocityY == a.getYVelocity() && subject.equals(a.getSubject());
+		}
+		return false;
 	}
 }

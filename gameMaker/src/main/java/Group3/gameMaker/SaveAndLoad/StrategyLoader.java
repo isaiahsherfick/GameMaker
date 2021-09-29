@@ -3,6 +3,7 @@ package Group3.gameMaker.SaveAndLoad;
 import org.json.simple.JSONObject;
 
 import Group3.gameMaker.Null.NullObject;
+import Group3.gameMaker.Sprite.MovementStrategy.AutomaticMovementStrategy;
 import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.*;
 
 public class StrategyLoader 
@@ -21,6 +22,10 @@ public class StrategyLoader
 				CircleStrategy circleStrategy = new CircleStrategy();
 				circleStrategy.load(strategyJSON);
 				return circleStrategy;
+			case "AutomaticMovementStrategy":
+				AutomaticMovementStrategy autoMove = new AutomaticMovementStrategy();
+				autoMove.load(strategyJSON);
+				return autoMove;
 				
 			//Add a case for each kind of strategy object we see
 			default:

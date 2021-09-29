@@ -49,7 +49,7 @@ public class SaveablePoint implements Saveable
 	public JSONObject save() 
 	{
 		JSONObject saveObj = new JSONObject();
-		saveObj.put("type", "Point");
+		saveObj.put("type", "SaveablePoint");
 		saveObj.put("x",x); 
 		saveObj.put("y",y);
 		return saveObj;

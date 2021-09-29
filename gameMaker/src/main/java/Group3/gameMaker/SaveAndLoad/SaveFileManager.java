@@ -122,7 +122,19 @@ public class SaveFileManager
 			  			newObject.load(val);
 			  			saveObjects.add(newObject);
 			  			break;
+			  			//TODO
+			  		case "Sprite":
+			  			break;
+			  		case "SaveableColor":
+			  			break;
+			  		case "SaveablePoint":
+			  			break;
+			  		case "Sound":
+			  			break;
+			  		case "CommandInvoker":
+			  			break;
 			  		default:
+			  			System.out.println(key + "Didn't get handled in SaveFileManager.load()");
 			  			break;
 			  }
 		}

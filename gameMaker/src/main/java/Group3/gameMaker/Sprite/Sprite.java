@@ -72,6 +72,11 @@ public class Sprite implements Saveable
 		shapeStrategy = new CircleStrategy();
 		movementStrategy = new AutomaticMovementStrategy(this);
 	}
+	
+	public MovementStrategy getMovementStrategy()
+	{
+		return movementStrategy;
+	}
 
 	public void setSound(Sound sound) {
 		this.sound = sound;
@@ -133,6 +138,7 @@ public class Sprite implements Saveable
 		obj.put("type","Sprite");
 		obj.put("coordinates",coordinates.save());
 		obj.put("shapeStrategy",shapeStrategy.save());
+		obj.put("movementStrategy",movementStrategy.save());
 		obj.put("spriteId",spriteId);
 		return obj;
 	}
@@ -142,7 +148,9 @@ public class Sprite implements Saveable
 		coordinates = new SaveablePoint();
 		coordinates.load((JSONObject)saveData.get("coordinates"));
 		StrategyLoader sl = new StrategyLoader();
-		sl.load((JSONObject)saveData.get("shapeStrategy"));
+		shapeStrategy = (ShapeStrategy)sl.load((JSONObject)saveData.get("shapeStrategy"));
+		movementStrategy = (MovementStrategy)sl.load((JSONObject)saveData.get("movementStrategy"));
+		movementStrategy.setSubject(this);
 	}
 	
 	//Only returns true if the other sprite is an exact copy

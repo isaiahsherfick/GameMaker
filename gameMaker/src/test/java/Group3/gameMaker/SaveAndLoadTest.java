@@ -12,6 +12,7 @@ import org.junit.jupiter.api.*;
 
 import Group3.gameMaker.Sprite.SpriteMaster;
 import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.CircleStrategy;
+import Group3.gameMaker.CreateGameModel.CreateGameModel;
 import Group3.gameMaker.SaveAndLoad.SaveFileManager;
 import Group3.gameMaker.SaveAndLoad.Saveable;
 import Group3.gameMaker.SaveAndLoad.SaveableColor;
@@ -26,6 +27,22 @@ import java.util.ArrayList;
 
 public class SaveAndLoadTest
 {
+	
+	@Test
+	public void SaveablePointTest()
+	{
+		int x,y;
+		x = 1;
+		y = 5;
+		SaveablePoint p = new SaveablePoint(x,y);
+		assertEquals(p.getX(),x);
+		assertEquals(p.getY(),y);
+		JSONObject saveObj = p.save();
+		SaveablePoint p2 = new SaveablePoint();
+		assertNotEquals(p,p2);
+		p2.load(saveObj);
+		assertEquals(p,p2);
+	}
 	
 	@Test
 	public void SaveableStringTest()
@@ -79,14 +96,13 @@ public class SaveAndLoadTest
 	@Test
 	public void SpriteMasterTest()
 	{
-		SaveableColor red = new SaveableColor(1,0,0,1);
 		SpriteMaster sm = new SpriteMaster();
-		Sprite breakoutBall = new Sprite(1,2,new CircleStrategy(5,red), 0);
-		Sprite breakoutBall2 = new Sprite(3,4,new CircleStrategy(6,red),0);
-		Sprite breakoutBall3 = new Sprite(1,2,new CircleStrategy(5,red),0);
-		Sprite breakoutBall4 = new Sprite(1,2,new CircleStrategy(5,red),0);
-		Sprite breakoutBall5 = new Sprite(1,2,new CircleStrategy(5,red),0);
-		Sprite breakoutBall6 = new Sprite(1,2,new CircleStrategy(5,red),0);
+		Sprite breakoutBall = new Sprite();
+		Sprite breakoutBall2 = new Sprite();
+		Sprite breakoutBall3 = new Sprite();
+		Sprite breakoutBall4 = new Sprite();
+		Sprite breakoutBall5 = new Sprite();
+		Sprite breakoutBall6 = new Sprite();
 		
 		ArrayList<Sprite> sprites = new ArrayList<>();
 
@@ -101,7 +117,7 @@ public class SaveAndLoadTest
 		for (int i = 0; i < sprites.size(); i++)
 		{
 			sm.add(sprites.get(i));
-			//System.out.println(sprites.get(i).getSpriteId());
+			System.out.println(sprites.get(i).getSpriteId());
 		}
 
 		for (int i = 0; i < sprites.size(); i++)
@@ -218,8 +234,30 @@ public class SaveAndLoadTest
 	public void MovementStrategyPreservationTest()
 	{
 		//Create SLManager, SpriteMaster, Sprite with AutomaticMovementStrategy
-		//Save the sprite, load it, assert that the new Sprite's AutomaticMovementStrategy points to the new sprite
+		//Save the sprite, load it, assert that the new Sprite's 
+		//AutomaticMovementStrategy points to the new sprite
 		
 		//TODO
+
+		CreateGameModel cgm = new CreateGameModel();
+		Sprite automaticBall = new Sprite();
+		int before = automaticBall.getSpriteId();
+		//System.out.println(before);
+		cgm.addSprite(automaticBall);
+		//System.out.println(automaticBall.getSpriteId());
+		int after = automaticBall.getSpriteId();
+		assertNotEquals(before,after);
+
+		
+		cgm.saveFile();
+		
+		//Reset these guys
+		cgm.setSpriteMaster(new SpriteMaster());
+		cgm.setSaveFileManager(new SaveFileManager());
+		
+		cgm.loadFile();
+		
+		assertEquals(automaticBall, cgm.getSprite(after));
+		assertEquals(automaticBall.getMovementStrategy(), cgm.getSprite(after).getMovementStrategy());
 	}
 }
