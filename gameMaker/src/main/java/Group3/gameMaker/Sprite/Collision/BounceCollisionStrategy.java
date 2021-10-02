@@ -17,17 +17,20 @@ public class BounceCollisionStrategy implements CollisionStrategy {
 	{
 		
 	}
-
-	@Override
-	public JSONObject save() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public void setCollider(Sprite s)
+	{
+		collider = s;
 	}
 
-	@Override
-	public void load(JSONObject saveJSON) {
-		// TODO Auto-generated method stub
+	public JSONObject save() {
+		JSONObject obj = new JSONObject();
+		obj.put("type","BounceCollisionStrategy");
+		return obj;
+	}
 
+	//nothing needed to do, just call setCollider in Sprite
+	public void load(JSONObject saveJSON) {
 	}
 
 	@Override

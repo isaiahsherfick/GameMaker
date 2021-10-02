@@ -253,6 +253,7 @@ public class SaveAndLoadTest
 		
 		assertEquals(automaticBall, cgm.getSprite(after));
 		assertEquals(automaticBall.getMovementStrategy(), cgm.getSprite(after).getMovementStrategy());
+		assertEquals(automaticBall, cgm.getSprite(after).getMovementStrategy().getSubject());
 	}
 	
 	@Test
@@ -290,12 +291,13 @@ public class SaveAndLoadTest
 		
 		try {
 			cgm.loadFile();
-		} catch (IOException | ParseException e) {
-			// TODO Auto-generated catch block
+		} catch (IOException | ParseException e) 
+		{
 			e.printStackTrace();
 		}
 		
 		sprite1 = cgm.getSprite(0);
+		ccm = sprite1.getCustomCollisionMap();
 		assertTrue(ccm.getMap().containsKey(sprite2.getSpriteId()));
 		assertTrue(ccm.getMap().containsKey(sprite3.getSpriteId()));
 	}

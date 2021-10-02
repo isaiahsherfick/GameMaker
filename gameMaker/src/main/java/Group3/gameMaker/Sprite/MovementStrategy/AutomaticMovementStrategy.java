@@ -76,7 +76,6 @@ public class AutomaticMovementStrategy implements MovementStrategy
 		obj.put("subjectId",subject.getSpriteId());
 		obj.put("velocityY",velocityY);
 		obj.put("velocityX",velocityX);
-		// TODO Auto-generated method stub
 		return obj;
 	}
 	@Override

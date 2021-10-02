@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import org.json.simple.JSONObject;
 
 import Group3.gameMaker.SaveAndLoad.Saveable;
+import Group3.gameMaker.Sprite.Sprite;
 
 public class CustomCollisionMap implements Saveable
 {
@@ -53,7 +54,7 @@ public class CustomCollisionMap implements Saveable
 		for (Entry<Integer, CollisionStrategy> entry : map.entrySet()) 
 		{
 			CustomCollisionPair c = new CustomCollisionPair(entry.getKey(), entry.getValue());
-			obj.put(i, c);
+			obj.put(i, c.save());
 			i = i+1;
 		}	
 		return obj;
@@ -62,11 +63,13 @@ public class CustomCollisionMap implements Saveable
 	public void load(JSONObject saveJSON) 
 	{
 		map = new HashMap<>();
-		int size = ((Long)saveJSON.get("spriteId")).intValue();
-		for (int i = 0; i < size; i++)
+		int size = ((Long)saveJSON.get("entries")).intValue();
+		System.out.println(saveJSON);
+		for (Integer i = 0; i < size; i++)
 		{
+			JSONObject current = (JSONObject)saveJSON.get(i.toString());
 			CustomCollisionPair c = new CustomCollisionPair();
-			c.load((JSONObject)saveJSON.get(i));
+			c.load(current);
 			addPair(c);
 		}
 	}
@@ -74,5 +77,13 @@ public class CustomCollisionMap implements Saveable
 	public HashMap<Integer, CollisionStrategy> getMap() 
 	{
 		return map;
+	}
+
+	public void setColliderForAll(Sprite sprite) 
+	{
+		for (Entry<Integer, CollisionStrategy> entry : map.entrySet()) 
+		{
+			entry.getValue().setCollider(sprite);
+		}	
 	}
 }

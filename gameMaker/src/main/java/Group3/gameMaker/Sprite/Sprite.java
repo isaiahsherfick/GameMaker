@@ -32,60 +32,14 @@ public class Sprite implements Saveable
 	private ShapeStrategy shapeStrategy;
 	private Sound sound;
 	private MovementStrategy movementStrategy;
-	//private CommandInvoker commandInvoker;
-	
 	private HitBox hitBox;
-
-	// Default Collision Strategy is set at spriteID -2
+	
 	// Maps SpriteID to specific collision behavior for that relationship
 	private CustomCollisionMap customCollisionMap;
-	//TODO sort out this constructor spaghetti field
-	public Sprite(int x, int y, ShapeStrategy shape, MovementStrategy movement)
-	{
-		coordinates = new SaveablePoint(x,y);
-		shapeStrategy = shape;
-		movementStrategy = movement;
-		setHitBox(new HitBox(this));
-		customCollisionMap = new CustomCollisionMap();
-	}
 
-	public Sprite(int x, int y, ShapeStrategy shape, int spriteId)
-	{
-		coordinates = new SaveablePoint(x,y);
-		shapeStrategy = shape;
-		this.spriteId = spriteId;
-		setHitBox(new HitBox(this));
-		customCollisionMap = new CustomCollisionMap();
-	}
+	// Default Collision Strategy is set at key -2 in the customcollisionmap
+	private static final int DEFAULT_COLLISION_KEY = -2;
 
-	public Sprite(int x, int y, ShapeStrategy shape, int spriteId, Sound sound)
-	{
-		coordinates = new SaveablePoint(x,y);
-		shapeStrategy = shape;
-		this.spriteId = spriteId;
-		this.sound = sound;
-		setHitBox(new HitBox(this));
-		customCollisionMap = new CustomCollisionMap();
-	}
-
-
-	public Sprite(SaveablePoint point, ShapeStrategy shape)
-	{
-		coordinates = point;
-		shapeStrategy = shape;
-		setHitBox(new HitBox(this));
-		customCollisionMap = new CustomCollisionMap();
-	}
-
-	public Sprite(SaveablePoint point, ShapeStrategy shape, int spriteId)
-	{
-		coordinates = point;
-		shapeStrategy = shape;
-		this.spriteId = spriteId;
-		setHitBox(new HitBox(this));
-		customCollisionMap = new CustomCollisionMap();
-	}
-	
 	//Default Sprite
 	public Sprite()
 	{
@@ -93,6 +47,8 @@ public class Sprite implements Saveable
 		shapeStrategy = new CircleStrategy();
 		movementStrategy = new AutomaticMovementStrategy(this);
 		customCollisionMap = new CustomCollisionMap();
+		sound = new Sound();
+		
 		setHitBox(new HitBox(this));;
 	}
 	
@@ -165,7 +121,7 @@ public class Sprite implements Saveable
 	{
 		return shapeStrategy;
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	public JSONObject save()
 	{
@@ -175,6 +131,8 @@ public class Sprite implements Saveable
 		obj.put("shapeStrategy",shapeStrategy.save());
 		obj.put("movementStrategy",movementStrategy.save());
 		obj.put("spriteId",spriteId);
+		obj.put("sound",sound.save());
+		obj.put("customCollisionMap",customCollisionMap.save());
 		return obj;
 	}
 	
@@ -187,6 +145,9 @@ public class Sprite implements Saveable
 		shapeStrategy = (ShapeStrategy)sl.load((JSONObject)saveData.get("shapeStrategy"));
 		movementStrategy = (MovementStrategy)sl.load((JSONObject)saveData.get("movementStrategy"));
 		movementStrategy.setSubject(this);
+		customCollisionMap = new CustomCollisionMap();
+		customCollisionMap.load((JSONObject)saveData.get("customCollisionMap"));
+		customCollisionMap.setColliderForAll(this);
 	}
 	
 	//Only returns true if the other sprite is an exact copy

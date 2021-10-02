@@ -13,4 +13,6 @@ import Group3.gameMaker.Sprite.Sprite;
 public interface CollisionStrategy extends Saveable
 {
 	public void collide(Sprite collidee);
+
+	public void setCollider(Sprite sprite);
 }

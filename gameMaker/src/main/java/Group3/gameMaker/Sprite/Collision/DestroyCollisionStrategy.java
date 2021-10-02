@@ -30,4 +30,10 @@ public class DestroyCollisionStrategy implements CollisionStrategy {
 
 	}
 
+	@Override
+	public void setCollider(Sprite sprite) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

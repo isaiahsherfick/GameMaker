@@ -16,6 +16,10 @@ public class Sound implements Saveable {
 	/*
 	 * This constructor accepts relative path and saves the uri as `uri`
 	 */
+	public Sound()
+	{
+		this.relativePath = "";
+	}
 	public Sound(String path) {
 		this.relativePath = path;
 		this.uri = Paths.get(relativePath).toUri().toString();

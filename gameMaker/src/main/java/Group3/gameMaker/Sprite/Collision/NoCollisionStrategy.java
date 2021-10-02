@@ -21,4 +21,10 @@ public class NoCollisionStrategy implements CollisionStrategy{
 		// Do nothing
 	}
 
+	@Override
+	public void setCollider(Sprite sprite) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
