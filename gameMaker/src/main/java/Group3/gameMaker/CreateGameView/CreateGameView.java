@@ -1,7 +1,22 @@
 package Group3.gameMaker.CreateGameView;
 
-public class CreateGameView 
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class CreateGameView
 {
+	public CreateGameView(Stage appStage) {
+		LayoutManager layoutManager = new LayoutManager(appStage);
+    	layoutManager.makeStage();
+
+    	//Canvas gameCanvas = layoutManager.getGameCanvas();
+		Scene gameScene = layoutManager.getGameScene();
+
+		layoutManager.createButtons();
+		layoutManager.showStage();
+
+	}
+
 	public void update()
 	{
 		//TODO: called by CreateGameModel
