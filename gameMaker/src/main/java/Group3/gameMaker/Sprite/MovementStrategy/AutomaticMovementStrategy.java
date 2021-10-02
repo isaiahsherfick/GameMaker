@@ -46,12 +46,12 @@ public class AutomaticMovementStrategy implements MovementStrategy
 		subject.setX(x + velocityX);
 		subject.setY(y + velocityY);
 	}
-	public int getXVelocity() 
+	public int getVelocityX()
 	{
 		// TODO Auto-generated method stub
 		return velocityX;
 	}
-	public int getYVelocity() 
+	public int getVelocityY()
 	{
 		// TODO Auto-generated method stub
 		return velocityY;
@@ -99,5 +99,17 @@ public class AutomaticMovementStrategy implements MovementStrategy
 			return velocityX == a.getXVelocity() && velocityY == a.getYVelocity() && subject.equals(a.getSubject());
 		}
 		return false;
+	}
+
+	@Override
+	public void setVelocityX(int velocityX) {
+		this.velocityX = velocityX;
+
+	}
+
+	@Override
+	public void setVelocityY(int velocityY) {
+		this.velocityY = velocityY;
+
 	}
 }
