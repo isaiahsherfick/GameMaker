@@ -1,4 +1,4 @@
-package Group3.gameMaker.Sprite.Collision;
+package Group3.gameMaker.Sprite.Strategy.CollisionStrategy;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -64,7 +64,6 @@ public class CustomCollisionMap implements Saveable
 	{
 		map = new HashMap<>();
 		int size = ((Long)saveJSON.get("entries")).intValue();
-		System.out.println(saveJSON);
 		for (Integer i = 0; i < size; i++)
 		{
 			JSONObject current = (JSONObject)saveJSON.get(i.toString());

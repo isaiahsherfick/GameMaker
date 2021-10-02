@@ -5,7 +5,7 @@
 //Edited last by: Raghunadham Gattu
 //   Last change: Added collision strategy for movement
 
-package Group3.gameMaker.Sprite.Collision;
+package Group3.gameMaker.Sprite.Strategy.CollisionStrategy;
 
 import Group3.gameMaker.SaveAndLoad.Saveable;
 import Group3.gameMaker.Sprite.Sprite;

@@ -7,7 +7,7 @@ import Group3.gameMaker.PlayGameModel.PlayGameModel;
 import Group3.gameMaker.PlayGameView.PlayGameView;
 import Group3.gameMaker.Sprite.Sprite;
 import Group3.gameMaker.Sprite.SpriteMaster;
-import Group3.gameMaker.Sprite.Collision.CollisionDetector;
+import Group3.gameMaker.Sprite.Strategy.CollisionStrategy.CollisionDetector;
 
 public class PlayGameController {
 

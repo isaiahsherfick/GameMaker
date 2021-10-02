@@ -1,4 +1,4 @@
-package Group3.gameMaker.Sprite.Collision;
+package Group3.gameMaker.Sprite.Strategy.CollisionStrategy;
 
 import java.util.ArrayList;
 import java.util.HashMap;

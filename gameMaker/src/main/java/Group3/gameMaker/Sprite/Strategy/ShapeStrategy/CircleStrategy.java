@@ -16,14 +16,6 @@ public class CircleStrategy implements ShapeStrategy
 		this.radius = 5;
 		this.color = new SaveableColor();
 	}
-	
-	public CircleStrategy(int radius, SaveableColor color)
-	{
-		this.radius = radius;
-		this.color = color;
-	}
-	
-	
 
 	@SuppressWarnings("unchecked")
 	public JSONObject save() 
@@ -53,10 +45,19 @@ public class CircleStrategy implements ShapeStrategy
 		return radius * 2;
 	}
 
-	@Override
 	public void draw(GraphicsContext g) 
 	{
 		//TODO draw a circle
+	}
+
+	public SaveableColor getColor() 
+	{
+		return color;
+	}
+
+	public void setColor(SaveableColor c) 
+	{
+		color = c;
 	}
 	
 }

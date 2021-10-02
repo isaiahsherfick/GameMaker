@@ -49,10 +49,18 @@ public class RectangleStrategy implements ShapeStrategy
 	}
 
 
-	@Override
 	public void draw(GraphicsContext g) 
 	{
 				//TODO draw a rectangle
+	}
+	public SaveableColor getColor() 
+	{
+		return color;
+	}
+
+	public void setColor(SaveableColor c) 
+	{
+		color = c;
 	}
 	
 }

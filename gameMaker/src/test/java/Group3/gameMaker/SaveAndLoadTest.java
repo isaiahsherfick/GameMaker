@@ -11,8 +11,12 @@ import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.*;
 
 import Group3.gameMaker.Sprite.SpriteMaster;
-import Group3.gameMaker.Sprite.Collision.BounceCollisionStrategy;
-import Group3.gameMaker.Sprite.Collision.CustomCollisionMap;
+import Group3.gameMaker.Sprite.Strategy.CollisionStrategy.BounceCollisionStrategy;
+import Group3.gameMaker.Sprite.Strategy.CollisionStrategy.CustomCollisionMap;
+import Group3.gameMaker.Sprite.Strategy.EventStrategy.ChangeColorOnTickStrategy;
+import Group3.gameMaker.Sprite.Strategy.EventStrategy.EventStrategyLinkedList;
+import Group3.gameMaker.Sprite.Strategy.EventStrategy.MoveOnClockTickStrategy;
+import Group3.gameMaker.Sprite.Strategy.EventStrategy.MoveWithWASDStrategy;
 import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.CircleStrategy;
 import Group3.gameMaker.CreateGameModel.CreateGameModel;
 import Group3.gameMaker.SaveAndLoad.SaveFileManager;
@@ -300,5 +304,66 @@ public class SaveAndLoadTest
 		ccm = sprite1.getCustomCollisionMap();
 		assertTrue(ccm.getMap().containsKey(sprite2.getSpriteId()));
 		assertTrue(ccm.getMap().containsKey(sprite3.getSpriteId()));
+	}
+	
+	@Test
+	public void EventStrategyLinkedListTest()
+	{
+		EventStrategyLinkedList l = new EventStrategyLinkedList();
+		assertEquals(l.length(), 1); //donothing
+		l.add(new MoveWithWASDStrategy());
+		assertEquals(l.length(),2);
+		l.add(new ChangeColorOnTickStrategy());
+		assertEquals(l.length(),3);
+		l.remove(1);
+		assertEquals(l.length(),2);
+		
+		int before = l.length();
+		l.remove(l.length() - 1); //try to remove the donothing object
+		assertEquals(before, l.length()); //it shouldn't allow that
+	}
+	
+	@Test
+	public void EventStrategyTest()
+	{
+		CreateGameModel cgm = new CreateGameModel();
+		Sprite sprite1 = new Sprite();
+		Sprite sprite2 = new Sprite();
+		Sprite sprite3 = new Sprite();
+		cgm.addSprite(sprite1); //id = 0
+		assertEquals(sprite1.getSpriteId(), 0);
+		cgm.addSprite(sprite2); //id = 1
+		assertEquals(sprite2.getSpriteId(), 1);
+		cgm.addSprite(sprite3); //id = 2
+		assertEquals(sprite3.getSpriteId(), 2);
+
+		sprite1.addEventStrategy(new MoveOnClockTickStrategy(1,2));
+		sprite1.addEventStrategy(new MoveWithWASDStrategy());
+		sprite2.addEventStrategy(new ChangeColorOnTickStrategy());
+		
+		try {
+			cgm.saveFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//Reset these guys
+		cgm.setSpriteMaster(new SpriteMaster());
+		cgm.setSaveFileManager(new SaveFileManager());
+		
+		try {
+			cgm.loadFile();
+		} catch (IOException | ParseException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		Sprite deltaSprite1 = cgm.getSprite(0);
+		Sprite deltaSprite2 = cgm.getSprite(1);
+		Sprite deltaSprite3 = cgm.getSprite(2);
+		assertEquals(deltaSprite1.getEventStrategyListLength(),3); //wasd -> clocktick -> donothing
+		assertEquals(deltaSprite2.getEventStrategyListLength(),2); //changecolor -> donothing
+		assertEquals(deltaSprite3.getEventStrategyListLength(),1); //donothing
 	}
 }

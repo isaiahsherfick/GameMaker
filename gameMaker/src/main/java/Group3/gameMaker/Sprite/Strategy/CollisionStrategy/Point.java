@@ -1,4 +1,4 @@
-package Group3.gameMaker.Sprite.Collision;
+package Group3.gameMaker.Sprite.Strategy.CollisionStrategy;
 
 /*
  * This class does not implement saveable. It is a protected class that is used by  the HitBox class

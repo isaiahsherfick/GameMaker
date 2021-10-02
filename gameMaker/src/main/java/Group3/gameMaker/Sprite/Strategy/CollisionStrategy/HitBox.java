@@ -1,4 +1,4 @@
-package Group3.gameMaker.Sprite.Collision;
+package Group3.gameMaker.Sprite.Strategy.CollisionStrategy;
 
 import Group3.gameMaker.SaveAndLoad.SaveablePoint;
 import Group3.gameMaker.Sprite.Sprite;

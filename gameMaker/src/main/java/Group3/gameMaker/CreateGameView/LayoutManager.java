@@ -234,7 +234,6 @@ public class LayoutManager implements Layable {
 			 lay.changeLayout(layout, parentX, parentY, 0);
 			index++;
 		}
-		System.out.println("Layout has been changed to: " + layout);
 	}
 	public void showStage() {
 		appStage.show();
