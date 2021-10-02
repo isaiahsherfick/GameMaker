@@ -32,8 +32,13 @@ public class Sprite implements Saveable
 	private MovementStrategy movementStrategy;
 	private HitBox hitBox;
 
-	// Default Collision Strategy is set at spriteID -2
 	// Maps SpriteID to specific collision behavior for that relationship
+	private CustomCollisionMap customCollisionMap;
+	
+	// Default Collision Strategy is set at key -2 in the customcollisionmap
+	private static final int DEFAULT_COLLISION_KEY = -2;
+	
+	private EventStrategyLinkedList eventStrategyList;
 	private HashMap<Integer, CollisionStrategy> customCollisionMap;
 
 	//TODO sort out this constructor spaghetti field
