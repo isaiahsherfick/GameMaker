@@ -14,29 +14,37 @@ public class Location {
 	    LEFT
 	}
 	public static class RightLayout {
-		public static int rootPaneWidth = 1100;
-		public static int rootPaneHeight = 628;
+		public static int rootPaneWidth = 900;
+		public static int rootPaneHeight = 700;
 		public static int gameCanvasWidth = 900;
 		public static int gameCanvasHeight = 600;
 		public static int gameCanvasX = 0;
 		public static int gameCanvasY = 0;
-		public static int controlPaneWidth = 200;
-		public static int controlPaneHeight = 600;
+		public static int controlPaneWidth = 500;
+		public static int controlPaneHeight = 700;
 		public static int controlPaneX = 900;
 		public static int controlPaneY = 0;
+		public static int actionPaneWidth = 500;
+		public static int actionPaneHeight = 10;
+		public static int actionPaneX = 100;
+		public static int actionPaneY = 100;
 	}
 	
 	public static class LeftLayout {
-		public static int rootPaneWidth = 1100;
-		public static int rootPaneHeight = 628;
+		public static int rootPaneWidth = 900;
+		public static int rootPaneHeight = 700;
 		public static int gameCanvasWidth = 900;
 		public static int gameCanvasHeight = 600;
-		public static int gameCanvasX = 200;
+		public static int gameCanvasX = 900;
 		public static int gameCanvasY = 0;
-		public static int controlPaneWidth = 200;
-		public static int controlPaneHeight = 600;
+		public static int controlPaneWidth = 500;
+		public static int controlPaneHeight = 700;
 		public static int controlPaneX = 0;
 		public static int controlPaneY = 0;
+		public static int actionPaneWidth = 50;
+		public static int actionPaneHeight = 10;
+		public static int actionPaneX = 100;
+		public static int actionPaneY = 100;
 
 	}
 	
@@ -47,10 +55,14 @@ public class Location {
 		public static int gameCanvasHeight = 600;
 		public static int gameCanvasX = 0;
 		public static int gameCanvasY = 174;
-		public static int controlPaneWidth = 900;
-		public static int controlPaneHeight = 174;
-		public static int controlPaneX = 0;
+		public static int controlPaneWidth = 100;
+		public static int controlPaneHeight = 500;
+		public static int controlPaneX = 500;
 		public static int controlPaneY = 0;
+		public static int actionPaneWidth = 100;
+		public static int actionPaneHeight = 0;
+		public static int actionPaneX = 0;
+		public static int actionPaneY = 0;
 		
 	}
 	
@@ -65,6 +77,10 @@ public class Location {
 		public static int controlPaneHeight = 200;
 		public static int controlPaneX = 0;
 		public static int controlPaneY = 600;
+		public static int actionPaneWidth = 100;
+		public static int actionPaneHeight = 200;
+		public static int actionPaneX = 0;
+		public static int actionPaneY = 0;
 	}
 
 }
