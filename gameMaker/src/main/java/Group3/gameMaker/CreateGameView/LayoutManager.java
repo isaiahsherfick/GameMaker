@@ -7,40 +7,37 @@
 package Group3.gameMaker.CreateGameView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import Group3.gameMaker.CreateGameView.Layable;
+
 import Group3.gameMaker.CreateGameView.Location.LayoutType;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.geometry.Pos;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.skin.MenuButtonSkin;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.stage.Popup;
+
 import javafx.stage.Stage;
 
-import javax.swing.JRootPane;
+
 
 //import Group3.gameMaker.CreateGameView.LayableMenuButton;
-import Group3.gameMaker.CreateGameView.Location.LayoutType;
-import Group3.gameMaker.CreateGameView.Layable;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.scene.*;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.stage.*;
+import javafx.scene.input.MouseEvent;
+
 
 
 
@@ -53,9 +50,35 @@ public class LayoutManager implements Layable {
 	public Stage appStage;
 	public Group rootGroup;
 	public Pane rootPane;
-	public LayoutType currentLayout = LayoutType.RIGHT; 
+	public LayoutType currentLayout = LayoutType.LEFT; 
+	public LayoutType changesLayout = LayoutType.RIGHT; 
+	
+	private final static int MENU_BUTTON_START_X = 100;
+	private final static int MENU_BUTTON_START_Y = 100;
+
+	private static final int HEIGHT = 700;
+	private static final int WIDTH = 800;
+	List<LayableButton> menuButtons;
+	List<LayableButton> menuButtons1;
+	private SpaceRunnerSubScene shapeChooserSubscene;
+	private SpaceRunnerSubScene sceneToHide;
+	private SpaceRunnerSubScene audioChooserSubscene;
+	private SpaceRunnerSubScene movementChooserSubscene;
+	private SpaceRunnerSubScene eventChooserSubscene;
+	
+	List<ShapePicker> shapesList;
+	List<audioPicker> audioList;
+	List<movePicker> moveList;
+	List<eventPicker> eventList;
+	private SHAPE choosenShape;
+	private AUDIO choosenaudio;
+	private MOVEMENT choosenmove;
+	private EVENT choosenevent;
 	
 	public LayablePane controlPane;
+	public LayablePane actionPane;
+	public LayablePane actionPane1;
+	public LayableCanvas gameCanvas;
 	public Scene gameScene;
 	// Add list of items to be added in Layable array
 	public ArrayList<Layable> layables = new ArrayList<Layable>();
@@ -68,134 +91,139 @@ public class LayoutManager implements Layable {
 	
 	public void makeStage () {
 		// Build root group and root pane
+				//BorderPane rootGroup = new BorderPane();
+				menuButtons = new ArrayList<>();
 				rootGroup = new Group();
 				rootPane = new Pane();
 				Pane rootPane = new Pane();
+				//Canvas gameCanvas = new Canvas();
 
-				rootPane.setPrefSize(Location.RightLayout.rootPaneWidth, Location.RightLayout.rootPaneHeight);
+				rootPane.setPrefSize(Location.LeftLayout.rootPaneWidth, Location.LeftLayout.rootPaneHeight);
 				rootPane.setStyle("-fx-background-color: #FF00FF");
 				rootGroup.getChildren().add(rootPane);
 				
-//				gameScene = new Scene(rootGroup);
-//				// Not sure if this is right...
-//				appStage.setScene(gameScene);
+				
+//				gameCanvas = new LayableCanvas(Location.LeftLayout.gameCanvasWidth, Location.LeftLayout.gameCanvasHeight);
+//				layables.add(gameCanvas);
+//				rootGroup.getChildren().add(gameCanvas);
+//				gameCanvas.setLayoutX(Location.LeftLayout.gameCanvasX);
+//				gameCanvas.setStyle("-fx-background-color: #FF00FF");
+				
+				//rootGroup.getChildren().add(rootPane);
+				
 				
 				controlPane = new LayablePane();
 				layables.add(controlPane);
-				controlPane.setPrefSize(Location.TopLayout.controlPaneWidth, Location.TopLayout.controlPaneHeight);
+				controlPane.setPrefSize(Location.LeftLayout.controlPaneWidth, Location.LeftLayout.controlPaneHeight);
 				rootGroup.getChildren().add(controlPane);
-				controlPane.setLayoutX(Location.TopLayout.controlPaneX);
-				controlPane.setStyle("-fx-background-color: #000000");
+				controlPane.setLayoutX(Location.LeftLayout.controlPaneX);
+				//controlPane.setStyle("-fx-background-color: #000000");
+				createBackground();
 				
-				gameScene = new Scene(rootGroup);
-				// Not sure if this is right...
+				BorderPane.setAlignment(controlPane,Pos.CENTER_LEFT);
+				//BorderPane.setAlignment(gameCanvas,Pos.CENTER_RIGHT);
+				
+				
+				
+				createSubScenes();
+				
+				gameScene = new Scene(rootGroup, WIDTH, HEIGHT);
 				appStage.setScene(gameScene);
-	}
-	public void Dialogue() {
-		GridPane grid = new GridPane();
-		grid.setPadding(new Insets(10, 10, 10, 10));
-		grid.setVgap(5);
-		grid.setHgap(5);
-		//Defining the Name text field
-		final TextField name = new TextField();
-		name.setPromptText("Enter your first name.");
-		name.setPrefColumnCount(10);
-		name.getText();
-		GridPane.setConstraints(name, 0, 0);
-		grid.getChildren().add(name);
-		//Defining the Last Name text field
-		final TextField lastName = new TextField();
-		lastName.setPromptText("Enter your last name.");
-		GridPane.setConstraints(lastName, 0, 1);
-		grid.getChildren().add(lastName);
-		//Defining the Comment text field
-		final TextField comment = new TextField();
-		comment.setPrefColumnCount(15);
-		comment.setPromptText("Enter your comment.");
-		GridPane.setConstraints(comment, 0, 2);
-		grid.getChildren().add(comment);
-		//Defining the Submit button
-		Button submit = new Button("Submit");
-		GridPane.setConstraints(submit, 1, 0);
-		grid.getChildren().add(submit);
-		//Defining the Clear button
-		Button clear = new Button("Clear");
-		GridPane.setConstraints(clear, 1, 1);
-		grid.getChildren().add(clear);
 	}
 	
 	
 	public void createButtons () {
-		 
-		 // create a text input dialog
-//	        TextInputDialog td = new TextInputDialog("Enter X co-ordinates");
-//	        TextInputDialog td1 = new TextInputDialog("Enter Y co-ordinates");
-//	        // setHeaderText
-//	        td.setHeaderText("enter your name");
-//	        
-//	        final Popup popup = new Popup(); popup.setX(300); popup.setY(200);
-//		    popup.getContent().add(td,td1);
 		
-		LayableButton button = new LayableButton("Circle");
-//		button.setOnAction(value -> {new EventHandler<ActionEvent>() {
-//		      @Override public void handle(ActionEvent event) {
-//		          popup.show(Dialogue);
-//		        }
-//		      });
-		button = new LayableButton("Rectangle");
-		//TODO
-		//button.setOnAction(value -> {
-//			gameEngine.reset();
-		//});
-		addButtonToControlPanel(button);
+		final LayableButton shapebutton = new LayableButton("Shapes");
+		shapebutton.setLayoutX(MENU_BUTTON_START_X);
+		shapebutton.setLayoutY(MENU_BUTTON_START_Y);
+		shapebutton.setOnAction(new EventHandler<ActionEvent>() {
 
-		button = new LayableButton("Triangle");
-		//button.setOnAction(value -> {
-//			gameEngine.pause();
-		//});
-		addButtonToControlPanel(button);
-		
-		MenuItem menuItem1 = new MenuItem("Audio1");
-		menuItem1.setOnAction(new EventHandler<ActionEvent>() {
-		    @Override
-		    public void handle(ActionEvent event) {
-		        System.out.println("Option 3 selected");
-		    }
-		});
-		
-		MenuItem menuItem2 = new MenuItem("Audio2");
-		menuItem2.setOnAction(new EventHandler<ActionEvent>() {
-		    @Override
-		    public void handle(ActionEvent event) {
-		        System.out.println("Option 3 selected");
-		    }
-		});
-		
-		MenuItem menuItem3 = new MenuItem("Audio3");
-		menuItem3.setOnAction(new EventHandler<ActionEvent>() {
-		    @Override
-		    public void handle(ActionEvent event) {
-		        System.out.println("Option 3 selected");
-		    }
-		});
-		
-		//TODO get these working
-		//I get a bad URI on my machine - Isaiah
-		//We need to figure out a way to make it work on all development platforms
-		menuItem1.setGraphic(new ImageView(new Image("icons8-audio-30.png")));
-		menuItem2.setGraphic(new ImageView(new Image("icons8-audio-30.png")));
-		menuItem3.setGraphic(new ImageView(new Image("icons8-audio-30.png")));
+		@Override
+		public void handle(ActionEvent event) {
+			showSubScene(shapeChooserSubscene);
+			
+		}
+	});
 		
 		
-		LayableMenuButton menubutton = new LayableMenuButton ("Audio");
+		final LayableButton movementbutton = new LayableButton("Movement");
+		//AddMenuButtons( movementbutton);
+		movementbutton.setLayoutX(MENU_BUTTON_START_X);
+		movementbutton.setLayoutY(MENU_BUTTON_START_Y+70);
+		movementbutton.setOnAction(new EventHandler<ActionEvent>() {
+
+		@Override
+		public void handle(ActionEvent event) {
+			showSubScene(movementChooserSubscene);
+			
+		}
+	});
 		
-		menubutton.getItems().add(menuItem1);
-		menubutton.getItems().add(menuItem2);
-		menubutton.getItems().add(menuItem3);
-		menubutton.setGraphic(new ImageView(new Image("icons8-audio-30.png")));
-		addMenuButtonToControlPanel(menubutton);
+		final LayableButton eventbutton = new LayableButton("Event");
+		//AddMenuButtons( eventbutton);
+		eventbutton.setLayoutX(MENU_BUTTON_START_X);
+		eventbutton.setLayoutY(MENU_BUTTON_START_Y+140);
+		eventbutton.setOnAction(new EventHandler<ActionEvent>() {
+
+		@Override
+		public void handle(ActionEvent event) {
+			showSubScene(eventChooserSubscene);
+			
+		}
+	});
 		
-		//Not sure if this goes here, it was leftover from a bad merge
+		
+		
+		final LayableButton Audiobutton = new LayableButton("Audio");
+		//AddMenuButtons( Audiobutton);
+		Audiobutton.setLayoutX(MENU_BUTTON_START_X);
+		Audiobutton.setLayoutY(MENU_BUTTON_START_Y+210);
+		Audiobutton.setOnAction(new EventHandler<ActionEvent>() {
+
+		@Override
+		public void handle(ActionEvent event) {
+			showSubScene(audioChooserSubscene);
+			
+		}
+	});
+		
+		LayableButton newspritebutton = new LayableButton("Create New Sprites");
+		//AddMenuButtons(shapebutton);
+		newspritebutton.setOnAction(new EventHandler<ActionEvent>() {
+
+		@Override
+		public void handle(ActionEvent event) {
+//			AddactionPane();
+			AddMenuButtons(shapebutton);
+			AddMenuButtons( movementbutton);
+			AddMenuButtons( eventbutton);
+			AddMenuButtons( Audiobutton);
+			//showSubScene2(SpritesChooserSubscene);
+			
+		}
+	});
+		//controlPane.getChildren().add(newspritebutton);
+		addButtonToControlPanel(newspritebutton);
+		
+		LayableButton existspritebutton = new LayableButton("Modify Sprites");
+		//AddMenuButtons(shapebutton);
+		existspritebutton.setOnAction(new EventHandler<ActionEvent>() {
+
+		@Override
+		public void handle(ActionEvent event) {
+			//AddactionPane1();
+
+			AddMenuButtons(shapebutton);
+			AddMenuButtons( movementbutton);
+			AddMenuButtons( eventbutton);
+			AddMenuButtons( Audiobutton);
+
+		}
+	});
+		//controlPane.getChildren().add(existspritebutton);
+		addButtonToControlPanel(existspritebutton);
+		
 		changeLayout(currentLayout, 0, 0, 0);
         
 		
@@ -216,13 +244,15 @@ public class LayoutManager implements Layable {
 		controlPane.AddChild(button);
 	}
 	
-	public void addMenuButtonToControlPanel(LayableMenuButton menubutton) {
-		controlPane.AddChild(menubutton);
-	}
-	
 	public Scene getGameScene() {
 		return gameScene;
 	}
+	
+	public Canvas getGameCanvas() {
+		return gameCanvas;
+	}
+	
+	
 	
 	@Override
 	public void addLayable(Layable layable) {
@@ -236,5 +266,249 @@ public class LayoutManager implements Layable {
 		layables.remove(layable);
 		
 	}
+	
+	private void createBackground() {
+		Image backgroundImage = new Image("/Group3/gameMaker/Resource/deep_blue.png", 256, 256, false, false);
+		BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
+		controlPane.setBackground(new Background(background));
+	}
+	
+	private void createactionBackground() {
+		Image backgroundImage = new Image("/Group3/gameMaker/Resource/�Pngtree�explosion game poster background_1048673.jpg", 500, 700, false, false);
+		BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
+		actionPane.setBackground(new Background(background));
+	}
+	
+	
+	private void AddMenuButtons(LayableButton button) {
+
+		menuButtons.remove(button);
+		controlPane.getChildren().remove(button);
+		
+		menuButtons.add(button);
+		controlPane.getChildren().add(button);
+		
+		
+	}
+	
+//	private void AddMenuButtons(LayableButton button) {
+//		button.setLayoutX(MENU_BUTTON_START_X);
+//		button.setLayoutY(MENU_BUTTON_START_Y + menuButtons.size() * 70);
+//		//button.setLayoutX(MENU_BUTTON_START_Y + menuButtons.size());
+//		menuButtons.add(button);
+//		SpritesChooserSubscene.getChildren().add(button);
+//	}
+	
+	
+	private void showSubScene(SpaceRunnerSubScene subScene) {
+		if (sceneToHide != null) {
+			sceneToHide.moveSubScene();
+		}
+		
+		subScene.moveSubScene();
+		sceneToHide = subScene;
+	}
+	
+	
+	private void createSubScenes() {
+		
+		createShapeChooserSubScene();
+		createAudioChooserSubScene();
+		createMovementChooserSubScene();
+		createEventChooserSubScene();
+	
+	}
+	
+	
+	private void createShapeChooserSubScene() {
+		shapeChooserSubscene = new SpaceRunnerSubScene();
+		controlPane.getChildren().add(shapeChooserSubscene);
+		
+		InfoLabel chooseShapeLabel = new InfoLabel("CHOOSE YOUR SHAPE");
+		chooseShapeLabel.setLayoutX(110);
+		chooseShapeLabel.setLayoutY(25);
+		shapeChooserSubscene.getPane().getChildren().add(chooseShapeLabel);
+		shapeChooserSubscene.getPane().getChildren().add(createShapesToChoose());
+		shapeChooserSubscene.getPane().getChildren().add(createButtonToStart());		
+	}
+	
+	private void createAudioChooserSubScene() {
+		audioChooserSubscene = new SpaceRunnerSubScene();
+		controlPane.getChildren().add(audioChooserSubscene);
+		
+		InfoLabel chooseAudioLabel = new InfoLabel("CHOOSE YOUR AUDIO");
+		chooseAudioLabel.setLayoutX(110);
+		chooseAudioLabel.setLayoutY(25);
+		audioChooserSubscene.getPane().getChildren().add(chooseAudioLabel);
+		audioChooserSubscene.getPane().getChildren().add(createAudioToChoose());
+		audioChooserSubscene.getPane().getChildren().add(createButtonToStart());	
+	}
+	
+	private void createMovementChooserSubScene() {
+		movementChooserSubscene = new SpaceRunnerSubScene();
+		controlPane.getChildren().add(movementChooserSubscene);
+		
+		InfoLabel choosemovementLabel = new InfoLabel("CHOOSE YOUR MOVEMENT");
+		choosemovementLabel.setLayoutX(110);
+		choosemovementLabel.setLayoutY(25);
+		movementChooserSubscene.getPane().getChildren().add(choosemovementLabel);
+		movementChooserSubscene.getPane().getChildren().add(createmovementToChoose());
+		movementChooserSubscene.getPane().getChildren().add(createButtonToStart());		
+		
+	}
+	
+	private void createEventChooserSubScene() {
+		eventChooserSubscene = new SpaceRunnerSubScene();
+		controlPane.getChildren().add(eventChooserSubscene);
+		
+		InfoLabel chooseeventLabel = new InfoLabel("CHOOSE YOUR EVENT");
+		chooseeventLabel.setLayoutX(110);
+		chooseeventLabel.setLayoutY(25);
+		eventChooserSubscene.getPane().getChildren().add(chooseeventLabel);
+		eventChooserSubscene.getPane().getChildren().add(createeventToChoose());
+		eventChooserSubscene.getPane().getChildren().add(createButtonToStart());		
+	}
+	
+	
+	private HBox createAudioToChoose() {
+		HBox box = new HBox();
+		box.setSpacing(60);
+		audioList = new ArrayList<>();
+		for (AUDIO audio : AUDIO.values()) {
+			final audioPicker audioToPick = new audioPicker(audio);
+			audioList.add(audioToPick);
+			box.getChildren().add(audioToPick);
+			audioToPick.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+				@Override
+				public void handle(MouseEvent event) {
+					for (audioPicker audio : audioList) {
+						audio.setIsCircleChoosen(false);
+					}
+					audioToPick.setIsCircleChoosen(true);
+					choosenaudio = audioToPick.getaudio();
+					
+				}
+			});
+		}
+		
+		box.setLayoutX(300 - (118*2));
+		box.setLayoutY(100);
+		return box;
+	}
+	
+	private HBox createmovementToChoose() {
+		HBox box = new HBox();
+		box.setSpacing(60);
+		moveList = new ArrayList<>();
+		for (MOVEMENT move : MOVEMENT.values()) {
+			final movePicker moveToPick = new movePicker(move);
+			moveList.add(moveToPick);
+			box.getChildren().add(moveToPick);
+			moveToPick.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+				@Override
+				public void handle(MouseEvent event) {
+					for (movePicker audio : moveList) {
+						audio.setIsCircleChoosen(false);
+					}
+					moveToPick.setIsCircleChoosen(true);
+					choosenmove = moveToPick.getmoves();
+					
+				}
+			});
+		}
+		
+		box.setLayoutX(300 - (118*2));
+		box.setLayoutY(100);
+		return box;
+	}
+	
+	
+	
+	
+	private HBox createShapesToChoose() {
+		HBox box = new HBox();
+		box.setSpacing(60);
+		shapesList = new ArrayList<>();
+		for (SHAPE shape : SHAPE.values()) {
+			final ShapePicker shapeToPick = new ShapePicker(shape);
+			shapesList.add(shapeToPick);
+			box.getChildren().add(shapeToPick);
+			shapeToPick.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+				@Override
+				public void handle(MouseEvent event) {
+					for (ShapePicker shape : shapesList) {
+						shape.setIsCircleChoosen(false);
+					}
+					shapeToPick.setIsCircleChoosen(true);
+					choosenShape = shapeToPick.getShapes();
+					
+				}
+			});
+		}
+		
+		box.setLayoutX(300 - (118*2));
+		box.setLayoutY(100);
+		return box;
+	}
+	
+
+	
+	
+	private HBox createeventToChoose() {
+		HBox box = new HBox();
+		box.setSpacing(60);
+		eventList = new ArrayList<>();
+		for (EVENT event : EVENT.values()) {
+			final eventPicker eventToPick = new eventPicker(event);
+			eventList.add(eventToPick);
+			box.getChildren().add(eventToPick);
+			eventToPick.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+				@Override
+				public void handle(MouseEvent event) {
+					for (eventPicker audio : eventList) {
+						audio.setIsCircleChoosen(false);
+					}
+					eventToPick.setIsCircleChoosen(true);
+					choosenevent = eventToPick.getevents();
+					
+				}
+			});
+		}
+		
+		box.setLayoutX(300 - (118*2));
+		box.setLayoutY(100);
+		return box;
+	}
+	
+	
+	private LayableButton createButtonToStart() {
+		LayableButton startButton = new LayableButton("ADD");
+		startButton.setLayoutX(105);
+		startButton.setLayoutY(220);
+		
+		
+		startButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			
+
+			@Override
+			public void handle(ActionEvent event) {
+				if (choosenShape != null) {
+//					GameViewManager gameManager = new GameViewManager();
+//					gameManager.createNewGame(mainStage, choosenShip);;
+				}
+				
+			}
+		});
+		
+		return startButton;
+	}
+	
+		
+
 
 }
