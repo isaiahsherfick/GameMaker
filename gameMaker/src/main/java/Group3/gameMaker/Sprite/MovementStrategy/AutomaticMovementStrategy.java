@@ -12,7 +12,7 @@ public class AutomaticMovementStrategy implements MovementStrategy
 	private int subjectId;
 	private Sprite subject;
 
-	
+
 	public AutomaticMovementStrategy()
 	{
 		velocityX = 0;
@@ -21,7 +21,7 @@ public class AutomaticMovementStrategy implements MovementStrategy
 		subject = null;
 		subjectId = -2;
 	}
-	
+
 	//Defualt constructor
 	//By default stuff moves 5 on the x and y so the user can get instant confirmation
 	//That the sprite does indeed move automatically
@@ -57,19 +57,19 @@ public class AutomaticMovementStrategy implements MovementStrategy
 		return velocityY;
 	}
 	@Override
-	public Sprite getSubject() 
+	public Sprite getSubject()
 	{
 		return subject;
 	}
 	@Override
-	public void setSubject(Sprite s) 
+	public void setSubject(Sprite s)
 	{
 		subject = s;
 		subjectId = s.getSpriteId();
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public JSONObject save() 
+	public JSONObject save()
 	{
 		JSONObject obj = new JSONObject();
 		obj.put("type","AutomaticMovementStrategy");
@@ -80,23 +80,23 @@ public class AutomaticMovementStrategy implements MovementStrategy
 		return obj;
 	}
 	@Override
-	
+
 	//After calling load, AutomaticMovementStrategies need
 	//a call to restoreSubject() with the spritemaster containing
 	//the subject as an argument
-	public void load(JSONObject saveJSON) 
+	public void load(JSONObject saveJSON)
 	{
 		subjectId = ((Long)saveJSON.get("subjectId")).intValue();
 		velocityX = ((Long)saveJSON.get("velocityX")).intValue();
 		velocityY = ((Long)saveJSON.get("velocityY")).intValue();
 	}
-	
+
 	public boolean equals(Object o)
 	{
 		if (o instanceof AutomaticMovementStrategy)
 		{
 			AutomaticMovementStrategy a = (AutomaticMovementStrategy) o;
-			return velocityX == a.getXVelocity() && velocityY == a.getYVelocity() && subject.equals(a.getSubject());
+			return velocityX == a.getVelocityX() && velocityY == a.getVelocityY() && subject.equals(a.getSubject());
 		}
 		return false;
 	}

@@ -4,25 +4,25 @@ import org.json.simple.JSONObject;
 
 import Group3.gameMaker.Sprite.Sprite;
 
-public class NoMovementStrategy implements MovementStrategy 
+public class NoMovementStrategy implements MovementStrategy
 {
-	public void move() 
+	public void move()
 	{
 		return;
 	}
 
-	public Sprite getSubject() 
+	public Sprite getSubject()
 	{
 		return null;
 	}
 
-	public void setSubject(Sprite s) 
+	public void setSubject(Sprite s)
 	{
-		
+
 	}
 
 	@Override
-	public JSONObject save() 
+	public JSONObject save()
 	{
 		// TODO Auto-generated method stub
 		return null;

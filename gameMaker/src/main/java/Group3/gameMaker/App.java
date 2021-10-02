@@ -1,5 +1,7 @@
 package Group3.gameMaker;
 
+import Group3.gameMaker.CreateGameController.CreateGameController;
+import Group3.gameMaker.CreateGameView.CreateGameView;
 import Group3.gameMaker.CreateGameView.LayoutManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -14,36 +16,13 @@ public class App extends Application
 {
 	@Override
 	public void start(Stage primaryStage) {
-		try {
-			//BorderPane root = new BorderPane();
-			//Scene scene = new Scene(root,400,400);
-//			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			////primaryStage.setScene(scene);
-			//primaryStage.show();
-//			BorderPane root = new BorderPane();
-//			Scene scene = new Scene(root,400,400);
-////			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-//			primaryStage.setScene(scene);
-//			primaryStage.show();
-			
-			Stage appStage;
-			LayoutManager layoutManager;
-			
-			appStage = primaryStage;
-	    	layoutManager = new LayoutManager(appStage);
-	    	layoutManager.makeStage();
-	    	
-	    	//Canvas gameCanvas = layoutManager.getGameCanvas();
-			Scene gameScene = layoutManager.getGameScene();
-			
-			layoutManager.createButtons();
-			layoutManager.showStage();
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+
+		Stage appStage = primaryStage;
+		CreateGameView createGameView = new CreateGameView(appStage);
+		CreateGameController createGameController = new CreateGameController(createGameView);
+
 	}
-	
+
     public static void main(String[] args)
     {
         //placeholder for now

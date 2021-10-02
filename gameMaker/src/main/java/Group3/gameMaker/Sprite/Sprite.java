@@ -30,13 +30,12 @@ public class Sprite implements Saveable
 	private ShapeStrategy shapeStrategy;
 	private Sound sound;
 	private MovementStrategy movementStrategy;
-	//private CommandInvoker commandInvoker;
-	
 	private HitBox hitBox;
 
 	// Default Collision Strategy is set at spriteID -2
 	// Maps SpriteID to specific collision behavior for that relationship
 	private HashMap<Integer, CollisionStrategy> customCollisionMap;
+
 	//TODO sort out this constructor spaghetti field
 	public Sprite(int x, int y, ShapeStrategy shape, MovementStrategy movement)
 	{
@@ -83,7 +82,7 @@ public class Sprite implements Saveable
 		setHitBox(new HitBox(this));
 		customCollisionMap = new HashMap<Integer, CollisionStrategy>();
 	}
-	
+
 	//Default Sprite
 	public Sprite()
 	{
@@ -93,7 +92,7 @@ public class Sprite implements Saveable
 		customCollisionMap = new HashMap<Integer, CollisionStrategy>();
 		setHitBox(new HitBox(this));;
 	}
-	
+
 	public MovementStrategy getMovementStrategy()
 	{
 		return movementStrategy;
@@ -115,7 +114,7 @@ public class Sprite implements Saveable
 	{
 		spriteId = id;
 	}
-	
+
 	public int getSpriteId()
 	{
 		return spriteId;
@@ -138,12 +137,12 @@ public class Sprite implements Saveable
 	{
 		return coordinates.getY();
 	}
-	
+
 	public SaveablePoint getCoordinates()
 	{
 		return coordinates;
 	}
-	
+
 	public void setX(int x)
 	{
 		coordinates.setX(x);
@@ -153,12 +152,12 @@ public class Sprite implements Saveable
 	{
 		coordinates.setY(y);
 	}
-	
+
 	public void draw(GraphicsContext g)
 	{
 		shapeStrategy.draw(g);
 	}
-	
+
 	public ShapeStrategy getShapeStrategy()
 	{
 		return shapeStrategy;
@@ -175,7 +174,7 @@ public class Sprite implements Saveable
 		obj.put("spriteId",spriteId);
 		return obj;
 	}
-	
+
 	public void load(JSONObject saveData)
 	{
 		coordinates = new SaveablePoint();
@@ -185,7 +184,7 @@ public class Sprite implements Saveable
 		movementStrategy = (MovementStrategy)sl.load((JSONObject)saveData.get("movementStrategy"));
 		movementStrategy.setSubject(this);
 	}
-	
+
 	//Only returns true if the other sprite is an exact copy
 	//even spriteid needs to match
 	//should only happen during unit testing

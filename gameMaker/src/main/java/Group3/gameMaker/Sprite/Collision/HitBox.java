@@ -20,6 +20,10 @@ public class HitBox {
 	}
 
 	public HitBoxOverlapType overlaps(HitBox secondaryBox) {
+//		int deltaBottom = this.bottomLeft.getPosY() - secondaryBox.getTopRight().getPosY(); // Positive implies overlap
+//		int deltaTop = this.topRight.getPosY() - secondaryBox.getBottomLeft().getPosY(); // Negative implies overlap
+//		int deltaLeft = this.bottomLeft.getPosX() - secondaryBox.getTopRight().getPosX(); // Negative implies overlap
+//		int deltaRight = this.topRight.getPosX() - secondaryBox.getBottomLeft().getPosX(); // Positive implies overlap
 		boolean bottomOverlap = this.bottomLeft.getPosY() >= secondaryBox.getTopRight().getPosY(); // Positive implies overlap
 		boolean topOverlap = this.topRight.getPosY() <= secondaryBox.getBottomLeft().getPosY(); // Negative implies overlap
 		boolean leftOverlap = this.bottomLeft.getPosX() <= secondaryBox.getTopRight().getPosX(); // Negative implies overlap

@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-public class SpriteMaster 
+public class SpriteMaster
 {
 	private int currentKey = -1;
-	private HashMap<Integer, Sprite> spriteMap; 
+	private HashMap<Integer, Sprite> spriteMap;
 	public SpriteMaster()
 	{
 		this.spriteMap = new HashMap<>();
 	}
-	
+
 	public void add(Sprite s)
 	{
 		if (s.getSpriteId() > currentKey)
@@ -27,19 +27,19 @@ public class SpriteMaster
 			spriteMap.put(currentKey,s);
 		}
 	}
-	
+
 	public Sprite get(int key)
 	{
 		return spriteMap.get(key);
 	}
-	
+
 	public ArrayList<Sprite> getAllSprites()
 	{
 		ArrayList<Sprite> returnList = new ArrayList<>();
-		for (Entry<Integer, Sprite> entry : spriteMap.entrySet()) 
+		for (Entry<Integer, Sprite> entry : spriteMap.entrySet())
 		{
 			returnList.add(entry.getValue());
-		}	
+		}
 		return returnList;
 	}
 }

@@ -21,6 +21,10 @@ public class Sound implements Saveable {
 		this.uri = Paths.get(relativePath).toUri().toString();
 	}
 
+	public Sound() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getUri() {
 		return this.uri;
 	}
