@@ -82,6 +82,10 @@ public class CreateGameModel
 		spriteMaster = sm;
 	}
 	
+	public SpriteMaster getSpriteMaster() {
+		return spriteMaster;
+	}
+
 	//save everything in the spritemaster to the savefilemanager then call savefile
 	public void saveFile() throws IOException
 	{
