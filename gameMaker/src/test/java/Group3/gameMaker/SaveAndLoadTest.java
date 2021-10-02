@@ -11,6 +11,8 @@ import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.*;
 
 import Group3.gameMaker.Sprite.SpriteMaster;
+import Group3.gameMaker.Sprite.Collision.BounceCollisionStrategy;
+import Group3.gameMaker.Sprite.Collision.CustomCollisionMap;
 import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.CircleStrategy;
 import Group3.gameMaker.CreateGameModel.CreateGameModel;
 import Group3.gameMaker.SaveAndLoad.SaveFileManager;
@@ -267,8 +269,8 @@ public class SaveAndLoadTest
 		cgm.addSprite(sprite3); //id = 2
 		assertEquals(sprite3.getSpriteId(), 2);
 		//Goes into sprite1's customcollisionmap and adds <sprite2.getspriteid(), new bcs()
-		sprite1.addCustomCollision(sprite2, new BounceCollisionStrategy());
-		sprite1.addCustomCollision(sprite3, new BounceCollisionStrategy());
+		sprite1.addCustomCollision(sprite2, new BounceCollisionStrategy(sprite2));
+		sprite1.addCustomCollision(sprite3, new BounceCollisionStrategy(sprite3));
 
 		CustomCollisionMap ccm = sprite1.getCustomCollisionMap();
 

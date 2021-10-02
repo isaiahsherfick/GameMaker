@@ -96,7 +96,7 @@ public class AutomaticMovementStrategy implements MovementStrategy
 		if (o instanceof AutomaticMovementStrategy)
 		{
 			AutomaticMovementStrategy a = (AutomaticMovementStrategy) o;
-			return velocityX == a.getXVelocity() && velocityY == a.getYVelocity() && subject.equals(a.getSubject());
+			return velocityX == a.getVelocityX() && velocityY == a.getVelocityY() && subject.equals(a.getSubject());
 		}
 		return false;
 	}

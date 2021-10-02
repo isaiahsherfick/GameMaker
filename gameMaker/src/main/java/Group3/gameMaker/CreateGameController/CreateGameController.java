@@ -38,8 +38,9 @@ public class CreateGameController
 		createGameModel.addSprite(sprite);
 	}
 
-	public void modifySprite(Sprite sprite) {
-		createGameModel.modifySprite(sprite);
+	//Passes a sprite which has been modified by the view to the model's spritemaster
+	public void modifySprite(Sprite modifiedSprite) {
+		createGameModel.modifySprite(modifiedSprite);
 	}
 	CreateGameController() {
 

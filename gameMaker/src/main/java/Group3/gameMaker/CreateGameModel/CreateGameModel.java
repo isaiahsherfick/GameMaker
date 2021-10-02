@@ -115,4 +115,10 @@ public class CreateGameModel
 		}
 			
 	}
+
+
+	public void modifySprite(Sprite modifiedSprite) {
+		// TODO Auto-generated method stub
+		
+	}
 }

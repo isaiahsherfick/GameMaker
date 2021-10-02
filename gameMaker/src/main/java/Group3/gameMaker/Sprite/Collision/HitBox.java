@@ -1,5 +1,6 @@
 package Group3.gameMaker.Sprite.Collision;
 
+import Group3.gameMaker.SaveAndLoad.SaveablePoint;
 import Group3.gameMaker.Sprite.Sprite;
 
 /*
@@ -7,23 +8,19 @@ import Group3.gameMaker.Sprite.Sprite;
  */
 public class HitBox {
 
-	Point bottomLeft;
-	Point topRight;
 	Sprite sprite;
 
-	public HitBox(Sprite s) {
+	public HitBox(Sprite s){
 		sprite = s;
-		bottomLeft.setPosX(s.getX());
-		bottomLeft.setPosY(s.getY());
-		topRight.setPosX(s.getX() + s.getShapeStrategy().getWidth());
-		topRight.setPosY(s.getY() + s.getShapeStrategy().getHeight());
 	}
 
 	public HitBoxOverlapType overlaps(HitBox secondaryBox) {
-		boolean bottomOverlap = this.bottomLeft.getPosY() >= secondaryBox.getTopRight().getPosY(); // Positive implies overlap
-		boolean topOverlap = this.topRight.getPosY() <= secondaryBox.getBottomLeft().getPosY(); // Negative implies overlap
-		boolean leftOverlap = this.bottomLeft.getPosX() <= secondaryBox.getTopRight().getPosX(); // Negative implies overlap
-		boolean rightOverlap = this.topRight.getPosX() >= secondaryBox.getBottomLeft().getPosX(); // Positive implies overlap
+		SaveablePoint bottomLeft  = new SaveablePoint(sprite.getX(), sprite.getY());
+		SaveablePoint topRight = new SaveablePoint(sprite.getX() + sprite.getShapeStrategy().getWidth(), sprite.getY() + sprite.getShapeStrategy().getHeight());
+		boolean bottomOverlap = bottomLeft.getY() >= secondaryBox.getTopRight().getY(); // Positive implies overlap
+		boolean topOverlap = topRight.getY() <= secondaryBox.getBottomLeft().getY(); // Negative implies overlap
+		boolean leftOverlap = bottomLeft.getX() <= secondaryBox.getTopRight().getX(); // Negative implies overlap
+		boolean rightOverlap = topRight.getX() >= secondaryBox.getBottomLeft().getX(); // Positive implies overlap
 
 		if(bottomOverlap) {
 			if(leftOverlap) return HitBoxOverlapType.BOTTOM_LEFT;
@@ -38,20 +35,11 @@ public class HitBox {
 		return HitBoxOverlapType.NO_OVERLAP;
 	}
 
-	public Point getBottomLeft() {
-		return bottomLeft;
+	public SaveablePoint getBottomLeft() {
+		return new SaveablePoint(sprite.getX(), sprite.getY());
 	}
 
-	public void setBottomLeft(Point bottomLeft) {
-		this.bottomLeft = bottomLeft;
+	public SaveablePoint getTopRight() {
+		return new SaveablePoint(sprite.getX() + sprite.getShapeStrategy().getWidth(), sprite.getY() + sprite.getShapeStrategy().getHeight());
 	}
-
-	public Point getTopRight() {
-		return topRight;
-	}
-
-	public void setTopRight(Point topRight) {
-		this.topRight = topRight;
-	}
-
 }
