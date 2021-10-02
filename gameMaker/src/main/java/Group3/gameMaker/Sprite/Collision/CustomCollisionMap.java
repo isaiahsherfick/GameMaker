@@ -27,6 +27,11 @@ public class CustomCollisionMap implements Saveable
 		map.put(spriteId, customCollision);
 	}
 	
+	public boolean containsKey(int spriteId)
+	{
+		return map.containsKey(spriteId);
+	}
+	
 	public CollisionStrategy get(int spriteId)
 	{
 		return map.get(spriteId);
@@ -64,5 +69,10 @@ public class CustomCollisionMap implements Saveable
 			c.load((JSONObject)saveJSON.get(i));
 			addPair(c);
 		}
+	}
+
+	public HashMap<Integer, CollisionStrategy> getMap() 
+	{
+		return map;
 	}
 }

@@ -9,8 +9,13 @@ public class BounceCollisionStrategy implements CollisionStrategy {
 	private static final int FLIP_DIRECTION = -1;
 	Sprite collider;
 
-	BounceCollisionStrategy(Sprite collider) {
+	public BounceCollisionStrategy(Sprite collider) {
 		this.collider = collider;
+	}
+	
+	public BounceCollisionStrategy()
+	{
+		
 	}
 
 	@Override

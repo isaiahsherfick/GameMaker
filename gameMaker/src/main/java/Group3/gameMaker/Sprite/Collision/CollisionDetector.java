@@ -9,7 +9,7 @@ import Group3.gameMaker.Sprite.SpriteMaster;
 public class CollisionDetector {
 	private SpriteMaster spriteMaster;
 	private HashMap<Integer, ArrayList<Integer>> collisionCheckedMap;
-	private HashMap<Integer, CollisionStrategy> collisionStrategyMap;
+	private CustomCollisionMap collisionStrategyMap;
 
 	// TODO: Move this to a Constants package
 	public static final int DEFAULT_COLLISION_STRATEGY = 2;
