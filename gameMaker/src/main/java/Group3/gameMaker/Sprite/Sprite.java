@@ -7,19 +7,129 @@
 
 package Group3.gameMaker.Sprite;
 
+import java.util.HashMap;
+
 import org.json.simple.JSONObject;
 
 import Group3.gameMaker.SaveAndLoad.Saveable;
-import Group3.gameMaker.Sprite.Shape.ShapeStrategy;
+import Group3.gameMaker.SaveAndLoad.SaveablePoint;
+import Group3.gameMaker.SaveAndLoad.StrategyLoader;
+import Group3.gameMaker.Sprite.Collision.CustomCollisionMap;
+import Group3.gameMaker.Sprite.Collision.CollisionStrategy;
+import Group3.gameMaker.Sprite.Collision.HitBox;
+import Group3.gameMaker.Sprite.MovementStrategy.AutomaticMovementStrategy;
+import Group3.gameMaker.Sprite.MovementStrategy.MovementStrategy;
+import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.CircleStrategy;
+import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.ShapeStrategy;
 import javafx.scene.canvas.GraphicsContext;
 
-public abstract class Sprite implements Saveable
+public class Sprite implements Saveable
 {
-	private Point coordinates;
+	//This is -2 so that it doesn't conflict with using -1 in SpriteMaster
+	private int spriteId = -2;
+	private SaveablePoint coordinates;
 	private ShapeStrategy shapeStrategy;
-	//private CollisionStrategy collisionStrategy;
+	private Sound sound;
+	private MovementStrategy movementStrategy;
 	//private CommandInvoker commandInvoker;
 	
+	private HitBox hitBox;
+
+	// Default Collision Strategy is set at spriteID -2
+	// Maps SpriteID to specific collision behavior for that relationship
+	private HashMap<Integer, CollisionStrategy> customCollisionMap;
+	//TODO sort out this constructor spaghetti field
+	public Sprite(int x, int y, ShapeStrategy shape, MovementStrategy movement)
+	{
+		coordinates = new SaveablePoint(x,y);
+		shapeStrategy = shape;
+		movementStrategy = movement;
+		setHitBox(new HitBox(this));
+		customCollisionMap = new HashMap<Integer, CollisionStrategy>();
+	}
+
+	public Sprite(int x, int y, ShapeStrategy shape, int spriteId)
+	{
+		coordinates = new SaveablePoint(x,y);
+		shapeStrategy = shape;
+		this.spriteId = spriteId;
+		setHitBox(new HitBox(this));
+		customCollisionMap = new HashMap<Integer, CollisionStrategy>();
+	}
+
+	public Sprite(int x, int y, ShapeStrategy shape, int spriteId, Sound sound)
+	{
+		coordinates = new SaveablePoint(x,y);
+		shapeStrategy = shape;
+		this.spriteId = spriteId;
+		this.sound = sound;
+		setHitBox(new HitBox(this));
+		customCollisionMap = new HashMap<Integer, CollisionStrategy>();
+	}
+
+
+	public Sprite(SaveablePoint point, ShapeStrategy shape)
+	{
+		coordinates = point;
+		shapeStrategy = shape;
+		setHitBox(new HitBox(this));
+		customCollisionMap = new HashMap<Integer, CollisionStrategy>();
+	}
+
+	public Sprite(SaveablePoint point, ShapeStrategy shape, int spriteId)
+	{
+		coordinates = point;
+		shapeStrategy = shape;
+		this.spriteId = spriteId;
+		setHitBox(new HitBox(this));
+		customCollisionMap = new HashMap<Integer, CollisionStrategy>();
+	}
+	
+	//Default Sprite
+	public Sprite()
+	{
+		coordinates = new SaveablePoint(0,0);
+		shapeStrategy = new CircleStrategy();
+		movementStrategy = new AutomaticMovementStrategy(this);
+		customCollisionMap = new HashMap<Integer, CollisionStrategy>();
+		setHitBox(new HitBox(this));;
+	}
+	
+	public MovementStrategy getMovementStrategy()
+	{
+		return movementStrategy;
+	}
+
+	public HashMap<Integer, CollisionStrategy> getCollisionStrategyMap() {
+		return customCollisionMap;
+	}
+
+	public void setSound(Sound sound) {
+		this.sound = sound;
+	}
+
+	public Sound getSound() {
+		return sound;
+	}
+
+	public void setSpriteId(int id)
+	{
+		spriteId = id;
+	}
+	
+	public int getSpriteId()
+	{
+		return spriteId;
+	}
+
+	public HitBox getHitBox() {
+		return hitBox;
+	}
+
+	public void setHitBox(HitBox hitBox) {
+		this.hitBox = hitBox;
+	}
+
 	public int getX()
 	{
 		return coordinates.getX();
@@ -28,6 +138,11 @@ public abstract class Sprite implements Saveable
 	public int getY()
 	{
 		return coordinates.getY();
+	}
+	
+	public SaveablePoint getCoordinates()
+	{
+		return coordinates;
 	}
 	
 	public void setX(int x)
@@ -40,10 +155,14 @@ public abstract class Sprite implements Saveable
 		coordinates.setY(y);
 	}
 	
-	//TODO figure out what to pass this
 	public void draw(GraphicsContext g)
 	{
 		shapeStrategy.draw(g);
+	}
+	
+	public ShapeStrategy getShapeStrategy()
+	{
+		return shapeStrategy;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -53,13 +172,37 @@ public abstract class Sprite implements Saveable
 		obj.put("type","Sprite");
 		obj.put("coordinates",coordinates.save());
 		obj.put("shapeStrategy",shapeStrategy.save());
+		obj.put("movementStrategy",movementStrategy.save());
+		obj.put("spriteId",spriteId);
 		return obj;
 	}
 	
+	//TODO update 
 	public void load(JSONObject saveData)
 	{
-		coordinates = new Point();
+		coordinates = new SaveablePoint();
 		coordinates.load((JSONObject)saveData.get("coordinates"));
-		//TODO figure out how to load shapestrategy
+		StrategyLoader sl = new StrategyLoader();
+		shapeStrategy = (ShapeStrategy)sl.load((JSONObject)saveData.get("shapeStrategy"));
+		movementStrategy = (MovementStrategy)sl.load((JSONObject)saveData.get("movementStrategy"));
+		movementStrategy.setSubject(this);
+	}
+	
+	//Only returns true if the other sprite is an exact copy
+	//even spriteid needs to match
+	//should only happen during unit testing
+	public boolean equals(Object o)
+	{
+		if (o instanceof Sprite)
+		{
+			Sprite s = (Sprite) o;
+			return spriteId == s.getSpriteId() && coordinates.equals(s.getCoordinates()) ;
+		}
+		return false;
+	}
+
+	public CustomCollisionMap getCustomCollisionMap() 
+	{
+		return null;
 	}
 }

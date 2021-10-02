@@ -6,6 +6,7 @@
 
 
 package Group3.gameMaker.CreateGameView;
+
 import Group3.gameMaker.CreateGameView.Location.LayoutType;
 
 public interface Layable {

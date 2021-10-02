@@ -10,10 +10,15 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.*;
 
+import Group3.gameMaker.Sprite.SpriteMaster;
+import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.CircleStrategy;
+import Group3.gameMaker.CreateGameModel.CreateGameModel;
 import Group3.gameMaker.SaveAndLoad.SaveFileManager;
 import Group3.gameMaker.SaveAndLoad.Saveable;
+import Group3.gameMaker.SaveAndLoad.SaveableColor;
+import Group3.gameMaker.SaveAndLoad.SaveablePoint;
 import Group3.gameMaker.SaveAndLoad.SaveableString;
-import Group3.gameMaker.Sprite.Point;
+import Group3.gameMaker.Sprite.Sprite;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,6 +43,75 @@ public class SaveAndLoadTest
 		assertEquals(ss2,ss4);
 
 	}
+	
+	@Test
+	//This also tests StrategyLoader and ShapeStrategies
+	public void SpriteTest()
+	{
+		SaveFileManager sfm = new SaveFileManager();
+		Sprite breakoutBall = new Sprite();
+		sfm.addSaveObject(breakoutBall);
+		//saving and loading to default location
+		try 
+		{
+			sfm.saveFile();
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+		SaveFileManager loader = new SaveFileManager();
+		try 
+		{
+			loader.loadFile();
+		} 
+		catch (IOException | ParseException e) 
+		{
+			e.printStackTrace();
+		}
+
+		for (int i = 0; i < loader.getSaveObjects().size(); i++)
+		{
+			assertEquals(loader.getSaveObjects().get(i), sfm.getSaveObjects().get(i));
+		}
+	}
+	
+	@Test
+	public void SpriteMasterTest()
+	{
+		SpriteMaster sm = new SpriteMaster();
+		Sprite breakoutBall = new Sprite();
+		Sprite breakoutBall2 = new Sprite();
+		Sprite breakoutBall3 = new Sprite();
+		Sprite breakoutBall4 = new Sprite();
+		Sprite breakoutBall5 = new Sprite();
+		Sprite breakoutBall6 = new Sprite();
+		
+		ArrayList<Sprite> sprites = new ArrayList<>();
+
+
+		sprites.add(breakoutBall);
+		sprites.add(breakoutBall2);
+		sprites.add(breakoutBall3);
+		sprites.add(breakoutBall4);
+		sprites.add(breakoutBall5);
+		sprites.add(breakoutBall6);
+		
+		for (int i = 0; i < sprites.size(); i++)
+		{
+			sm.add(sprites.get(i));
+		}
+
+		for (int i = 0; i < sprites.size(); i++)
+		{
+			//assert that the spriteId is getting set correctly
+			assertEquals(sprites.get(i).getSpriteId(),i);
+			
+			//assert that the spritemaster is storing them correctly
+			assertEquals(sprites.get(i), sm.get(i));
+		}
+	}
+	
 	@Test
 	public void SaveTest()
 	{
@@ -89,7 +163,7 @@ public class SaveAndLoadTest
 		SaveableString ss6 = new SaveableString(" and");
 		SaveableString ss7 = new SaveableString(" load");
 		SaveableString ss8 = new SaveableString(" without issue!");
-		Point point = new Point(1,2);
+		SaveablePoint point = new SaveablePoint(1,2);
 		
 		ArrayList<Saveable> saveables = new ArrayList<>();
 		saveables.add(ss1);
@@ -136,5 +210,91 @@ public class SaveAndLoadTest
 		{
 			assertEquals(loader.getSaveObjects().get(i), sfm.getSaveObjects().get(i));
 		}
+	}
+	
+	@Test
+	public void MovementStrategyPreservationTest()
+	{
+		//Create SLManager, SpriteMaster, Sprite with AutomaticMovementStrategy
+		//Save the sprite, load it, assert that the new Sprite's 
+		//AutomaticMovementStrategy points to the new sprite
+		
+		//TODO
+
+		CreateGameModel cgm = new CreateGameModel();
+		Sprite automaticBall = new Sprite();
+		int before = automaticBall.getSpriteId();
+		//System.out.println(before);
+		cgm.addSprite(automaticBall);
+		//System.out.println(automaticBall.getSpriteId());
+		int after = automaticBall.getSpriteId();
+		assertNotEquals(before,after);
+
+		
+		try {
+			cgm.saveFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//Reset these guys
+		cgm.setSpriteMaster(new SpriteMaster());
+		cgm.setSaveFileManager(new SaveFileManager());
+		
+		try {
+			cgm.loadFile();
+		} catch (IOException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		assertEquals(automaticBall, cgm.getSprite(after));
+		assertEquals(automaticBall.getMovementStrategy(), cgm.getSprite(after).getMovementStrategy());
+	}
+	
+	@Test
+	public void CustomCollisionMapTest()
+	{
+		CreateGameModel cgm = new CreateGameModel();
+		Sprite sprite1 = new Sprite();
+		Sprite sprite2 = new Sprite();
+		Sprite sprite3 = new Sprite();
+		cgm.addSprite(sprite1); //id = 0
+		assertEquals(sprite1.getSpriteId(), 0);
+		cgm.addSprite(sprite2); //id = 1
+		assertEquals(sprite2.getSpriteId(), 1);
+		cgm.addSprite(sprite3); //id = 2
+		assertEquals(sprite3.getSpriteId(), 2);
+		//Goes into sprite1's customcollisionmap and adds <sprite2.getspriteid(), new bcs()
+		sprite1.addCustomCollision(sprite2, new BounceCollisionStrategy());
+		sprite1.addCustomCollision(sprite3, new BounceCollisionStrategy());
+
+		CustomCollisionMap ccm = sprite1.getCustomCollisionMap();
+
+		assertTrue(ccm.getMap().containsKey(sprite2.getSpriteId()));
+		assertTrue(ccm.getMap().containsKey(sprite3.getSpriteId()));
+		
+		try {
+			cgm.saveFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//Reset these guys
+		cgm.setSpriteMaster(new SpriteMaster());
+		cgm.setSaveFileManager(new SaveFileManager());
+		
+		try {
+			cgm.loadFile();
+		} catch (IOException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		sprite1 = cgm.getSprite(0);
+		assertTrue(ccm.getMap().containsKey(sprite2.getSpriteId()));
+		assertTrue(ccm.getMap().containsKey(sprite3.getSpriteId()));
 	}
 }
