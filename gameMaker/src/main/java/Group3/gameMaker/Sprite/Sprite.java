@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import Group3.gameMaker.SaveAndLoad.Saveable;
 import Group3.gameMaker.SaveAndLoad.SaveablePoint;
 import Group3.gameMaker.SaveAndLoad.StrategyLoader;
+import Group3.gameMaker.Sprite.Collision.CustomCollisionMap;
 import Group3.gameMaker.Sprite.MovementStrategy.AutomaticMovementStrategy;
 import Group3.gameMaker.Sprite.MovementStrategy.MovementStrategy;
 import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.CircleStrategy;
@@ -143,6 +144,7 @@ public class Sprite implements Saveable
 		return obj;
 	}
 	
+	//TODO update 
 	public void load(JSONObject saveData)
 	{
 		coordinates = new SaveablePoint();
@@ -164,5 +166,10 @@ public class Sprite implements Saveable
 			return spriteId == s.getSpriteId() && coordinates.equals(s.getCoordinates()) ;
 		}
 		return false;
+	}
+
+	public CustomCollisionMap getCustomCollisionMap() 
+	{
+		return null;
 	}
 }

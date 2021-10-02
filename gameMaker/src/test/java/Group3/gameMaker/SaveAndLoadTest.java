@@ -252,4 +252,49 @@ public class SaveAndLoadTest
 		assertEquals(automaticBall, cgm.getSprite(after));
 		assertEquals(automaticBall.getMovementStrategy(), cgm.getSprite(after).getMovementStrategy());
 	}
+	
+	@Test
+	public void CustomCollisionMapTest()
+	{
+		CreateGameModel cgm = new CreateGameModel();
+		Sprite sprite1 = new Sprite();
+		Sprite sprite2 = new Sprite();
+		Sprite sprite3 = new Sprite();
+		cgm.addSprite(sprite1); //id = 0
+		assertEquals(sprite1.getSpriteId(), 0);
+		cgm.addSprite(sprite2); //id = 1
+		assertEquals(sprite2.getSpriteId(), 1);
+		cgm.addSprite(sprite3); //id = 2
+		assertEquals(sprite3.getSpriteId(), 2);
+		//Goes into sprite1's customcollisionmap and adds <sprite2.getspriteid(), new bcs()
+		sprite1.addCustomCollision(sprite2, new BounceCollisionStrategy());
+		sprite1.addCustomCollision(sprite3, new BounceCollisionStrategy());
+
+		CustomCollisionMap ccm = sprite1.getCustomCollisionMap();
+
+		assertTrue(ccm.getMap().containsKey(sprite2.getSpriteId()));
+		assertTrue(ccm.getMap().containsKey(sprite3.getSpriteId()));
+		
+		try {
+			cgm.saveFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//Reset these guys
+		cgm.setSpriteMaster(new SpriteMaster());
+		cgm.setSaveFileManager(new SaveFileManager());
+		
+		try {
+			cgm.loadFile();
+		} catch (IOException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		sprite1 = cgm.getSprite(0);
+		assertTrue(ccm.getMap().containsKey(sprite2.getSpriteId()));
+		assertTrue(ccm.getMap().containsKey(sprite3.getSpriteId()));
+	}
 }

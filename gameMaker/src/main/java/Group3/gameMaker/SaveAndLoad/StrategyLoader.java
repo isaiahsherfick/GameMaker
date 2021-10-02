@@ -26,12 +26,14 @@ public class StrategyLoader
 				AutomaticMovementStrategy autoMove = new AutomaticMovementStrategy();
 				autoMove.load(strategyJSON);
 				return autoMove;
+			case "BounceCollisionStrategy":
+				BounceCollisionStrategy bounce = new BounceCollisionStrategy();
+				bounce.load(strategyJSON);
+				return bounce;
 				
 			//Add a case for each kind of strategy object we see
 			default:
 				return new NullObject();
 		}
 	}
-	
-
 }
