@@ -56,13 +56,6 @@ public class CreateGameModel
 		spriteMaster.add(s);
 	}
 
-	public void modifySprite(Sprite s)
-	{
-		Sprite sprite = spriteMaster.get(s.getSpriteId());
-		sprite.setSound(s.getSound());
-		sprite.setX(s.getX());
-		sprite.setY(s.getY());
-	}
 
 	//TODO implement a NullSpriteException or something like that
 	public Sprite getSprite(int spriteId)
