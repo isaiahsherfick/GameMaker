@@ -117,10 +117,6 @@ public class CreateGameController implements Controller
 		
 	}
 
-	public void addCommand(Command c) 
-	{
-
-	}
 
 	public void undo() 
 	{
