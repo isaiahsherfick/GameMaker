@@ -76,5 +76,10 @@ public class SaveableColor implements Saveable
 		}
 		return false;
 	}
+	public SaveableColor copy() 
+	{
+		Color newColor = new Color(color.getRed(),color.getBlue(),color.getGreen(),color.getOpacity());
+		return new SaveableColor(newColor);
+	}
 	
 }

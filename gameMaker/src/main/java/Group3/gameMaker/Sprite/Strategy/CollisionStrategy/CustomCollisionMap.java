@@ -16,6 +16,10 @@ public class CustomCollisionMap implements Saveable
 	{
 		map = new HashMap<>();
 	}
+	private CustomCollisionMap(HashMap<Integer,CollisionStrategy> map)
+	{
+		this.map = map;
+	}
 	
 	//adds a new custom collision behavior for when the object that contains this ccm
 	//collides with the sprite of spriteId
@@ -84,5 +88,17 @@ public class CustomCollisionMap implements Saveable
 		{
 			entry.getValue().setCollider(sprite);
 		}	
+	}
+
+	public CustomCollisionMap copy() 
+	{
+		HashMap<Integer, CollisionStrategy> newMap = new HashMap<>();
+
+		for (Entry<Integer, CollisionStrategy> entry : map.entrySet()) 
+		{
+			newMap.put(entry.getKey(),entry.getValue());
+		}	
+		
+		return new CustomCollisionMap(newMap);
 	}
 }

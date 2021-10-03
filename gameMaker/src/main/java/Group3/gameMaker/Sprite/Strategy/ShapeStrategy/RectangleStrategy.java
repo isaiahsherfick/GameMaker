@@ -17,6 +17,13 @@ public class RectangleStrategy implements ShapeStrategy
 		height = -1;
 		color = new SaveableColor();
 	}
+	
+	public RectangleStrategy(int w, int h, SaveableColor c)
+	{
+		width = w;
+		height = h;
+		color = c;
+	}
 
 	@SuppressWarnings("unchecked")
 	public JSONObject save() 
@@ -61,6 +68,12 @@ public class RectangleStrategy implements ShapeStrategy
 	public void setColor(SaveableColor c) 
 	{
 		color = c;
+	}
+
+	@Override
+	public ShapeStrategy copy() 
+	{
+		return new RectangleStrategy(width, height, color.copy());
 	}
 	
 }

@@ -18,6 +18,11 @@ public class EventStrategyLinkedList implements Saveable
 		list = new LinkedList<>();
 		list.add(new DoNothingStrategy());
 	}
+
+	private EventStrategyLinkedList(LinkedList<EventStrategy> newList)
+	{
+		list = newList;
+	}
 	
 	public void add(EventStrategy e)
 	{
@@ -83,5 +88,15 @@ public class EventStrategyLinkedList implements Saveable
 		{
 			list.add((EventStrategy)(sl.load((JSONObject)saveJSON.get(i.toString()))));
 		}
+	}
+
+	public EventStrategyLinkedList copy() 
+	{
+		LinkedList<EventStrategy> newList = new LinkedList<>();
+		for (int i  = 0 ; i  < list.size(); i++)
+		{
+			newList.add(list.get(i));
+		}
+		return new EventStrategyLinkedList(newList);
 	}
 }

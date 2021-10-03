@@ -14,20 +14,18 @@ import Group3.gameMaker.SaveAndLoad.SaveableString;
 public class CommandInvoker
 {
 	private Stack<Command> commands;
-	private Stack<Command> undoableCommands;
-	private Stack<Command> redoableCommands;
+	private Stack<Command> undoneCommands;
 
 	public CommandInvoker() 
 	{
 		commands = new Stack<Command>();
-		undoableCommands = new Stack<Command>();
-		redoableCommands = new Stack<Command>();
+		undoneCommands = new Stack<Command>();
 	}
 
 	public void clearStacks() 
 	{
 		commands.clear();
-		undoableCommands.clear();
+		undoneCommands.clear();
 	}
 
 	public void receiveCommand(Command command) 
@@ -36,21 +34,23 @@ public class CommandInvoker
 		command.execute();
 	}
 	
-	public void undoCommand()
+	public void undo()
 	{
-		if (!undoableCommands.isEmpty())
+		if (!commands.isEmpty())
 		{
-			Command c = undoableCommands.pop();
+			Command c = commands.pop();
 			c.unexecute();
-
+			undoneCommands.add(c);
 		}
 	}
 
-	public void redoCommand() 
+	public void redo() 
 	{
-		if (!redoableCommands.isEmpty())
+		if (!undoneCommands.isEmpty())
 		{
-			redoableCommands.pop().execute();
+			Command c = undoneCommands.pop();
+			c.execute();
+			commands.add(c);
 		}
 	}
 }

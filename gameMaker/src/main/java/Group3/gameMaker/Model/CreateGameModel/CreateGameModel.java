@@ -48,6 +48,7 @@ public class CreateGameModel implements Model
 	{
 		this.saveFileManager = new SaveFileManager();
 		this.spriteMaster = new SpriteMaster();
+		observers = new ArrayList<>();
 	}
 
 	//adds a sprite to the spritemaster.
@@ -56,6 +57,7 @@ public class CreateGameModel implements Model
 	public void addSprite(Sprite s)
 	{
 		spriteMaster.add(s);
+		notifyObservers();
 	}
 
 
@@ -78,14 +80,17 @@ public class CreateGameModel implements Model
 	public void setPathToSaveFile(String path)
 	{
 		saveFileManager.setPathToSaveFile(path);
+		notifyObservers();
 	}
 
 	public void setSpriteMaster(SpriteMaster sm)
 	{
 		spriteMaster = sm;
+		notifyObservers();
 	}
 
-	public SpriteMaster getSpriteMaster() {
+	public SpriteMaster getSpriteMaster() 
+	{
 		return spriteMaster;
 	}
 
@@ -98,6 +103,7 @@ public class CreateGameModel implements Model
 			saveFileManager.addSaveObject((Saveable)sprites.get(i));
 		}
 		saveFileManager.saveFile();
+		notifyObservers();
 	}
 
 	public void loadFile() throws IOException, ParseException
@@ -116,12 +122,13 @@ public class CreateGameModel implements Model
 				spriteMaster.add((Sprite)restoredObjects.get(i));
 			}
 		}
-
+		notifyObservers();
 	}
 	
 	public void deleteSprite(int spriteId)
 	{
 		spriteMaster.deleteSprite(spriteId);
+		notifyObservers();
 	}
 
 	//Passes modifiedSprite to the SpriteMaster
@@ -129,5 +136,6 @@ public class CreateGameModel implements Model
 	public void modifySprite(Sprite modifiedSprite) 
 	{
 		spriteMaster.modifySprite(modifiedSprite);
+		notifyObservers();
 	}
 }
