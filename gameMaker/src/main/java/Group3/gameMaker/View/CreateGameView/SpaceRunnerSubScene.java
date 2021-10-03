@@ -18,8 +18,8 @@ import javafx.util.Duration;
 // TODO pull constants to Constants class
 public class SpaceRunnerSubScene extends SubScene {
 
-	private final static String FONT_PATH = "fonts/kenvector_future.ttf";
-	private final static String BACKGROUND_IMAGE = "backgrounds/red_panel.png";
+	private final static String FONT_PATH = "/Group3/gameMaker/Resource/kenvector_future.ttf";
+	private final static String BACKGROUND_IMAGE = "/Group3/gameMaker/Resource/red_panel.png";
 	private final static String WHOOSH_SOUND_PATH = "mixkit-arrow-whoosh-1491.wav";
 
 	private  boolean isHidden;

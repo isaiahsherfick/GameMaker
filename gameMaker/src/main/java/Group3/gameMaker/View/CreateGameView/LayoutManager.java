@@ -268,9 +268,9 @@ public class LayoutManager implements Layable {
 	}
 
 	private void createBackground() {
-		System.out.println(App.class.getResource("background/deep_blue.png").toString());
+		//System.out.println(App.class.getResource("background/deep_blue.png").toString());
 
-		Image backgroundImage = new Image(App.class.getResource("background/deep_blue.png").toString(), 256, 256, false, false);
+		Image backgroundImage = new Image("/Group3/gameMaker/Resource/deep_blue.png", 256, 256, false, false);
 //		Image backgroundImage = new Image("/gameMaker/src/main/resources/background/deep_blue.png", 256, 256, false, false);
 		BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
 		controlPane.setBackground(new Background(background));

@@ -11,6 +11,8 @@
 
 package Group3.gameMaker.Application;
 
+import Group3.gameMaker.View.View;
+import Group3.gameMaker.View.CreateGameView.CreateGameView;
 import Group3.gameMaker.View.CreateGameView.LayoutManager;
 //import CreateGameView.LayoutManager;
 import javafx.application.Application;
@@ -28,7 +30,10 @@ public class GameMaker extends Application {
 //			primaryStage.setScene(scene);
 //			primaryStage.show();
 			Stage appStage;
-			LayoutManager layoutManager;
+			//LayoutManager layoutManager;
+			
+			 layoutManager;
+			
 			
 			appStage = stage;
 	    	layoutManager = new LayoutManager(appStage);

@@ -84,7 +84,7 @@ public class CreatePanelWindow implements Layable {
 //		BorderPane.setAlignment(controlPane,Pos.CENTER_LEFT);
 		//BorderPane.setAlignment(gameCanvas,Pos.CENTER_RIGHT);
 
-//		createSubScenes();
+		createSubScenes();
 
 		gameScene = new Scene(rootGroup, Constants.CREATE_PANEL_WIDTH, Constants.CREATE_PANEL_HEIGHT);
 		panelStage.setScene(gameScene);
@@ -296,7 +296,7 @@ public class CreatePanelWindow implements Layable {
 
 
 	private void createBackground() {
-		Image backgroundImage = new Image("/background/deep_blue.png", 256, 256, false, false);
+		Image backgroundImage = new Image("/Group3/gameMaker/Resource/deep_blue.png", 256, 256, false, false);
 		BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
 		controlPane.setBackground(new Background(background));
 	}

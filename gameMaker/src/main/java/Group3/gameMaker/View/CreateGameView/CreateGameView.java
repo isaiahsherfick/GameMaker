@@ -13,8 +13,8 @@ public class CreateGameView implements View
 		appStage.setHeight(Constants.CREATE_PANEL_HEIGHT);
 		appStage.setWidth(Constants.CREATE_PANEL_WIDTH);
 		appStage.setTitle("Main Window");
-//		MainWindow mainWindow = new MainWindow(appStage);
-//		mainWindow.makeStage();
+		MainWindow mainWindow = new MainWindow(appStage);
+		mainWindow.makeStage();
 
 		Stage createStage = new Stage();
 		createStage.setX(Constants.WINDOW_PADDING);
@@ -34,8 +34,8 @@ public class CreateGameView implements View
 		ModifyPanelWindow modifyPanelWindow = new ModifyPanelWindow(modifyStage);
 		modifyPanelWindow.makeStage();
 
-		LayoutManager layoutManager = new LayoutManager(appStage);
-		layoutManager.makeStage();
+//		LayoutManager layoutManager = new LayoutManager(appStage);
+//		layoutManager.makeStage();
 
 		createStage.show();
 		modifyStage.show();
