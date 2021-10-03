@@ -24,6 +24,7 @@ public class CreateGameView implements View
 		createStage.setTitle("Create Panel");
 		CreatePanelWindow createPanelWindow = new CreatePanelWindow(createStage);
 		createPanelWindow.makeStage();
+		createPanelWindow.createButtons();
 
 		Stage modifyStage = new Stage();
 		modifyStage.setX(Constants.WINDOW_PADDING);

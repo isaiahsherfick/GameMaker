@@ -35,6 +35,7 @@ public class CreatePanelWindow implements Layable {
 	private SpaceRunnerSubScene audioChooserSubscene;
 	private SpaceRunnerSubScene movementChooserSubscene;
 	private SpaceRunnerSubScene eventChooserSubscene;
+	private SpaceRunnerSubScene sceneToHide;
 
 	List<ShapePicker> shapesList;
 	List<audioPicker> audioList;
@@ -85,6 +86,9 @@ public class CreatePanelWindow implements Layable {
 		//BorderPane.setAlignment(gameCanvas,Pos.CENTER_RIGHT);
 
 		createSubScenes();
+		
+		//createButtons();
+		
 
 		gameScene = new Scene(rootGroup, Constants.CREATE_PANEL_WIDTH, Constants.CREATE_PANEL_HEIGHT);
 		panelStage.setScene(gameScene);
@@ -295,7 +299,7 @@ public class CreatePanelWindow implements Layable {
 
 
 
-	private void createBackground() {
+	public void createBackground() {
 		Image backgroundImage = new Image("/Group3/gameMaker/Resource/deep_blue.png", 256, 256, false, false);
 		BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
 		controlPane.setBackground(new Background(background));
@@ -310,7 +314,7 @@ public class CreatePanelWindow implements Layable {
 
 		@Override
 		public void handle(ActionEvent event) {
-//			showSubScene(shapeChooserSubscene);
+			showSubScene(shapeChooserSubscene);
 
 		}
 	});
@@ -324,7 +328,7 @@ public class CreatePanelWindow implements Layable {
 
 		@Override
 		public void handle(ActionEvent event) {
-//			showSubScene(movementChooserSubscene);
+		showSubScene(movementChooserSubscene);
 
 		}
 	});
@@ -337,7 +341,7 @@ public class CreatePanelWindow implements Layable {
 
 		@Override
 		public void handle(ActionEvent event) {
-//			showSubScene(eventChooserSubscene);
+			showSubScene(eventChooserSubscene);
 
 		}
 	});
@@ -352,7 +356,7 @@ public class CreatePanelWindow implements Layable {
 
 		@Override
 		public void handle(ActionEvent event) {
-//			showSubScene(audioChooserSubscene);
+			showSubScene(audioChooserSubscene);
 
 		}
 	});
@@ -408,6 +412,16 @@ public class CreatePanelWindow implements Layable {
 
 
 	}
+	
+	private void showSubScene(SpaceRunnerSubScene subScene) {
+		if (sceneToHide != null) {
+			sceneToHide.moveSubScene();
+		}
+
+		subScene.moveSubScene();
+		sceneToHide = subScene;
+	}
+	
 
 	public void addButtonToControlPanel(LayableButton button) {
 		controlPane.AddChild(button);
