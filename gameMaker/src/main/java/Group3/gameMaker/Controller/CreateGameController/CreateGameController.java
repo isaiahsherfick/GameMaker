@@ -134,4 +134,10 @@ public class CreateGameController implements Controller
 	{
 		return createGameModel.getSpriteMaster().getViewMap();
 	}
+
+	@Override
+	public void update() 
+	{
+		//Not neeeded for create game context
+	}
 }

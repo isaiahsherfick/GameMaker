@@ -51,4 +51,28 @@ public class DoNothingStrategy implements EventStrategy
 	{
 		subject = s;
 	}
+
+	@Override
+	public int getVelocityX() 
+	{
+		return 0;
+	}
+
+	@Override
+	public int getVelocityY() 
+	{
+		return 0;
+	}
+
+	@Override
+	public void setVelocityX(int v) 
+	{
+		
+	}
+
+	@Override
+	public void setVelocityY(int v) 
+	{
+		
+	}
 }

@@ -13,4 +13,5 @@ public interface Controller
 	public void undo();
 	public void redo();
 	public HashMap<Integer, Integer> getSpriteIds();
+	public void update();
 }

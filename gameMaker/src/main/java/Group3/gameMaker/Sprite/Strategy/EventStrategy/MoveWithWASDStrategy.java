@@ -55,4 +55,24 @@ public class MoveWithWASDStrategy implements EventStrategy
 	{	
 		return;
 	}
+
+	public int getVelocityX() 
+	{
+		return velocityPair.getX();
+	}
+
+	public int getVelocityY() 
+	{
+		return velocityPair.getY();
+	}
+
+	public void setVelocityX(int v) 
+	{
+		velocityPair.setX(v);
+	}
+
+	public void setVelocityY(int v) 
+	{
+		velocityPair.setY(v);
+	}
 }

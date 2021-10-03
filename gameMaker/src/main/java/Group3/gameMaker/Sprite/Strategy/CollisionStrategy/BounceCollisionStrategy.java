@@ -41,20 +41,20 @@ public class BounceCollisionStrategy implements CollisionStrategy {
 		case TOP_RIGHT:
 		case BOTTOM_LEFT:
 		case BOTTOM_RIGHT:
-			velocityX = collider.getMovementStrategy().getVelocityX();
-			collider.getMovementStrategy().setVelocityX(velocityX * FLIP_DIRECTION);
-			velocityY = collider.getMovementStrategy().getVelocityY();
-			collider.getMovementStrategy().setVelocityY(velocityY * FLIP_DIRECTION);
+			velocityX = collider.getVelocityX();
+			collider.setVelocityX(velocityX * FLIP_DIRECTION);
+			velocityY = collider.getVelocityY();
+			collider.setVelocityY(velocityY * FLIP_DIRECTION);
 			break;
 		case BOTTOM_CENTER:
 		case TOP_CENTER:
-			velocityY = collider.getMovementStrategy().getVelocityY();
-			collider.getMovementStrategy().setVelocityY(velocityY * FLIP_DIRECTION);
+			velocityY = collider.getVelocityY();
+			collider.setVelocityY(velocityY * FLIP_DIRECTION);
 			break;
 		case LEFT_CENTER:
 		case RIGHT_CENTER:
-			velocityX = collider.getMovementStrategy().getVelocityX();
-			collider.getMovementStrategy().setVelocityX(velocityX * FLIP_DIRECTION);
+			velocityX = collider.getVelocityX();
+			collider.setVelocityX(velocityX * FLIP_DIRECTION);
 			break;
 		case NO_OVERLAP:
 		};

@@ -220,6 +220,8 @@ public class SaveAndLoadTest
 		}
 	}
 	
+	//Deprecated : movementstrategy
+	/*
 	@Test
 	public void MovementStrategyPreservationTest()
 	{
@@ -261,6 +263,7 @@ public class SaveAndLoadTest
 		assertEquals(automaticBall.getMovementStrategy(), cgm.getSprite(after).getMovementStrategy());
 		assertEquals(automaticBall, cgm.getSprite(after).getMovementStrategy().getSubject());
 	}
+	*/
 	
 	@Test
 	public void CustomCollisionMapTest()

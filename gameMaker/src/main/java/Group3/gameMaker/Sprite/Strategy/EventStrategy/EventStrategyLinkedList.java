@@ -99,4 +99,72 @@ public class EventStrategyLinkedList implements Saveable
 		}
 		return new EventStrategyLinkedList(newList);
 	}
+
+	//This overwrites all of the different velocities
+	//that may be present in a particularly complex object's EventStrategyLinkedList
+	//but we don't have time to fix that right now
+	//Just a heads up in case you inherit this code and have that issue
+	public void setVelocityX(int v) 
+	{
+		for (int i  = 0 ; i  < list.size(); i++)
+		{
+			list.get(i).setVelocityX(v);
+		}
+	}
+
+	//This overwrites all of the different velocities
+	//that may be present in a particularly complex object's EventStrategyLinkedList
+	//but we don't have time to fix that right now
+	//Just a heads up in case you inherit this code and have that issue
+	public void setVelocityY(int v) 
+	{
+		for (int i  = 0 ; i  < list.size(); i++)
+		{
+			list.get(i).setVelocityY(v);
+		}
+	}
+
+	//Gets the largest velocity in the EventStrategyLinkedList in terms of absolute value
+	public int getVelocityY() 
+	{
+		int largestSpeed = 0;
+		boolean isNegative = false;
+		for (int i = 0; i < list.size(); i++)
+		{
+			if (Math.abs(list.get(i).getVelocityY()) > largestSpeed)
+			{
+				isNegative = (list.get(i).getVelocityY() < 0);
+				largestSpeed = Math.abs(list.get(i).getVelocityY());
+			}
+		}
+		if (isNegative)
+			return largestSpeed * -1;
+		return largestSpeed;
+	}
+
+	//Gets the largest velocity in the EventStrategyLinkedList in terms of absolute value
+	public int getVelocityX() 
+	{
+		int largestSpeed = 0;
+		boolean isNegative = false;
+		for (int i = 0; i < list.size(); i++)
+		{
+			if (Math.abs(list.get(i).getVelocityX()) > largestSpeed)
+			{
+				isNegative = (list.get(i).getVelocityX() < 0);
+				largestSpeed = Math.abs(list.get(i).getVelocityX());
+			}
+		}
+		if (isNegative)
+			return largestSpeed * -1;
+		return largestSpeed;
+	}
+
+	public void onClockTick() 
+	{
+		for ( EventStrategy e : list)
+		{
+			e.onClockTick();
+		}
+	}
 }

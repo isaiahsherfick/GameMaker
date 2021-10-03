@@ -5,10 +5,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import Group3.gameMaker.Controller.CreateGameController.CreateGameController;
+import Group3.gameMaker.Controller.PlayGameController.PlayGameController;
 import Group3.gameMaker.Model.CreateGameModel.CreateGameModel;
+import Group3.gameMaker.Model.PlayGameModel.PlayGameModel;
+import Group3.gameMaker.SaveAndLoad.SaveablePoint;
 import Group3.gameMaker.Sprite.Sprite;
 import Group3.gameMaker.Sprite.Strategy.EventStrategy.MoveOnClockTickStrategy;
 import Group3.gameMaker.View.CreateGameView.CreateGameView;
+import Group3.gameMaker.View.PlayGameView.PlayGameView;
 
 class MVCTest {
 
@@ -52,6 +56,43 @@ class MVCTest {
 
 		assertEquals(m.getSpriteMaster().numberOfSprites(),1);
 		//Also expect a print statement for drawing sprite#0
+	}
+
+	public void PlayMVCTest()
+	{
+		CreateGameModel cm = new CreateGameModel();
+		CreateGameView cv = new CreateGameView();
+		CreateGameController cc = new CreateGameController();
+		cv.setCreateGameController(cc);
+		cm.addObserver(cv);
+		cm.setCreateGameController(cc);
+		cc.setCreateGameModel(cm);
+		cc.setCreateGameView(cv);
+		cv.createSprite();
+		assertEquals(cm.getSpriteMaster().numberOfSprites(),1);
+		//Add a sprite
+		//Should be at 0,0 with a donothingstrategy
+		cv.addEventStrategy(new MoveOnClockTickStrategy(5,5), 0);
+
+		
+		
+		PlayGameModel m = new PlayGameModel();
+		PlayGameView v = new PlayGameView();
+		PlayGameController c = new PlayGameController();
+
+		v.setPlayGameController(c);
+		m.addObserver(v);
+		m.setPlayGameController(c);
+		c.setPlayGameModel(m);
+		c.setPlayGameView(v);
+		m.setCreateGameModel(cm);
+		m.pull();
+		
+		SaveablePoint before = m.getSprite(0).getCoordinates();
+		c.forceTick();
+		SaveablePoint after = m.getSprite(0).getCoordinates();
+		assertNotEquals(before, after);
+
 	}
 	
 
