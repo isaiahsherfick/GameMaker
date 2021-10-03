@@ -13,11 +13,14 @@ public class GameClock implements Runnable
 	private static final int MILLISECONDS_BETWEEN_FRAMES = SIXTY_FPS;
 	private int ticks;
 	private Thread myThread;
+	private boolean threadAlreadyRunning;
 	public GameClock()
 	{
 		observers = new ArrayList<>();
 		paused = true;
 		myThread = new Thread(this);
+		threadAlreadyRunning = false;
+		ticks = 0;
 	}
 	
 	public void notifyObservers()
@@ -31,11 +34,20 @@ public class GameClock implements Runnable
 	public void tick() 
 	{
 		notifyObservers();
+		ticks++;
+		System.out.println("Ticks: " +ticks);
+		System.out.println("Seconds: " + getTicksInSeconds());
 	}
 	
 	public void start()
 	{
-		myThread.start();
+		if (!threadAlreadyRunning)
+		{
+			myThread.start();
+			paused = false;
+			threadAlreadyRunning = true;
+		}
+
 	}
 	
 	public void pause()
@@ -52,6 +64,7 @@ public class GameClock implements Runnable
 	{
 		try 
 		{
+			threadAlreadyRunning = false;
 			myThread.join();
 		} 
 		catch (InterruptedException e) 
@@ -72,22 +85,26 @@ public class GameClock implements Runnable
 		switch(MILLISECONDS_BETWEEN_FRAMES)
 		{
 			case SIXTY_FPS:
-				return ticks * 60;
+				return (int)Math.floor(ticks / 60);
 			case THIRTY_FPS:
-				return ticks * 30;
+				return (int) Math.floor(ticks / 30);
 			default:
 				return 0;
 		}
 	}
 	
+	//run() for the thread
 	public void run()
 	{
-		if (!paused)
+		while(threadAlreadyRunning)
 		{
 			try 
 			{
 				Thread.sleep(MILLISECONDS_BETWEEN_FRAMES);
-				tick();
+				if (!paused)
+				{
+					tick();
+				}
 			} 
 			catch (InterruptedException e) 
 			{
@@ -95,5 +112,10 @@ public class GameClock implements Runnable
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public void addObserver(Controller playGameController) 
+	{
+		observers.add(playGameController);
 	}
 }

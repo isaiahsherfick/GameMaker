@@ -20,6 +20,7 @@ public class PlayGameModel implements Model
 	public PlayGameModel()
 	{
 		observers = new ArrayList<>();
+		spriteMaster = new SpriteMaster();
 	}
 
 	public Sprite getSprite(int spriteId) 

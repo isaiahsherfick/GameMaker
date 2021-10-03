@@ -20,6 +20,8 @@ public class PlayGameController implements Controller
 	public PlayGameController() 
 	{
 		CollisionDetector collisionDetector = new CollisionDetector();
+		clock = new GameClock();
+		clock.addObserver(this);
 	}
 
 	public View getPlayGameView() 
@@ -102,5 +104,25 @@ public class PlayGameController implements Controller
 	public void onKeyPress()
 	{
 		
+	}
+
+	public void startClock() 
+	{
+		clock.start();
+	}
+
+	public void stopClock() 
+	{
+		clock.stop();
+	}
+
+	public void pause() 
+	{
+		clock.pause();
+	}
+	
+	public void unpause()
+	{
+		clock.unpause();
 	}
 }

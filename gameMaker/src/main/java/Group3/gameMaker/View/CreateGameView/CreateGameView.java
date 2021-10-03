@@ -36,7 +36,7 @@ public class CreateGameView implements View
 	
 	public void drawSprite(int spriteId)
 	{
-		System.out.printf("Drawing Sprite#%d\n",spriteId);
+		//System.out.printf("Drawing Sprite#%d\n",spriteId);
 	}
 	
 	public void drawSprites()
@@ -46,7 +46,7 @@ public class CreateGameView implements View
 		{
 			drawSprite(entry.getKey());
 		}
-		System.out.printf("Done drawing sprites\n");
+		//System.out.printf("Done drawing sprites\n");
 	}
 
 	public void update()
@@ -66,6 +66,11 @@ public class CreateGameView implements View
 		createGameController.createSprite(s);
 	}
 	
+	public Sprite getSprite(int spriteId)
+	{
+		return createGameController.getSprite(spriteId);
+	}
+	
 	public void addEventStrategy(EventStrategy e, int spriteId)
 	{
 
@@ -73,6 +78,7 @@ public class CreateGameView implements View
 		s.addEventStrategy(e);
 		createGameController.modifySprite(s);
 	}
+	
 
 	public void undo() 
 	{
