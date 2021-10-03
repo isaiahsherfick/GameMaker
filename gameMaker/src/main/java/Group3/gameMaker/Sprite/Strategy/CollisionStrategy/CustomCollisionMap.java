@@ -10,6 +10,7 @@ import Group3.gameMaker.Sprite.Sprite;
 
 public class CustomCollisionMap implements Saveable
 {
+	private static final int DEFAULT_COLLISION = -2;
 	private HashMap<Integer, CollisionStrategy> map;
 	
 	public CustomCollisionMap()
@@ -19,6 +20,7 @@ public class CustomCollisionMap implements Saveable
 	private CustomCollisionMap(HashMap<Integer,CollisionStrategy> map)
 	{
 		this.map = map;
+		map.put(DEFAULT_COLLISION, new NoCollisionStrategy());
 	}
 	
 	//adds a new custom collision behavior for when the object that contains this ccm
