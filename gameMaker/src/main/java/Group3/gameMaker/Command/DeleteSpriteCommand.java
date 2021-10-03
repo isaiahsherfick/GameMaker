@@ -1,28 +1,28 @@
 package Group3.gameMaker.Command;
 
+import Group3.gameMaker.Model.CreateGameModel.CreateGameModel;
 import Group3.gameMaker.Sprite.Sprite;
-import Group3.gameMaker.Sprite.SpriteMaster;
 
 public class DeleteSpriteCommand implements Command
 {
 	private int spriteId;
 	private Sprite redoableSprite;
-	private SpriteMaster spriteMaster;
+	private CreateGameModel model;
 	
-	public DeleteSpriteCommand(int sid, SpriteMaster sm)
+	public DeleteSpriteCommand(int sid, CreateGameModel cgm)
 	{
 		spriteId = sid;
-		spriteMaster = sm;
+		model = cgm;
 	}
 	
 	public void execute()
 	{
-		redoableSprite = spriteMaster.get(spriteId);
-		spriteMaster.deleteSprite(spriteId);
+		redoableSprite = model.getSprite(spriteId);
+		model.deleteSprite(spriteId);
 	}
 	
 	public void unexecute()
 	{
-		spriteMaster.add(redoableSprite);
+		model.addSprite(redoableSprite);
 	}
 }

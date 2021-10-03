@@ -18,6 +18,8 @@ import Group3.gameMaker.Sprite.Strategy.EventStrategy.EventStrategyLinkedList;
 import Group3.gameMaker.Sprite.Strategy.EventStrategy.MoveOnClockTickStrategy;
 import Group3.gameMaker.Sprite.Strategy.EventStrategy.MoveWithWASDStrategy;
 import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.CircleStrategy;
+import Group3.gameMaker.View.CreateGameView.CreateGameView;
+import Group3.gameMaker.Controller.CreateGameController.CreateGameController;
 import Group3.gameMaker.Model.CreateGameModel.CreateGameModel;
 import Group3.gameMaker.SaveAndLoad.SaveFileManager;
 import Group3.gameMaker.SaveAndLoad.Saveable;
@@ -218,6 +220,8 @@ public class SaveAndLoadTest
 		}
 	}
 	
+	//Deprecated : movementstrategy
+	/*
 	@Test
 	public void MovementStrategyPreservationTest()
 	{
@@ -259,6 +263,7 @@ public class SaveAndLoadTest
 		assertEquals(automaticBall.getMovementStrategy(), cgm.getSprite(after).getMovementStrategy());
 		assertEquals(automaticBall, cgm.getSprite(after).getMovementStrategy().getSubject());
 	}
+	*/
 	
 	@Test
 	public void CustomCollisionMapTest()
@@ -366,4 +371,5 @@ public class SaveAndLoadTest
 		assertEquals(deltaSprite2.getEventStrategyListLength(),2); //changecolor -> donothing
 		assertEquals(deltaSprite3.getEventStrategyListLength(),1); //donothing
 	}
+	
 }

@@ -13,28 +13,30 @@ import java.util.ArrayList;
 import org.json.simple.parser.ParseException;
 
 import Group3.gameMaker.Controller.CreateGameController.CreateGameController;
+import Group3.gameMaker.Model.Model;
 import Group3.gameMaker.SaveAndLoad.SaveFileManager;
 import Group3.gameMaker.SaveAndLoad.Saveable;
 import Group3.gameMaker.Sprite.Sprite;
 import Group3.gameMaker.Sprite.SpriteMaster;
+import Group3.gameMaker.View.View;
 import Group3.gameMaker.View.CreateGameView.CreateGameView;
 
-public class CreateGameModel
+public class CreateGameModel implements Model
 {
 
 	private SaveFileManager saveFileManager;
 	private SpriteMaster spriteMaster;
 	private CreateGameController createGameController;
-	private ArrayList<CreateGameView> observers;
+	private ArrayList<View> observers;
 
 	//register a view
-	private void addObserver(CreateGameView newObserver)
+	public void addObserver(View newObserver)
 	{
 		observers.add(newObserver);
 	}
 
 	//update views
-	private void notifyObservers()
+	public void notifyObservers()
 	{
 		for (int i = 0; i < observers.size(); i++)
 		{
@@ -46,6 +48,7 @@ public class CreateGameModel
 	{
 		this.saveFileManager = new SaveFileManager();
 		this.spriteMaster = new SpriteMaster();
+		observers = new ArrayList<>();
 	}
 
 	//adds a sprite to the spritemaster.
@@ -54,6 +57,7 @@ public class CreateGameModel
 	public void addSprite(Sprite s)
 	{
 		spriteMaster.add(s);
+		notifyObservers();
 	}
 
 
@@ -76,14 +80,17 @@ public class CreateGameModel
 	public void setPathToSaveFile(String path)
 	{
 		saveFileManager.setPathToSaveFile(path);
+		notifyObservers();
 	}
 
 	public void setSpriteMaster(SpriteMaster sm)
 	{
 		spriteMaster = sm;
+		notifyObservers();
 	}
 
-	public SpriteMaster getSpriteMaster() {
+	public SpriteMaster getSpriteMaster() 
+	{
 		return spriteMaster;
 	}
 
@@ -96,6 +103,7 @@ public class CreateGameModel
 			saveFileManager.addSaveObject((Saveable)sprites.get(i));
 		}
 		saveFileManager.saveFile();
+		notifyObservers();
 	}
 
 	public void loadFile() throws IOException, ParseException
@@ -114,12 +122,13 @@ public class CreateGameModel
 				spriteMaster.add((Sprite)restoredObjects.get(i));
 			}
 		}
-
+		notifyObservers();
 	}
 	
 	public void deleteSprite(int spriteId)
 	{
 		spriteMaster.deleteSprite(spriteId);
+		notifyObservers();
 	}
 
 	//Passes modifiedSprite to the SpriteMaster
@@ -127,5 +136,6 @@ public class CreateGameModel
 	public void modifySprite(Sprite modifiedSprite) 
 	{
 		spriteMaster.modifySprite(modifiedSprite);
+		notifyObservers();
 	}
 }

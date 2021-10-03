@@ -46,22 +46,43 @@ public class ChangeColorOnTickStrategy implements EventStrategy
 
 	public void onClockTick() 
 	{
+		//TODO make this random
 		SaveableColor c = new SaveableColor();
 		subject.setColor(c);
 	}
 
-	public void onKeyPress() {
-		// TODO Auto-generated method stub
+	public void onKeyPress() 
+	{
 		
 	}
 
-	public void onMouseClick() {
-		// TODO Auto-generated method stub
+	public void onMouseClick() 
+	{
+
+	}
+
+	public void setSubject(Sprite s) 
+	{
+		subject = s;
+	}
+
+	@Override
+	public int getVelocityX() {
+		return 0;
+	}
+
+	@Override
+	public int getVelocityY() {
+		return 0;
+	}
+
+	@Override
+	public void setVelocityX(int v) {
 		
 	}
 
-	public void setSubject(Sprite s) {
-		// TODO Auto-generated method stub
+	@Override
+	public void setVelocityY(int v) {
 		
 	}
 

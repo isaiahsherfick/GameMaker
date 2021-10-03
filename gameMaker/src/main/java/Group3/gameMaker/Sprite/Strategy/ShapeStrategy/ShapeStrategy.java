@@ -16,4 +16,5 @@ public interface ShapeStrategy extends Saveable
 	public int getHeight();
 	public SaveableColor getColor();
 	public void setColor(SaveableColor c);
+	public ShapeStrategy copy();
 }

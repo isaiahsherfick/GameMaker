@@ -71,4 +71,9 @@ public class SaveablePoint implements Saveable
 		}
 		return false;
 	}
+
+	public SaveablePoint copy() 
+	{
+		return new SaveablePoint(x,y);
+	}
 }

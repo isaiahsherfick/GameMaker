@@ -1,5 +1,6 @@
 package Group3.gameMaker.Command;
 
+import Group3.gameMaker.Model.CreateGameModel.CreateGameModel;
 import Group3.gameMaker.Sprite.Sprite;
 import Group3.gameMaker.Sprite.SpriteMaster;
 
@@ -8,27 +9,28 @@ public class ModifySpriteCommand implements Command
 	private Sprite subject;
 	private Sprite previousState;
 	private int spriteId;
-	private SpriteMaster spriteMaster;
+	private CreateGameModel model;
 	
-	public ModifySpriteCommand(Sprite s, SpriteMaster sm)
+	public ModifySpriteCommand(Sprite s, CreateGameModel cgm)
 	{
 		subject = s;
 		spriteId = s.getSpriteId();
-		spriteMaster = sm;
+		model = cgm;
 	}
 	
 	@Override
 	public void execute() 
 	{
-		previousState = spriteMaster.get(spriteId);
-		spriteMaster.modifySprite(subject);
+		previousState = model.getSprite(spriteId).copy();
+		model.modifySprite(subject);
 	}
 
 	@Override
 	public void unexecute() {
 		if (previousState != null)
 		{
-			spriteMaster.modifySprite(previousState);
+			model.modifySprite(previousState);
+			previousState = subject;
 		}
 	}
 

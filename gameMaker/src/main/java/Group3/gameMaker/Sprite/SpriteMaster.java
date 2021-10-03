@@ -43,10 +43,25 @@ public class SpriteMaster
 		return returnList;
 	}
 
+	public int numberOfSprites()
+	{
+		return spriteMap.size();
+	}
+	public HashMap<Integer, Integer> getViewMap()
+	{
+		HashMap<Integer,Integer> newmap = new HashMap<>();
+		for (Entry<Integer, Sprite> entry : spriteMap.entrySet())
+		{
+			newmap.put(entry.getKey(), entry.getKey());
+		}
+		return newmap;
+	}
+	
+	
+
 	public void modifySprite(Sprite modifiedSprite) 
 	{
 		spriteMap.put(modifiedSprite.getSpriteId(), modifiedSprite);
-		add(modifiedSprite);
 	}
 
 	public void deleteSprite(int spriteId) 
