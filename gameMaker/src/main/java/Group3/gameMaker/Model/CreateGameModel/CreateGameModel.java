@@ -13,28 +13,30 @@ import java.util.ArrayList;
 import org.json.simple.parser.ParseException;
 
 import Group3.gameMaker.Controller.CreateGameController.CreateGameController;
+import Group3.gameMaker.Model.Model;
 import Group3.gameMaker.SaveAndLoad.SaveFileManager;
 import Group3.gameMaker.SaveAndLoad.Saveable;
 import Group3.gameMaker.Sprite.Sprite;
 import Group3.gameMaker.Sprite.SpriteMaster;
+import Group3.gameMaker.View.View;
 import Group3.gameMaker.View.CreateGameView.CreateGameView;
 
-public class CreateGameModel
+public class CreateGameModel implements Model
 {
 
 	private SaveFileManager saveFileManager;
 	private SpriteMaster spriteMaster;
 	private CreateGameController createGameController;
-	private ArrayList<CreateGameView> observers;
+	private ArrayList<View> observers;
 
 	//register a view
-	private void addObserver(CreateGameView newObserver)
+	public void addObserver(View newObserver)
 	{
 		observers.add(newObserver);
 	}
 
 	//update views
-	private void notifyObservers()
+	public void notifyObservers()
 	{
 		for (int i = 0; i < observers.size(); i++)
 		{

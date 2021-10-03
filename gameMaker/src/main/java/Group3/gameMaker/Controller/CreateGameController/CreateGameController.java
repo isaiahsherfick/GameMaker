@@ -2,6 +2,7 @@
 package Group3.gameMaker.Controller.CreateGameController;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.json.simple.parser.ParseException;
 
@@ -127,6 +128,13 @@ public class CreateGameController implements Controller
 	public void redo() 
 	{
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public HashMap<Integer, Integer> getSpriteIds() 
+	{
+		HashMap<Integer,Integer> spriteIds = new HashMap<>();
 		
 	}
 }

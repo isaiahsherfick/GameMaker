@@ -18,6 +18,8 @@ import Group3.gameMaker.Sprite.Strategy.EventStrategy.EventStrategyLinkedList;
 import Group3.gameMaker.Sprite.Strategy.EventStrategy.MoveOnClockTickStrategy;
 import Group3.gameMaker.Sprite.Strategy.EventStrategy.MoveWithWASDStrategy;
 import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.CircleStrategy;
+import Group3.gameMaker.View.CreateGameView.CreateGameView;
+import Group3.gameMaker.Controller.CreateGameController.CreateGameController;
 import Group3.gameMaker.Model.CreateGameModel.CreateGameModel;
 import Group3.gameMaker.SaveAndLoad.SaveFileManager;
 import Group3.gameMaker.SaveAndLoad.Saveable;
@@ -366,4 +368,13 @@ public class SaveAndLoadTest
 		assertEquals(deltaSprite2.getEventStrategyListLength(),2); //changecolor -> donothing
 		assertEquals(deltaSprite3.getEventStrategyListLength(),1); //donothing
 	}
+	
+	@Test
+	public void CreateMVCTest()
+	{
+		CreateGameModel m = new CreateGameModel();
+		CreateGameView v = new CreateGameView();
+		CreateGameController c = new CreateGameController();
+	}
+	
 }
