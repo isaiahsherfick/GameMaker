@@ -39,6 +39,8 @@ public class ModifyPanelWindow implements Layable {
 		layables = new ArrayList<Layable>();
 		propertyStage.setWidth(Constants.MODIFY_PANEL_WIDTH);
 		propertyStage.setHeight(Constants.MODIFY_PANEL_HEIGHT);
+		panelStage.setWidth(Constants.MODIFY_PANEL_WIDTH);
+		panelStage.setHeight(Constants.MODIFY_PANEL_HEIGHT);
 //		panelStage.setX(Constants.MODIFY_PANEL_X);
 //		panelStage.setY(Constants.MODIFY_PANEL_Y);
 	}

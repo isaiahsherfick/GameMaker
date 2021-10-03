@@ -75,7 +75,7 @@ public class LayoutManager implements Layable {
 	List<audioPicker> audioList;
 	List<movePicker> moveList;
 	List<eventPicker> eventList;
-	private SHAPE choosenShape;
+	private Shape chosenShape;
 	private AUDIO choosenaudio;
 	private MOVEMENT choosenmove;
 	private EVENT choosenevent;
@@ -311,10 +311,10 @@ public class LayoutManager implements Layable {
 
 	private void showSubScene(SpaceRunnerSubScene subScene) {
 		if (sceneToHide != null) {
-			sceneToHide.moveSubScene();
+			sceneToHide.moveInSubScene();
 		}
 
-		subScene.moveSubScene();
+		subScene.moveInSubScene();
 		sceneToHide = subScene;
 	}
 
@@ -440,7 +440,7 @@ public class LayoutManager implements Layable {
 		HBox box = new HBox();
 		box.setSpacing(60);
 		shapesList = new ArrayList<>();
-		for (SHAPE shape : SHAPE.values()) {
+		for (Shape shape : Shape.values()) {
 			final ShapePicker shapeToPick = new ShapePicker(shape);
 			shapesList.add(shapeToPick);
 			box.getChildren().add(shapeToPick);
@@ -452,7 +452,7 @@ public class LayoutManager implements Layable {
 						shape.setIsCircleChoosen(false);
 					}
 					shapeToPick.setIsCircleChoosen(true);
-					choosenShape = shapeToPick.getShapes();
+					chosenShape = shapeToPick.getShapes();
 
 				}
 			});
@@ -528,9 +528,14 @@ public class LayoutManager implements Layable {
 			
 
 			@Override
+<<<<<<< Updated upstream
 			public void handle(ActionEvent event) { 
 					
 				if (choosenaudio != null) {
+=======
+			public void handle(ActionEvent event) {
+				if (chosenShape != null) {
+>>>>>>> Stashed changes
 //					GameViewManager gameManager = new GameViewManager();
 //					gameManager.createNewGameAudio(choosenaudio);;
 				}

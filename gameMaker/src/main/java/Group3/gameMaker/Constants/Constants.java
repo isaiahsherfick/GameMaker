@@ -3,7 +3,7 @@ package Group3.gameMaker.Constants;
 import javafx.stage.Screen;
 
 public class Constants {
-	public static final double SCREEN_SCALE = 1;//(Screen.getPrimary().getDpi()/72); // This is because a 1920 screen width is registered as a 1440
+	public static final double SCREEN_SCALE = (Screen.getPrimary().getDpi()/72); // This is because a 1920 screen width is registered as a 1440
 	public static final int VISUAL_HEIGHT = (int)Screen.getPrimary().getVisualBounds().getWidth();
 	public static final int VISUAL_WIDTH = (int)Screen.getPrimary().getVisualBounds().getHeight();
 	public static final int SCREEN_HEIGHT = (int)(Screen.getPrimary().getBounds().getWidth());
@@ -38,4 +38,18 @@ public class Constants {
 	public static final int BUTTON_HEIGHT = 700;
 	public static final int BUTTON_WIDTH = 800;
 
+	public static final int LAYABLE_BUTTON_WIDTH = 190;
+	public static final int LAYABLE_BUTTON_HEIGHT = 48;
+	public static final int LAYABLE_BUTTON_HEIGHT_ON_PRESS = 44;
+	public static final int LAYABLE_BUTTON_PADDING = 20;
+	public static final int LAYABLE_BUTTON_MARGIN = 50;
+
+	//MAC SPECIFIC - DO NOT MODIFY
+	public static final int ADD_SPRITE_SUBSCENE_DEST_X = - CREATE_PANEL_WIDTH - LAYABLE_BUTTON_MARGIN*2 - WINDOW_SPACING - 5;
+	public static final int ADD_SPRITE_SUBSCENE_DEST_Y = - 200;
+
+	public static final int ADD_SPRITE_SUBSCENE_SOURCE_X = 500;
+	public static final int ADD_SPRITE_SUBSCENE_SOURCE_Y = 600;
+	public static final int ADD_SPRITE_SUBSCENE_HEIGHT = 275;
+	public static final int ADD_SPRITE_SUBSCENE_WIDTH = CREATE_PANEL_WIDTH; //400
 }

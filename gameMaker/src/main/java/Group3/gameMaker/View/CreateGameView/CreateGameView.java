@@ -24,30 +24,34 @@ public class CreateGameView implements View
 	}
 	
 	public CreateGameView(Stage appStage) {
-		appStage.setX(Constants.WINDOW_PADDING);
-		appStage.setY(Constants.WINDOW_PADDING);
-		appStage.setHeight(Constants.CREATE_PANEL_HEIGHT);
-		appStage.setWidth(Constants.CREATE_PANEL_WIDTH);
+//		appStage.setX(Constants.MAIN_WINDOW_X);
+//		appStage.setY(Constants.MAIN_WINDOW_Y);
+		appStage.centerOnScreen();
+		appStage.setHeight(Constants.MAIN_WINDOW_HEIGHT);
+		appStage.setWidth(Constants.MAIN_WINDOW_WIDTH);
 		appStage.setTitle("Main Window");
 		MainWindow mainWindow = new MainWindow(appStage);
+//		appStage.setResizable(false);
 		mainWindow.makeStage();
 
 		Stage createStage = new Stage();
-		createStage.setX(Constants.WINDOW_PADDING);
-		createStage.setY(Constants.WINDOW_PADDING);
+		createStage.setX(Constants.CREATE_PANEL_X);
+		createStage.setY(Constants.CREATE_PANEL_Y);
 		createStage.setHeight(Constants.CREATE_PANEL_HEIGHT);
 		createStage.setWidth(Constants.CREATE_PANEL_WIDTH);
 		createStage.setTitle("Create Panel");
+//		createStage.setResizable(false);
 		CreatePanelWindow createPanelWindow = new CreatePanelWindow(createStage);
 		createPanelWindow.makeStage();
 		createPanelWindow.createButtons();
 
 		Stage modifyStage = new Stage();
-		modifyStage.setX(Constants.WINDOW_PADDING);
-		modifyStage.setY(Constants.WINDOW_PADDING);
+		modifyStage.setX(Constants.MODIFY_PANEL_X);
+		modifyStage.setY(Constants.MODIFY_PANEL_Y);
 		modifyStage.setHeight(Constants.MODIFY_PANEL_HEIGHT);
 		modifyStage.setWidth(Constants.MODIFY_PANEL_WIDTH);
 		modifyStage.setTitle("Sprite Properties");
+//		modifyStage.setResizable(false);
 		ModifyPanelWindow modifyPanelWindow = new ModifyPanelWindow(modifyStage);
 		modifyPanelWindow.makeStage();
 

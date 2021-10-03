@@ -3,7 +3,7 @@
 //    Created on: 22 Sep 2021
 //     Edited by: Snehal Patare
 //Edited last by: Isaiah Sherfick
-//   Last change: Created GameMaker.java 
+//   Last change: Created GameMaker.java
 
 
 
@@ -31,25 +31,25 @@ public class GameMaker extends Application {
 //			primaryStage.show();
 			Stage appStage;
 			//LayoutManager layoutManager;
-			
-			 layoutManager;
-			
-			
+
+			LayoutManager layoutManager;
+
+
 			appStage = stage;
 	    	layoutManager = new LayoutManager(appStage);
 	    	layoutManager.makeStage();
-	    	
+
 	    	//Canvas gameCanvas = layoutManager.getGameCanvas();
 			Scene gameScene = layoutManager.getGameScene();
-			
+
 			layoutManager.createButtons();
 			layoutManager.showStage();
-			
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
