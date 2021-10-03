@@ -18,7 +18,7 @@ import Group3.gameMaker.Sprite.Strategy.EventStrategy.EventStrategyLinkedList;
 import Group3.gameMaker.Sprite.Strategy.EventStrategy.MoveOnClockTickStrategy;
 import Group3.gameMaker.Sprite.Strategy.EventStrategy.MoveWithWASDStrategy;
 import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.CircleStrategy;
-import Group3.gameMaker.CreateGameModel.CreateGameModel;
+import Group3.gameMaker.Model.CreateGameModel.CreateGameModel;
 import Group3.gameMaker.SaveAndLoad.SaveFileManager;
 import Group3.gameMaker.SaveAndLoad.Saveable;
 import Group3.gameMaker.SaveAndLoad.SaveableColor;

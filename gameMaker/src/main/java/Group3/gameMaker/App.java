@@ -1,6 +1,6 @@
 package Group3.gameMaker;
 
-import Group3.gameMaker.CreateGameView.LayoutManager;
+import Group3.gameMaker.View.CreateGameView.LayoutManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;

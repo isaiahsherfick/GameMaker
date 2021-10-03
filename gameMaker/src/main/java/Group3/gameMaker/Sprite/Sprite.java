@@ -55,7 +55,6 @@ public class Sprite implements Saveable
 		customCollisionMap = new CustomCollisionMap();
 		sound = new Sound();
 		eventStrategyList = new EventStrategyLinkedList();
-		
 		setHitBox(new HitBox(this));;
 	}
 	
@@ -178,6 +177,7 @@ public class Sprite implements Saveable
 
 	public void addCustomCollision(Sprite sprite2, CollisionStrategy c) 
 	{
+		c.setCollider(this);
 		customCollisionMap.addCustomCollision(sprite2.getSpriteId(), c);
 	}
 
@@ -188,6 +188,7 @@ public class Sprite implements Saveable
 
 	public void addEventStrategy(EventStrategy e) 
 	{
+		e.setSubject(this);
 		eventStrategyList.add(e);
 	}
 

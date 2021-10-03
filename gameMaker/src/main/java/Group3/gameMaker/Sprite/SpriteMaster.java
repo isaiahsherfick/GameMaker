@@ -42,4 +42,15 @@ public class SpriteMaster
 		}	
 		return returnList;
 	}
+
+	public void modifySprite(Sprite modifiedSprite) 
+	{
+		spriteMap.put(modifiedSprite.getSpriteId(), modifiedSprite);
+		add(modifiedSprite);
+	}
+
+	public void deleteSprite(int spriteId) 
+	{
+		spriteMap.remove(spriteId);
+	}
 }
