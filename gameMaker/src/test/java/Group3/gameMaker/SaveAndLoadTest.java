@@ -369,12 +369,4 @@ public class SaveAndLoadTest
 		assertEquals(deltaSprite3.getEventStrategyListLength(),1); //donothing
 	}
 	
-	@Test
-	public void CreateMVCTest()
-	{
-		CreateGameModel m = new CreateGameModel();
-		CreateGameView v = new CreateGameView();
-		CreateGameController c = new CreateGameController();
-	}
-	
 }

@@ -1,5 +1,7 @@
 package Group3.gameMaker.Controller.PlayGameController;
 
+import java.util.HashMap;
+
 import Group3.gameMaker.Controller.Controller;
 import Group3.gameMaker.Model.CreateGameModel.CreateGameModel;
 import Group3.gameMaker.Model.PlayGameModel.PlayGameModel;
@@ -80,5 +82,11 @@ public class PlayGameController implements Controller
 	public void redo() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public HashMap<Integer, Integer> getSpriteIds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

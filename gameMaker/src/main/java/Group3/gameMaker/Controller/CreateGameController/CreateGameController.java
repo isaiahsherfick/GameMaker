@@ -10,6 +10,7 @@ import Group3.gameMaker.Command.Command;
 import Group3.gameMaker.Command.CommandInvoker;
 import Group3.gameMaker.Command.CreateSpriteCommand;
 import Group3.gameMaker.Command.DeleteSpriteCommand;
+import Group3.gameMaker.Command.ModifySpriteCommand;
 import Group3.gameMaker.Controller.Controller;
 import Group3.gameMaker.Controller.PlayGameController.PlayGameController;
 import Group3.gameMaker.Model.CreateGameModel.CreateGameModel;
@@ -62,7 +63,7 @@ public class CreateGameController implements Controller
 
 	public void createSprite(Sprite sprite) 
 	{
-		commandInvoker.receiveCommand(new CreateSpriteCommand(sprite, createGameModel.getSpriteMaster()));
+		commandInvoker.receiveCommand(new CreateSpriteCommand(sprite, createGameModel));
 	}
 	
 	public Sprite getSprite(int spriteId)
@@ -72,7 +73,7 @@ public class CreateGameController implements Controller
 	
 	public void deleteSprite(int spriteId)
 	{
-		commandInvoker.receiveCommand(new DeleteSpriteCommand(spriteId, createGameModel.getSpriteMaster()));
+		commandInvoker.receiveCommand(new DeleteSpriteCommand(spriteId, createGameModel));
 	}
 	
 	//Returns true on success
@@ -115,26 +116,22 @@ public class CreateGameController implements Controller
 	//Passes a sprite which has been modified by the view to the model's spritemaster
 	public void modifySprite(Sprite modifiedSprite) 
 	{
-		
+		commandInvoker.receiveCommand(new ModifySpriteCommand(modifiedSprite, createGameModel));
 	}
 
 
 	public void undo() 
 	{
-		// TODO Auto-generated method stub
-		
+		commandInvoker.undo();
 	}
 
 	public void redo() 
 	{
-		// TODO Auto-generated method stub
-		
+		commandInvoker.redo();
 	}
 
-	@Override
 	public HashMap<Integer, Integer> getSpriteIds() 
 	{
-		HashMap<Integer,Integer> spriteIds = new HashMap<>();
-		
+		return createGameModel.getSpriteMaster().getViewMap();
 	}
 }

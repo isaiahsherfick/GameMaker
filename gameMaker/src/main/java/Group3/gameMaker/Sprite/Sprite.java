@@ -194,4 +194,56 @@ public class Sprite implements Saveable
 	{
 		return eventStrategyList.length();
 	}
+	/*
+	 	//This is -2 so that it doesn't conflict with using -1 in SpriteMaster
+	private int spriteId = -2;
+	private SaveablePoint coordinates;
+	private ShapeStrategy shapeStrategy;
+	private Sound sound;
+	private MovementStrategy movementStrategy;
+	private HitBox hitBox;
+	// Maps SpriteID to specific collision behavior for that relationship
+	private CustomCollisionMap customCollisionMap;
+	
+	// Default Collision Strategy is set at key -2 in the customcollisionmap
+	private static final int DEFAULT_COLLISION_KEY = -2;
+	
+	private EventStrategyLinkedList eventStrategyList;
+
+	//Default Sprite
+
+	 */
+	
+	public Sprite copy()
+	{
+		Sprite s = new Sprite();
+		s.setSpriteId(this.spriteId);
+		s.setCoordinates(this.coordinates.copy());
+		s.setShapeStrategy(this.shapeStrategy.copy());
+		s.setSound(this.sound);
+		s.setHitBox(new HitBox(s));
+		s.setCustomCollisionMap(customCollisionMap.copy());
+		s.setEventStrategyLinkedList(eventStrategyList.copy());
+		return s;
+	}
+
+	private void setEventStrategyLinkedList(EventStrategyLinkedList copy) 
+	{
+		eventStrategyList = copy;
+	}
+
+	private void setCustomCollisionMap(CustomCollisionMap ccm) 
+	{
+		customCollisionMap = ccm;
+	}
+
+	private void setShapeStrategy(ShapeStrategy shapeStrategy2) 
+	{
+		shapeStrategy = shapeStrategy2;
+	}
+
+	private void setCoordinates(SaveablePoint coordinates2) 
+	{
+		coordinates = coordinates2;
+	}
 }
