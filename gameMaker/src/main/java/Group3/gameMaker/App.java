@@ -15,11 +15,12 @@ import javafx.stage.Stage;
 public class App extends Application
 {
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) 
+	{
 
 		Stage appStage = primaryStage;
 		CreateGameView createGameView = new CreateGameView(appStage);
-		CreateGameController createGameController = new CreateGameController(createGameView);
+		CreateGameController createGameController = new CreateGameController();
 
 	}
 

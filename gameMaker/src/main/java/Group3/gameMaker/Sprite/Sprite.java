@@ -44,7 +44,6 @@ public class Sprite implements Saveable
 	private static final int DEFAULT_COLLISION_KEY = -2;
 	
 	private EventStrategyLinkedList eventStrategyList;
-	private HashMap<Integer, CollisionStrategy> customCollisionMap;
 
 	//Default Sprite
 	public Sprite()

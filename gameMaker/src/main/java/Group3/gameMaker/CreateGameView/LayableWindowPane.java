@@ -2,7 +2,10 @@ package Group3.gameMaker.CreateGameView;
 
 import java.util.ArrayList;
 
-import Group3.gameMaker.CreateGameView.Location.LayoutType;
+import Group3.gameMaker.View.*;
+import Group3.gameMaker.View.CreateGameView.Layable;
+import Group3.gameMaker.View.CreateGameView.Location;
+import Group3.gameMaker.View.CreateGameView.Location.LayoutType;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
