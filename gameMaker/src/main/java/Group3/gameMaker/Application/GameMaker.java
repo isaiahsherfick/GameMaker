@@ -11,7 +11,7 @@
 
 package Group3.gameMaker.Application;
 
-import Group3.gameMaker.CreateGameView.LayoutManager;
+import Group3.gameMaker.View.CreateGameView.LayoutManager;
 //import CreateGameView.LayoutManager;
 import javafx.application.Application;
 import javafx.scene.Scene;

@@ -3,7 +3,12 @@ package Group3.gameMaker.SaveAndLoad;
 import org.json.simple.JSONObject;
 
 import Group3.gameMaker.Null.NullObject;
-import Group3.gameMaker.Sprite.MovementStrategy.AutomaticMovementStrategy;
+import Group3.gameMaker.Sprite.Strategy.CollisionStrategy.BounceCollisionStrategy;
+import Group3.gameMaker.Sprite.Strategy.EventStrategy.ChangeColorOnTickStrategy;
+import Group3.gameMaker.Sprite.Strategy.EventStrategy.DoNothingStrategy;
+import Group3.gameMaker.Sprite.Strategy.EventStrategy.MoveOnClockTickStrategy;
+import Group3.gameMaker.Sprite.Strategy.EventStrategy.MoveWithWASDStrategy;
+import Group3.gameMaker.Sprite.Strategy.MovementStrategy.AutomaticMovementStrategy;
 import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.*;
 
 public class StrategyLoader 
@@ -26,12 +31,28 @@ public class StrategyLoader
 				AutomaticMovementStrategy autoMove = new AutomaticMovementStrategy();
 				autoMove.load(strategyJSON);
 				return autoMove;
-				
+			case "BounceCollisionStrategy":
+				BounceCollisionStrategy bounce = new BounceCollisionStrategy();
+				bounce.load(strategyJSON);
+				return bounce;
+			case "DoNothingStrategy":
+				DoNothingStrategy dn = new DoNothingStrategy();
+				return dn;
+			case "MoveOnClockTickStrategy":
+				MoveOnClockTickStrategy m = new MoveOnClockTickStrategy();
+				m.load(strategyJSON);
+				return m;
+			case "ChangeColorOnTickStrategy":
+				ChangeColorOnTickStrategy c = new ChangeColorOnTickStrategy();
+				c.load(strategyJSON);
+				return c;
+			case "MoveWithWASDStrategy":
+				MoveWithWASDStrategy mo = new MoveWithWASDStrategy();
+				mo.load(strategyJSON);
+				return mo;
 			//Add a case for each kind of strategy object we see
 			default:
 				return new NullObject();
 		}
 	}
-	
-
 }
