@@ -9,6 +9,8 @@ package Group3.gameMaker.View.CreateGameView;
 import java.util.ArrayList;
 import java.util.List;
 
+import Group3.gameMaker.CreateGameView.LayableButton;
+import Group3.gameMaker.CreateGameView.SHAPE;
 import Group3.gameMaker.View.CreateGameView.Location.LayoutType;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,7 +28,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 
@@ -483,28 +487,167 @@ public class LayoutManager implements Layable {
 	}
 	
 	
-	private LayableButton createButtonToStart() {
-		LayableButton startButton = new LayableButton("ADD");
-		startButton.setLayoutX(105);
-		startButton.setLayoutY(220);
+	private LayableButton createButtonToStartShape() {
+		LayableButton startshapeButton = new LayableButton("ADD SHAPES");
+		startshapeButton.setLayoutX(105);
+		startshapeButton.setLayoutY(280);
 		
 		
-		startButton.setOnAction(new EventHandler<ActionEvent>() {
+		startshapeButton.setOnAction(new EventHandler<ActionEvent>() {
 
 			
 
 			@Override
 			public void handle(ActionEvent event) {
+  
+					
 				if (choosenShape != null) {
+					createNewGameShape(choosenShape);
 //					GameViewManager gameManager = new GameViewManager();
-//					gameManager.createNewGame(mainStage, choosenShip);;
+//					gameManager.createNewGameShape(choosenaudio);;
 				}
-				
 			}
 		});
 		
-		return startButton;
+		return startshapeButton;
 	}
+	
+	private LayableButton createButtonToStartAudio() {
+		LayableButton startaudioButton = new LayableButton("ADD AUDIO");
+		startaudioButton.setLayoutX(105);
+		startaudioButton.setLayoutY(280);
+		
+		
+		startaudioButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			
+
+			@Override
+			public void handle(ActionEvent event) { 
+					
+				if (choosenaudio != null) {
+//					GameViewManager gameManager = new GameViewManager();
+//					gameManager.createNewGameAudio(choosenaudio);;
+				}
+			}
+		});
+		
+		return startaudioButton;
+	}
+	
+	private LayableButton createButtonToStartEvent() {
+		LayableButton starteventButton = new LayableButton("ADD EVENT");
+		starteventButton.setLayoutX(105);
+		starteventButton.setLayoutY(280);
+		
+		
+		starteventButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			
+
+			@Override
+			public void handle(ActionEvent event) {
+					
+				if (choosenevent != null) {
+//					GameViewManager gameManager = new GameViewManager();
+//					gameManager.createNewGameEvent(choosenevent);;
+				}
+			}
+		});
+		
+		return starteventButton;
+	}
+	
+	
+	private LayableButton createButtonToStartMove() {
+		LayableButton startmoveButton = new LayableButton("ADD MOVEMENT");
+		startmoveButton.setLayoutX(105);
+		startmoveButton.setLayoutY(280);
+		
+		
+		startmoveButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			
+
+			@Override
+			public void handle(ActionEvent event) {
+					
+				if (choosenmove != null) {
+//					GameViewManager gameManager = new GameViewManager();
+//					gameManager.createNewGameMove(choosenmove);;
+				}
+			}
+		});
+		
+		return startmoveButton;
+	}
+	
+	public void createNewGameShape(SHAPE choosenShape) {
+		//appStage.hide();
+		if (choosenShape == SHAPE.CIRCLE)
+		{
+			Circle circle = new Circle();
+		      //Setting the properties of the circle
+		      circle.setCenterX(300.0f);
+		      circle.setCenterY(135.0f);
+		      circle.setRadius(100.0f);
+		      circle.setLayoutX(600);
+		      circle.setLayoutY(300);
+		      //Setting other properties
+		      circle.setFill(Color.DARKCYAN);
+		      
+		      circle.setCursor(Cursor.HAND);
+		        circle.setOnMousePressed(OnMousePressedEventHandler);
+		        circle.setOnMouseDragged(OnMouseDraggedEventHandler);
+		        
+		      rootPane.getChildren().add(circle);
+		}
+		else
+		{
+			Rectangle rectangle = new Rectangle(50, 50);
+			 rectangle.setLayoutX(500);
+			 rectangle.setLayoutY(100);
+			 rectangle.setFill(Color.BLUE);
+		      rootPane.getChildren().add(rectangle); 
+		      
+		      rectangle.setCursor(Cursor.HAND);
+		      rectangle.setOnMousePressed(OnMousePressedEventHandler);
+		      rectangle.setOnMouseDragged(OnMouseDraggedEventHandler);
+		}
+	}
+	
+	EventHandler<MouseEvent> OnMousePressedEventHandler = 
+	        new EventHandler<MouseEvent>() {
+
+	        @Override
+	        public void handle(MouseEvent t) {
+	            orgSceneX = t.getSceneX();
+	            orgSceneY = t.getSceneY();
+	            
+
+	            orgTranslateX = ((Node)(t.getSource())).getTranslateX();
+	            orgTranslateY = ((Node)(t.getSource())).getTranslateY();
+	            
+	        }
+	    };
+	    
+	    EventHandler<MouseEvent> OnMouseDraggedEventHandler = 
+		        new EventHandler<MouseEvent>() {
+
+		        @Override
+		        public void handle(MouseEvent t) {
+		            double offsetX = t.getSceneX() - orgSceneX;
+		            double offsetY = t.getSceneY() - orgSceneY;
+		            double newTranslateX = orgTranslateX + offsetX;
+		            double newTranslateY = orgTranslateY + offsetY;
+		            
+		            
+		            ((Node)(t.getSource())).setTranslateX(newTranslateX);
+		            ((Node)(t.getSource())).setTranslateY(newTranslateY);
+		            
+		        }
+		    };
+		    
 	
 		
 
