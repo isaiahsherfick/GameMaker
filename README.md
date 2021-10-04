@@ -10,3 +10,6 @@ todo
 1. Open the Project in Maven
 2. Right click on App.java file --> Run Configurations --> Add Arguments "--module-path "JavaFX-Path" --add-modules javafx.controls,javafx.fxml
 3. Run 
+
+Confluence Link for Design :
+https://uisapp2.iu.edu/confluence-prd/display/ESSWAT/Group+3+Week+4+Design
