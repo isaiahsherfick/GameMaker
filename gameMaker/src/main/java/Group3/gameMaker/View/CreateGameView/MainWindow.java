@@ -45,7 +45,8 @@ public class MainWindow implements Layable{
 		canvas = new Canvas();
 
 		Group root = new Group();
-		Scene s = new Scene(root, 300, 300, Color.CYAN);
+		Scene s = new Scene(root);
+		appStage.setScene(s);
 
 		final Canvas canvas = new Canvas(250,250);
 		canvas.setOnMousePressed(onMousePressedEventHandler);
