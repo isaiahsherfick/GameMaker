@@ -38,4 +38,9 @@ public class App extends Application
         //placeholder for now
         launch(args);
     }
+
+	public static void switchContexts() 
+	{
+		//switch between play/create contexts
+	}
 }

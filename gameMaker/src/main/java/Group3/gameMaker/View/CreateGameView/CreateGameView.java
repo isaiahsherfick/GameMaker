@@ -12,6 +12,7 @@ import Group3.gameMaker.View.View;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+import Group3.gameMaker.App;
 import Group3.gameMaker.Constants.*;
 
 public class CreateGameView implements View
@@ -43,18 +44,16 @@ public class CreateGameView implements View
 		createStage.setTitle("Create Panel");
 //		createStage.setResizable(false);
 		createPanelWindow = new CreatePanelWindow(this, createStage);
-		createPanelWindow.makeStage();
 		createPanelWindow.createButtons();
 
 		Stage modifyStage = new Stage();
 		modifyStage.setX(Constants.MODIFY_PANEL_X);
 		modifyStage.setY(Constants.MODIFY_PANEL_Y);
-		modifyStage.setHeight(Constants.MODIFY_PANEL_HEIGHT);
-		modifyStage.setWidth(Constants.MODIFY_PANEL_WIDTH);
+		modifyStage.setHeight(Constants.CREATE_PANEL_HEIGHT);
+		modifyStage.setWidth(Constants.CREATE_PANEL_WIDTH);
 		modifyStage.setTitle("Sprite Properties");
-//		modifyStage.setResizable(false);
-		modifyPanelWindow = new ModifyPanelWindow(modifyStage);
-		modifyPanelWindow.makeStage();
+		modifyStage.setResizable(false);
+		modifyPanelWindow = new ModifyPanelWindow(this, modifyStage);
 
 //		LayoutManager layoutManager = new LayoutManager(appStage);
 //		layoutManager.makeStage();
@@ -74,6 +73,11 @@ public class CreateGameView implements View
 
 	}
 
+	public CreateGameView() 
+	{
+		spriteIds = new HashMap<>();
+	}
+
 	public int getCurrentSpriteId() {
 		return currentSpriteId;
 	}
@@ -90,12 +94,11 @@ public class CreateGameView implements View
 		GraphicsContext c = mainWindow.getGraphicsContext();
 		s.draw(c);
 		
-		System.out.printf("Drawing Sprite#%d\n",spriteId);
 	}
 
 	public void drawSprites()
 	{
-		mainWindow.getCanvas().getGraphicsContext2D().clearRect(0, 0, mainWindow.getCanvas().getWidth(), mainWindow.getCanvas().getHeight());;
+		mainWindow.clearCanvas();
 		spriteIds = createGameController.getSpriteIds();
 		for (Entry<Integer, Integer> entry : spriteIds.entrySet())
 		{
@@ -154,5 +157,40 @@ public class CreateGameView implements View
 	public void redo()
 	{
 		createGameController.redo();
+	}
+
+	public void save() 
+	{
+		if (createGameController.save())
+		{
+
+		}
+		else
+		{
+			System.out.println("Save was unsuccessful");
+		}
+	}
+
+	public void load() 
+	{
+		switch(createGameController.load())
+		{
+			case CreateGameController.BAD_JSON:
+				System.out.println("JSON is corrupted - aborting load");
+				break;
+			case CreateGameController.CANT_FIND_FILE:
+				System.out.println("Can't find savefile");
+				break;
+			default:
+				break;
+		}
+	}
+
+	public void switchContexts() 
+	{
+		createPanelWindow.getStage().close();
+		mainWindow.getStage().close();
+		modifyPanelWindow.getStage().close();
+		App.switchContexts();
 	}
 }

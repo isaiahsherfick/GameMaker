@@ -16,4 +16,6 @@ public interface Controller
 	public HashMap<Integer, Integer> getSpriteIds();
 	public void update();
 	public ArrayList<Sprite> getAllSprites();
+	public boolean save();
+	public int load();
 }

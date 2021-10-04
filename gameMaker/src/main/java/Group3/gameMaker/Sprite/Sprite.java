@@ -249,4 +249,5 @@ public class Sprite implements Saveable
 	{
 		eventStrategyList.onClockTick();
 	}
+
 }

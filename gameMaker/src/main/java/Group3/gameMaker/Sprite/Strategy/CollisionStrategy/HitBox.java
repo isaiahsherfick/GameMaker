@@ -2,15 +2,19 @@ package Group3.gameMaker.Sprite.Strategy.CollisionStrategy;
 
 import Group3.gameMaker.SaveAndLoad.SaveablePoint;
 import Group3.gameMaker.Sprite.Sprite;
+import javafx.geometry.Point2D;
+import javafx.scene.shape.Rectangle;
 
 /*
  * This is assuming a rectangular axis-aligned bounding box, which we are terming a hitbox.
  */
-public class HitBox {
+public class HitBox 
+{
 
 	Sprite sprite;
 
-	public HitBox(Sprite s){
+	public HitBox(Sprite s)
+	{
 		sprite = s;
 	}
 
@@ -35,13 +39,13 @@ public class HitBox {
 		return HitBoxOverlapType.NO_OVERLAP;
 	}
 
-	public boolean contains(SaveablePoint point) {
-		SaveablePoint bottomLeft  = new SaveablePoint(sprite.getX(), sprite.getY());
-		SaveablePoint topRight = new SaveablePoint(sprite.getX() + sprite.getShapeStrategy().getWidth(), sprite.getY() + sprite.getShapeStrategy().getHeight());
-		if((bottomLeft.getX() <= point.getX() && topRight.getX() >= point.getX()) &&
-				((bottomLeft.getY() <= point.getX() && topRight.getY() >= point.getY())))
-				return true;
-		return false;
+	public boolean contains(SaveablePoint point) 
+	{
+		SaveablePoint topLeft  = new SaveablePoint(sprite.getX(), sprite.getY());
+		int x1 = topLeft.getX();
+		int y1 = topLeft.getY();
+		Rectangle rect = new Rectangle(x1, y1, sprite.getShapeStrategy().getWidth(), sprite.getShapeStrategy().getHeight());
+		return rect.contains(new Point2D(point.getX(), point.getY()));
 	}
 
 	public SaveablePoint getBottomLeft() {

@@ -4,22 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Group3.gameMaker.Constants.Constants;
-import Group3.gameMaker.Sprite.Sprite;
 import Group3.gameMaker.View.CreateGameView.Location.LayoutType;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.SubScene;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -28,58 +20,37 @@ public class CreatePanelWindow implements Layable {
 
 	private Stage panelStage;
 	private ArrayList<Layable> layables;
-
-	public Group rootGroup;
-
 	private SpaceRunnerSubScene addSpriteSubScene;
 	private CreateGameView createGameView;
-
 	List<ShapePicker> shapesList;
-	private Shape chosenShape = null;
-
-	public LayablePane controlPane;
-	public Scene gameScene;
+	public Pane controlPane;
+	
+	private Group root;
+	private Scene scene;
 
 
 	// Accessible only within the CreateGameView package
-	CreatePanelWindow(CreateGameView createGameView, Stage panelStage) {
+	CreatePanelWindow(CreateGameView createGameView, Stage panelStage) 
+	{
 		this.panelStage = panelStage;
 		layables = new ArrayList<Layable>();
 		panelStage.setHeight(Constants.CREATE_PANEL_HEIGHT);
 		panelStage.setWidth(Constants.CREATE_PANEL_WIDTH);
-		panelStage.setMaxHeight(Constants.VISUAL_HEIGHT);
 		this.createGameView = createGameView;
-//		panelStage.setMaxWidth(Constants.CREATE_PANEL_WIDTH);
-//		panelStage.setMaxHeight(Constants.CREATE_PANEL_HEIGHT);
-//		panelStage.setX(Constants.CREATE_PANEL_X);
-//		panelStage.setY(Constants.CREATE_PANEL_Y);
-	}
-
-	public void makeStage () {
-		Group rootGroup = new Group();
-
-		controlPane = new LayablePane();
-		layables.add(controlPane);
-
-		rootGroup.getChildren().add(controlPane);
-//		controlPane.setMaxWidth(Constants.CREATE_PANEL_WIDTH);
-//		controlPane.setMaxHeight(Constants.CREATE_PANEL_HEIGHT);
+		root = new Group();
+		scene = new Scene(root);
+		panelStage.setScene(scene);
+		controlPane = new Pane();
+		root.getChildren().add(controlPane);
 		controlPane.setMinHeight(panelStage.getHeight());
+		controlPane.setMinWidth(panelStage.getWidth());
 		controlPane.setLayoutX(Location.LeftLayout.controlPaneX);
 		createBackground();
-
-
-//		BorderPane.setAlignment(controlPane,Pos.CENTER_LEFT);
-
-		gameScene = new Scene(rootGroup, Constants.CREATE_PANEL_WIDTH, Constants.CREATE_PANEL_HEIGHT);
-		panelStage.setScene(gameScene);
 	}
 
-
-
-
-	private void createBackground() {
-		Image backgroundImage = new Image("/Group3/gameMaker/Resource/deep_blue.png", 256, 256, false, false);
+	private void createBackground() 
+	{
+		Image backgroundImage = new Image("/Group3/gameMaker/Resource/deep_blue.png", 0, 0, false, false);
 		BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
 		controlPane.setBackground(new Background(background));
 	}
@@ -108,7 +79,6 @@ public class CreatePanelWindow implements Layable {
 					s.setIsCircleChoosen(false);
 				}
 				shapeToPick.setIsCircleChoosen(true);
-				chosenShape = shapeToPick.getShapes();
 			});
 		}
 
@@ -118,47 +88,48 @@ public class CreatePanelWindow implements Layable {
 	}
 
 
-	public void createButtons () {
+	public void createButtons () 
+	{
 
+		int index = 0;
 		final LayableButton spriteButton = new LayableButton("New Sprite");
 		spriteButton.setLayoutX(Constants.MENU_BUTTON_START_X);
 		spriteButton.setLayoutY(Constants.MENU_BUTTON_START_Y);
 		spriteButton.setOnAction(e -> {
-			startAddSpriteSubScene();
-			showSubScene(addSpriteSubScene);
 			createGameView.createSprite();
 		});
+		index++;
 
 
 		final LayableButton saveButton = new LayableButton("Save");
 		saveButton.setLayoutX(Constants.MENU_BUTTON_START_X);
-		saveButton.setLayoutY(Constants.MENU_BUTTON_START_Y+70);
+		saveButton.setLayoutY(Constants.MENU_BUTTON_START_Y + (index * (Constants.LAYABLE_BUTTON_PADDING + Constants.LAYABLE_BUTTON_HEIGHT)));
 		saveButton.setOnAction(e -> {
-			// TODO: Save to file here
+			createGameView.save();
 		});
+		index++;
 
 		final LayableButton loadButton = new LayableButton("Load");
 		//AddMenuButtons( eventbutton);
 		loadButton.setLayoutX(Constants.MENU_BUTTON_START_X);
-		loadButton.setLayoutY(Constants.MENU_BUTTON_START_Y+140);
+		loadButton.setLayoutY(Constants.MENU_BUTTON_START_Y + (index * (Constants.LAYABLE_BUTTON_PADDING + Constants.LAYABLE_BUTTON_HEIGHT)));
 		loadButton.setOnAction(e -> {
-			// TODO: Load from file here
+			createGameView.load();
 		});
+		index++;
 
 		final LayableButton playGameButton = new LayableButton("Play Game");
 		playGameButton.setLayoutX(Constants.MENU_BUTTON_START_X);
-		playGameButton.setLayoutY(Constants.MENU_BUTTON_START_Y+210);
+		playGameButton.setLayoutY(Constants.MENU_BUTTON_START_Y + (index * (Constants.LAYABLE_BUTTON_PADDING + Constants.LAYABLE_BUTTON_HEIGHT)));
 		playGameButton.setOnAction(e -> {
-			// TODO: switch context from create game to play game here.
+			createGameView.switchContexts();
 		});
+		index++;
 
 		addButtonToControlPanel(spriteButton);
 		addButtonToControlPanel(saveButton);
 		addButtonToControlPanel(loadButton);
 		addButtonToControlPanel(playGameButton);
-		changeLayout(LayoutType.LEFT, 0, 0, 0);
-
-
 	}
 
 	private void showSubScene(SpaceRunnerSubScene subScene) {
@@ -201,13 +172,13 @@ public class CreatePanelWindow implements Layable {
 
 
 	public void addButtonToControlPanel(LayableButton button) {
-		controlPane.AddChild(button);
+		controlPane.getChildren().add(button);
 	}
 
 	public void changeLayout(LayoutType layout, int parentX, int parentY, int index) {
 		createBackground();
 		for (Layable lay : layables) {
-			 lay.changeLayout(layout, parentX, parentY, index);
+			 lay.changeLayout(LayoutType.LEFT, parentX, parentY, index);
 			index++;
 		}
 	}
@@ -224,5 +195,9 @@ public class CreatePanelWindow implements Layable {
 	@Override
 	public void removeLayable(Layable layable) {
 		layables.remove(layable);
+	}
+
+	public Stage getStage() {
+		return panelStage;
 	}
 }

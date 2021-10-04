@@ -9,6 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -23,191 +25,49 @@ import javafx.stage.Stage;
 import Group3.gameMaker.Constants.*;
 import Group3.gameMaker.Sprite.Sprite;
 
-public class ModifyPanelWindow implements Layable {
-
-	private Stage propertyStage;
-	private ArrayList<Layable> layables;
-	List<LayableButton> menuButtons;
-	public LayablePane modifyPane;
-	Scene propertyScene;
-	Label coordinates;
-//	LayableButton coordinates;
-	private SpaceRunnerSubScene eventChooserSubscene;
-	private EVENT choosenevent;
-	List<eventPicker> eventList;
-	private SpaceRunnerSubScene sceneToHide;
-
-	// Accessible only within the CreateGameView package
-	ModifyPanelWindow(Stage propertyStage) {
-		this.propertyStage = propertyStage;
-		layables = new ArrayList<Layable>();
-		propertyStage.setWidth(Constants.MODIFY_PANEL_WIDTH);
-		propertyStage.setHeight(Constants.MODIFY_PANEL_HEIGHT);
-//		panelStage.setX(Constants.MODIFY_PANEL_X);
-//		panelStage.setY(Constants.MODIFY_PANEL_Y);
-	}
-
-
-	public void makeStage () {
-
-		//menuButtons = new ArrayList<>();
-		Group rootGroup = new Group();
-		//Pane rootPane = new Pane();
-
-		coordinates = new Label("Coordinates: ");
-		rootGroup.getChildren().add(coordinates);
-		modifyPane = new LayablePane();
-//		controlPane.setStyle("-fx-background-color: #FF00FF");
-		layables.add(modifyPane);
-//		controlPane.setPrefSize(Location.LeftLayout.controlPaneWidth, Location.LeftLayout.controlPaneHeight);
-		rootGroup.getChildren().add(modifyPane);
-		modifyPane.setLayoutX(Location.LeftLayout.controlPaneX);
-		//controlPane.setStyle("-fx-background-color: #000000");
+public class ModifyPanelWindow 
+{
+	private Stage modifyStage;
+	private CreateGameView createGameView;
+	private TabPane tabPane;
+	private Group root;
+	private Scene scene;
+	
+	public ModifyPanelWindow(CreateGameView view, Stage panelStage)
+	{
+		modifyStage = panelStage;
+		modifyStage.setHeight(Constants.CREATE_PANEL_HEIGHT);
+		modifyStage.setWidth(Constants.MODIFY_PANEL_WIDTH);
+		createGameView = view;
+		root = new Group();
+		scene = new Scene(root);
+		modifyStage.setScene(scene);
+		tabPane = new TabPane();
+		Tab mainTab = new Tab("Sprite View");
+		Tab collisionTab = new Tab("Custom Collisions");
+		Tab eventTab = new Tab("Event Behavior Chain");
+		tabPane.getTabs().addAll(mainTab, collisionTab, eventTab);
+		root.getChildren().add(tabPane);
+		tabPane.setMinHeight(modifyStage.getHeight());
+		tabPane.setMinWidth(modifyStage.getWidth());
+		tabPane.setLayoutX(Location.LeftLayout.controlPaneX);
 		createBackground();
-		createEventChooserSubScene();
-		createeventButton();
-
-
-//		coordinates = new LayableButton("Coordinates:");
-		modifyPane.getChildren().add(coordinates);
-//		layables.add(coordinates);
-
-		propertyScene = new Scene(rootGroup, Constants.MODIFY_PANEL_WIDTH, Constants.MODIFY_PANEL_HEIGHT);
-		propertyStage.setScene(propertyScene);
 	}
-
-	public void createBackground() {
-		Image backgroundImage = new Image("/Group3/gameMaker/Resource/deep_blue.png", 256, 256, false, false);
-		BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, null);
-		modifyPane.setBackground(new Background(background));
-
+	
+	private void createBackground() 
+	{
+		Image backgroundImage = new Image("/Group3/gameMaker/Resource/deep_blue.png", 0, 0, false, false);
+		BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
+		tabPane.setBackground(new Background(background));
 	}
-
-	private void createEventChooserSubScene() {
-		eventChooserSubscene = new SpaceRunnerSubScene();
-		modifyPane.getChildren().add(eventChooserSubscene);
-
-		InfoLabel chooseeventLabel = new InfoLabel("CHOOSE YOUR EVENT");
-		chooseeventLabel.setLayoutX(110);
-		chooseeventLabel.setLayoutY(25);
-		eventChooserSubscene.getPane().getChildren().add(chooseeventLabel);
-		eventChooserSubscene.getPane().getChildren().add(createeventToChoose());
-		eventChooserSubscene.getPane().getChildren().add(createButtonToStartEvent());
-	}
-
-	private HBox createeventToChoose() {
-		HBox box = new HBox();
-		box.setSpacing(60);
-		eventList = new ArrayList<>();
-		for (EVENT event : EVENT.values()) {
-			final eventPicker eventToPick = new eventPicker(event);
-			eventList.add(eventToPick);
-			box.getChildren().add(eventToPick);
-			eventToPick.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-				@Override
-				public void handle(MouseEvent event) {
-					for (eventPicker audio : eventList) {
-						audio.setIsCircleChoosen(false);
-					}
-					eventToPick.setIsCircleChoosen(true);
-					choosenevent = eventToPick.getevents();
-
-				}
-			});
-		}
-
-		box.setLayoutX(300 - (118*2));
-		box.setLayoutY(100);
-		return box;
-	}
-
-	private LayableButton createButtonToStartEvent() {
-		LayableButton starteventButton = new LayableButton("ADD EVENT");
-		starteventButton.setLayoutX(105);
-		starteventButton.setLayoutY(220);
-
-
-		starteventButton.setOnAction(new EventHandler<ActionEvent>() {
-
-
-
-			@Override
-			public void handle(ActionEvent event) {
-
-				if (choosenevent != null) {
-//					GameViewManager gameManager = new GameViewManager();
-//					gameManager.createNewGameEvent(choosenevent);;
-				}
-			}
-		});
-
-		return starteventButton;
-	}
-
-	private void createeventButton() {
-		LayableButton eventbutton = new LayableButton("Event");
-		//AddMenuButtons( eventbutton);
-		eventbutton.setLayoutX(Constants.MENU_BUTTON_START_X);
-		eventbutton.setLayoutY(Constants.MENU_BUTTON_START_Y+140);
-		eventbutton.setOnAction(new EventHandler<ActionEvent>() {
-
-		@Override
-		public void handle(ActionEvent event) {
-			showSubScene(eventChooserSubscene);
-
-		}
-	});
-		addButtonToControlPanel(eventbutton);
-	}
-
-	public void addButtonToControlPanel(LayableButton button) {
-		modifyPane.AddChild(button);
-	}
-
-
-	private void showSubScene(SpaceRunnerSubScene subScene) {
-		if (subScene != null) {
-			subScene.moveInSubScene();
-		}
-
-//		subScene.moveOutSubScene();
-//		sceneToHide = subScene;
-	}
-
-	public void showStage() {
-		propertyStage.show();
-	}
-
-
-	@Override
-	public void changeLayout(LayoutType currentLayout, int parentX, int parentY, int index) {
-		for (Layable lay : layables) {
-			 lay.changeLayout(currentLayout, parentX, parentY, index);
-			index++;
-		}
-
-	}
-
-	@Override
-	public void addLayable(Layable layable) {
-		layables.add(layable);
-	}
-
-	@Override
-	public void removeLayable(Layable layable) {
-		layables.remove(layable);
-	}
-
 
 	public void displaySprite(Sprite sprite) {
-		System.out.println(sprite.getSpriteId());
-		coordinates.setText(String.format("Coordinates: %d, %d",sprite.getX(), sprite.getY()));
-		sprite.getCoordinates();
-		sprite.getShapeStrategy();
-		sprite.getSound();
-		sprite.getCollisionStrategyMap();
-		sprite.getEventStrategyList();
-		sprite.getCustomCollisionMap();
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Stage getStage() 
+	{
+		return modifyStage;
 	}
 }

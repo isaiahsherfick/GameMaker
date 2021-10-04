@@ -22,7 +22,7 @@ public class Constants {
 	public static final int MAIN_WINDOW_X = WINDOW_SPACING + CREATE_PANEL_WIDTH;
 	public static final int MAIN_WINDOW_Y = WINDOW_SPACING;
 
-	public static final int MODIFY_PANEL_WIDTH = (int)((VISUAL_WIDTH*SCREEN_SCALE*0.25) - WINDOW_PADDING); //25%
+	public static final int MODIFY_PANEL_WIDTH = (int)((VISUAL_WIDTH*SCREEN_SCALE*0.32) - WINDOW_PADDING); //25%
 	public static final int MODIFY_PANEL_HEIGHT = (VISUAL_HEIGHT - WINDOW_PADDING*2);
 	public static final int MODIFY_PANEL_X = WINDOW_PADDING + CREATE_PANEL_WIDTH + MAIN_WINDOW_WIDTH;
 	public static final int MODIFY_PANEL_Y = WINDOW_SPACING;
@@ -34,14 +34,14 @@ public class Constants {
 	public static final int ANIMATION_START_X = 1200;
 	public static final int ANIMATION_START_Y = 200;
 
+	public static final int LAYABLE_BUTTON_WIDTH = 190;
 
-	public final static int MENU_BUTTON_START_X = 100;
+	public final static int MENU_BUTTON_START_X = (CREATE_PANEL_WIDTH - LAYABLE_BUTTON_WIDTH) / 2;
 	public final static int MENU_BUTTON_START_Y = 100;
 
 	public static final int BUTTON_HEIGHT = 700;
 	public static final int BUTTON_WIDTH = 800;
 
-	public static final int LAYABLE_BUTTON_WIDTH = 190;
 	public static final int LAYABLE_BUTTON_HEIGHT = 48;
 	public static final int LAYABLE_BUTTON_HEIGHT_ON_PRESS = 44;
 	public static final int LAYABLE_BUTTON_PADDING = 20;

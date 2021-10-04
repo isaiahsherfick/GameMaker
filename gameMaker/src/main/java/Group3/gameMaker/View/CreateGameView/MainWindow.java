@@ -28,8 +28,12 @@ public class MainWindow implements Layable{
 
 	private CreateGameView createGameView;
     private Group root;
+    private Scene scene;
     private GraphicsContext graphicsContext;
-
+    private Sprite selectedSprite;
+    
+    private double orgSceneX,orgSceneY, offsetX, offsetY;
+    
 	// Accessible only within the CreateGameView package
 	// This one needs a canvas
 	MainWindow(CreateGameView createGameView, Stage appStage)
@@ -42,14 +46,18 @@ public class MainWindow implements Layable{
 
 		this.createGameView = createGameView;
 		appStage.centerOnScreen();
+		appStage.setX(Constants.MAIN_WINDOW_X);
+		appStage.setY(Constants.MAIN_WINDOW_Y);
 		canvas = new Canvas();
 
-		Group root = new Group();
-		Scene s = new Scene(root);
-		appStage.setScene(s);
+		root = new Group();
+		scene = new Scene(root);
+		appStage.setScene(scene);
 
 		final Canvas canvas = new Canvas(Constants.MAIN_WINDOW_WIDTH,Constants.MAIN_WINDOW_HEIGHT);
 		canvas.setOnMousePressed(onMousePressedEventHandler);
+		canvas.setOnMouseDragged(onMouseDraggedEventHandler);
+		canvas.setOnMouseReleased(onMouseReleaseHandler);
 		graphicsContext = canvas.getGraphicsContext2D();
 
 		graphicsContext.setFill(Color.GRAY);
@@ -60,6 +68,12 @@ public class MainWindow implements Layable{
 	public GraphicsContext getGraphicsContext()
 	{
 		return graphicsContext;
+	}
+	
+	public void clearCanvas()
+	{
+		graphicsContext.setFill(Color.GRAY);
+		graphicsContext.fillRect(0, 0, Constants.MAIN_WINDOW_WIDTH, Constants.MAIN_WINDOW_HEIGHT);
 	}
 
 
@@ -138,56 +152,53 @@ public class MainWindow implements Layable{
 
 		public void handle(MouseEvent t) 
 		{
-			double orgSceneX = t.getSceneX();
-			double orgSceneY = t.getSceneY();
+			selectedSprite = null;
+			orgSceneX = t.getSceneX();
+			orgSceneY = t.getSceneY();
 			ArrayList<Sprite> allSprites = createGameView.getAllSprites();
 			for(Sprite s: allSprites) 
 			{
 				if(s.contains((int)orgSceneX, (int)orgSceneY)) 
 				{
 					createGameView.setCurrentSpriteId(s.getSpriteId());
+					selectedSprite = s.copy();
 				}
 			}
 	    }
 	};
 
-	    EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
+	    EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<MouseEvent>() 
+	    {
 
-	    	@Override
 	    	public void handle(MouseEvent t) {
-//	    		double offsetX = t.getSceneX() - orgSceneX;
-//	    		double offsetY = t.getSceneY() - orgSceneY;
-//
-
-
-
-
-
-
-//	    		double newTranslateX = orgTranslateX + offsetX;
-//	    		double newTranslateY = orgTranslateY + offsetY;
-//	    		System.out.println(offsetX+ " "+offsetY);
-//				ArrayList<Sprite> allSprites = createGameView.getAllSprites();
-//				Sprite s_out = null;
-//	    		for(Sprite s: allSprites) {
-//					if(s.contains((int)orgSceneX - Constants.MAIN_WINDOW_ORIGIN_OFFSET_X, (int)orgSceneY - Constants.MAIN_WINDOW_ORIGIN_OFFSET_Y)) {
-//						createGameView.setCurrentSpriteId(s.getSpriteId());
-//						s_out = s.copy();
-//						System.out.println(s.getSpriteId());
-//					}
-//				}
-//
-//	    		if (s_out != null)
-//	    		{
-//					s_out.setX((int)orgSceneX - Constants.MAIN_WINDOW_ORIGIN_OFFSET_X);
-//					s_out.setY((int)orgSceneY - Constants.MAIN_WINDOW_ORIGIN_OFFSET_Y);
-//					createGameView.modifySprite(s_out);
-//					s_out = null;
-//	    		}
-//	    		((Node)(t.getSource())).setTranslateX(newTranslateX);
-//	    		((Node)(t.getSource())).setTranslateY(newTranslateY);
+	    		
+	    		offsetX = t.getSceneX() - orgSceneX;
+	    		offsetY = t.getSceneY() - orgSceneY;
+				ArrayList<Sprite> allSprites = createGameView.getAllSprites();
+	    		if (selectedSprite != null)
+	    		{
+	    			selectedSprite.draw(graphicsContext);
+	    		}
 
 		    }
 		};
+		
+		EventHandler<MouseEvent> onMouseReleaseHandler = new EventHandler<MouseEvent>()
+		{
+			public void handle(MouseEvent t)
+			{
+				if (selectedSprite != null)
+				{
+					selectedSprite.setX((int)offsetX + selectedSprite.getX());
+					selectedSprite.setY((int)offsetY + selectedSprite.getY());
+					createGameView.modifySprite(selectedSprite);
+				}
+			}
+	
+		};
+
+	public Stage getStage() {
+		return appStage;
+	}
 
 }
