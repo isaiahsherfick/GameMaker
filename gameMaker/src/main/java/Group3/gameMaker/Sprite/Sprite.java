@@ -212,7 +212,7 @@ public class Sprite implements Saveable
 		customCollisionMap = ccm;
 	}
 
-	private void setShapeStrategy(ShapeStrategy shapeStrategy2)
+	public void setShapeStrategy(ShapeStrategy shapeStrategy2)
 	{
 		shapeStrategy = shapeStrategy2;
 	}

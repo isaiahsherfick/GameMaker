@@ -20,7 +20,7 @@ public class SaveableColor implements Saveable
 {
 	private Color color;
 
-	//default: white
+	//default: red
 	public SaveableColor()
 	{
 		this.color = new Color(1,0,0,1);

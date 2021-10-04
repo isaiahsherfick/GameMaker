@@ -130,4 +130,16 @@ public class PlayGameController implements Controller
 	public ArrayList<Sprite> getAllSprites() {
 		return playGameModel.getSpriteMaster().getAllSprites();
 	}
+
+	@Override
+	public boolean save() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int load() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

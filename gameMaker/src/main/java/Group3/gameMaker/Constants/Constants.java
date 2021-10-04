@@ -55,4 +55,7 @@ public class Constants {
 	public static final int ADD_SPRITE_SUBSCENE_SOURCE_Y = 600;
 	public static final int ADD_SPRITE_SUBSCENE_HEIGHT = 275;
 	public static final int ADD_SPRITE_SUBSCENE_WIDTH = CREATE_PANEL_WIDTH; //400
+	public static final double LABEL_LEFT_PADDING = 60;
+	public static final int LABEL_VERTICAL_PADDING = 50;
+	public static final int LABEL_HEIGHT = 25;
 }

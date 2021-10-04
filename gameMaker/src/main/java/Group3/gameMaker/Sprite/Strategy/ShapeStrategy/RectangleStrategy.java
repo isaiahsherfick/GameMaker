@@ -2,6 +2,7 @@ package Group3.gameMaker.Sprite.Strategy.ShapeStrategy;
 
 import org.json.simple.JSONObject;
 
+import Group3.gameMaker.Constants.Constants;
 import Group3.gameMaker.SaveAndLoad.SaveableColor;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -13,8 +14,9 @@ public class RectangleStrategy implements ShapeStrategy
 	public RectangleStrategy()
 	{
 		//TODO null object
-		width = -1;
-		height = -1;
+		width = Constants.DEFAULT_CIRCLE_RADIUS;
+		height = Constants.DEFAULT_CIRCLE_RADIUS;
+;
 		color = new SaveableColor();
 	}
 
@@ -38,8 +40,9 @@ public class RectangleStrategy implements ShapeStrategy
 
 	public void load(JSONObject saveJSON)
 	{
-		width = (int)saveJSON.get("width");
-		height = (int)saveJSON.get("height");
+		width = ((Long)saveJSON.get("width")).intValue();
+		height = ((Long)saveJSON.get("height")).intValue();
+
 		SaveableColor c = new SaveableColor();
 		c.load((JSONObject)saveJSON.get("color"));
 		color = c;

@@ -152,6 +152,8 @@ public class MainWindow implements Layable{
 
 		public void handle(MouseEvent t) 
 		{
+			offsetX =0;
+			offsetY = 0;
 			selectedSprite = null;
 			orgSceneX = t.getSceneX();
 			orgSceneY = t.getSceneY();

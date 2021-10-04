@@ -110,7 +110,8 @@ public class CreateGameView implements View
 	{
 		drawSprites();
 		spriteIds = createGameController.getSpriteIds();
-		modifyPanelWindow.displaySprite(createGameController.getSprite(currentSpriteId));
+		if (currentSpriteId != -2)
+			modifyPanelWindow.displaySprite(createGameController.getSprite(currentSpriteId));
 	}
 
 	public void setCreateGameController(CreateGameController c)
@@ -122,6 +123,7 @@ public class CreateGameView implements View
 	{
 		Sprite s = new Sprite();
 		createGameController.createSprite(s);
+		currentSpriteId = s.getSpriteId();
 	}
 
 	public Sprite getSprite(int spriteId)
@@ -184,6 +186,7 @@ public class CreateGameView implements View
 			default:
 				break;
 		}
+		modifyPanelWindow.reset();
 	}
 
 	public void switchContexts() 
@@ -192,5 +195,14 @@ public class CreateGameView implements View
 		mainWindow.getStage().close();
 		modifyPanelWindow.getStage().close();
 		App.switchContexts();
+	}
+
+	public Sprite getSelectedSprite() 
+	{
+		if (currentSpriteId == -2)
+		{
+			return null;
+		}
+		else return getSprite(currentSpriteId).copy();
 	}
 }
