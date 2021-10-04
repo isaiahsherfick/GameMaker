@@ -73,7 +73,8 @@ class MVCTest {
 		cm.setCreateGameController(cc);
 		cc.setCreateGameModel(cm);
 		cc.setCreateGameView(cv);
-		cv.createSprite(); assertEquals(cm.getSpriteMaster().numberOfSprites(),1); //Add a sprite //Should be at 0,0 with a donothingstrategy
+		cv.createSprite(); 
+		assertEquals(cm.getSpriteMaster().numberOfSprites(),1); //Add a sprite //Should be at 0,0 with a donothingstrategy
 		cv.addEventStrategy(new MoveOnClockTickStrategy(5,5), 0);
 
 		
