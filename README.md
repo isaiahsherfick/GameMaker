@@ -6,8 +6,7 @@ Isaiah, Satin, Snehal, Raghu
 
 todo
 
-
-1. The Project is a Maven Project. 
-2. Open the Project in Maven
-3. Right click on App.java file --> Run Configurations --> Add Arguments "--module-path "JavaFX-Path" --add-modules javafx.controls,javafx.fxml
-4. Run 
+ The Project is a Maven Project. 
+1. Open the Project in Maven
+2. Right click on App.java file --> Run Configurations --> Add Arguments "--module-path "JavaFX-Path" --add-modules javafx.controls,javafx.fxml
+3. Run 
