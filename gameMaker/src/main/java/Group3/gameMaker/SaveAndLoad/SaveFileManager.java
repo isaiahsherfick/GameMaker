@@ -99,7 +99,7 @@ public class SaveFileManager
 		JSONObject saveJSON = save();
 		File file = new File(pathToSaveFile);
 		file.createNewFile();
-		FileWriter fileWriter = new FileWriter(pathToSaveFile);
+		FileWriter fileWriter = new FileWriter(pathToSaveFile, false);
 		fileWriter.write(saveJSON.toString());
 		fileWriter.flush();
 		fileWriter.close();
@@ -146,6 +146,7 @@ public class SaveFileManager
 	//load() on the JSON found there
 	public void loadFile() throws IOException, ParseException
 	{
+		saveObjects = new ArrayList<>();
 		Path path = FileSystems.getDefault().getPath(pathToSaveFile);
     	String fileContent = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);	
     	JSONParser parser = new JSONParser();

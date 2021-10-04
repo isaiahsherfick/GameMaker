@@ -2,6 +2,7 @@ package Group3.gameMaker.Sprite.Strategy.ShapeStrategy;
 
 import org.json.simple.JSONObject;
 
+import Group3.gameMaker.Constants.Constants;
 import Group3.gameMaker.SaveAndLoad.SaveableColor;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -13,11 +14,12 @@ public class RectangleStrategy implements ShapeStrategy
 	public RectangleStrategy()
 	{
 		//TODO null object
-		width = -1;
-		height = -1;
+		width = Constants.DEFAULT_CIRCLE_RADIUS;
+		height = Constants.DEFAULT_CIRCLE_RADIUS;
+;
 		color = new SaveableColor();
 	}
-	
+
 	public RectangleStrategy(int w, int h, SaveableColor c)
 	{
 		width = w;
@@ -26,7 +28,7 @@ public class RectangleStrategy implements ShapeStrategy
 	}
 
 	@SuppressWarnings("unchecked")
-	public JSONObject save() 
+	public JSONObject save()
 	{
 		JSONObject obj = new JSONObject();
 		obj.put("type","RectangleStrategy");
@@ -36,44 +38,54 @@ public class RectangleStrategy implements ShapeStrategy
 		return obj;
 	}
 
-	public void load(JSONObject saveJSON) 
+	public void load(JSONObject saveJSON)
 	{
-		width = (int)saveJSON.get("width");
-		height = (int)saveJSON.get("height");
+		width = ((Long)saveJSON.get("width")).intValue();
+		height = ((Long)saveJSON.get("height")).intValue();
+
 		SaveableColor c = new SaveableColor();
 		c.load((JSONObject)saveJSON.get("color"));
 		color = c;
 	}
 
-	public int getWidth() 
+	public int getWidth()
 	{
 		return width;
 	}
 
-	public int getHeight() 
+	public int getHeight()
 	{
 		return height;
 	}
 
 
-	public void draw(GraphicsContext g) 
+	public void draw(GraphicsContext g, int posX, int posY)
 	{
-				//TODO draw a rectangle
+		g.setFill(color.getColor());
+		g.fillRect(posX, posY, width, height);
 	}
-	public SaveableColor getColor() 
+	public SaveableColor getColor()
 	{
 		return color;
 	}
 
-	public void setColor(SaveableColor c) 
+	public void setColor(SaveableColor c)
 	{
 		color = c;
 	}
 
 	@Override
-	public ShapeStrategy copy() 
+	public ShapeStrategy copy()
 	{
 		return new RectangleStrategy(width, height, color.copy());
 	}
-	
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
 }

@@ -19,28 +19,28 @@ import javafx.scene.paint.Color;
 public class SaveableColor implements Saveable
 {
 	private Color color;
-	
-	//default: white
+
+	//default: red
 	public SaveableColor()
 	{
-		this.color = new Color(1,1,1,1);
+		this.color = new Color(1,0,0,1);
 	}
 	public SaveableColor(Color c)
 	{
 		this.color = c;
 	}
-	
+
 	public SaveableColor(double r, double g, double b, double o)
 	{
 		this.color = new Color(r,g,b,o);
 	}
-	
+
 	public void setColor(Color c)
 	{
 		color = c;
 	}
-	
-	
+
+
 	public Color getColor()
 	{
 		return color;
@@ -65,7 +65,7 @@ public class SaveableColor implements Saveable
 		double opacity = (double)saveData.get("o");
 		color = new Color(red,green,blue,opacity);
 	}
-	
+
 	@Override
 	public boolean equals(Object o)
 	{
@@ -76,10 +76,10 @@ public class SaveableColor implements Saveable
 		}
 		return false;
 	}
-	public SaveableColor copy() 
+	public SaveableColor copy()
 	{
 		Color newColor = new Color(color.getRed(),color.getBlue(),color.getGreen(),color.getOpacity());
 		return new SaveableColor(newColor);
 	}
-	
+
 }

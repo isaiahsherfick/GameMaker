@@ -26,6 +26,7 @@ import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.CircleStrategy;
 import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.ShapeStrategy;
 import javafx.scene.canvas.GraphicsContext;
 
+
 public class Sprite implements Saveable
 {
 	//This is -2 so that it doesn't conflict with using -1 in SpriteMaster
@@ -36,10 +37,10 @@ public class Sprite implements Saveable
 	private HitBox hitBox;
 	// Maps SpriteID to specific collision behavior for that relationship
 	private CustomCollisionMap customCollisionMap;
-	
+
 	// Default Collision Strategy is set at key -2 in the customcollisionmap
 	private static final int DEFAULT_COLLISION_KEY = -2;
-	
+
 	private EventStrategyLinkedList eventStrategyList;
 
 	//Default Sprite
@@ -74,6 +75,11 @@ public class Sprite implements Saveable
 	public int getSpriteId()
 	{
 		return spriteId;
+	}
+
+	public boolean contains(int x, int y)
+	{
+		return hitBox.contains(new SaveablePoint(x,y));
 	}
 
 	public HitBox getHitBox() {
@@ -111,14 +117,14 @@ public class Sprite implements Saveable
 
 	public void draw(GraphicsContext g)
 	{
-		shapeStrategy.draw(g);
+		shapeStrategy.draw(g, getX(), getY());
 	}
 
 	public ShapeStrategy getShapeStrategy()
 	{
 		return shapeStrategy;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public JSONObject save()
 	{
@@ -157,29 +163,29 @@ public class Sprite implements Saveable
 		return false;
 	}
 
-	public CustomCollisionMap getCustomCollisionMap() 
+	public CustomCollisionMap getCustomCollisionMap()
 	{
 		return customCollisionMap;
 	}
 
-	public void addCustomCollision(Sprite sprite2, CollisionStrategy c) 
+	public void addCustomCollision(Sprite sprite2, CollisionStrategy c)
 	{
 		c.setCollider(this);
 		customCollisionMap.addCustomCollision(sprite2.getSpriteId(), c);
 	}
 
-	public void setColor(SaveableColor c) 
+	public void setColor(SaveableColor c)
 	{
 		shapeStrategy.setColor(c);
 	}
 
-	public void addEventStrategy(EventStrategy e) 
+	public void addEventStrategy(EventStrategy e)
 	{
 		e.setSubject(this);
 		eventStrategyList.add(e);
 	}
 
-	public Integer getEventStrategyListLength() 
+	public Integer getEventStrategyListLength()
 	{
 		return eventStrategyList.length();
 	}
@@ -197,47 +203,52 @@ public class Sprite implements Saveable
 		return s;
 	}
 
-	private void setEventStrategyLinkedList(EventStrategyLinkedList copy) 
+	private void setEventStrategyLinkedList(EventStrategyLinkedList copy)
 	{
 		eventStrategyList = copy;
 	}
 
-	private void setCustomCollisionMap(CustomCollisionMap ccm) 
+	private void setCustomCollisionMap(CustomCollisionMap ccm)
 	{
 		customCollisionMap = ccm;
 	}
 
-	private void setShapeStrategy(ShapeStrategy shapeStrategy2) 
+	public void setShapeStrategy(ShapeStrategy shapeStrategy2)
 	{
 		shapeStrategy = shapeStrategy2;
 	}
 
-	private void setCoordinates(SaveablePoint coordinates2) 
+	private void setCoordinates(SaveablePoint coordinates2)
 	{
 		coordinates = coordinates2;
 	}
 
+	public EventStrategyLinkedList getEventStrategyList() {
+		return eventStrategyList;
+	}
 
-	public void setVelocityY(int v) 
+
+	public void setVelocityY(int v)
 	{
 		eventStrategyList.setVelocityY(v);
 	}
-	public void setVelocityX(int v) 
+	public void setVelocityX(int v)
 	{
 		eventStrategyList.setVelocityX(v);
 	}
-	public int getVelocityY() 
+	public int getVelocityY()
 	{
 		return eventStrategyList.getVelocityY();
 	}
-	public int getVelocityX() 
+	public int getVelocityX()
 	{
 		return eventStrategyList.getVelocityX();
 	}
 
 
-	public void onClockTick() 
+	public void onClockTick()
 	{
 		eventStrategyList.onClockTick();
 	}
+
 }

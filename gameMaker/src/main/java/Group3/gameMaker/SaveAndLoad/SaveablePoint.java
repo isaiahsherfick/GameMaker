@@ -12,13 +12,13 @@ public class SaveablePoint implements Saveable
 {
 	private int x;
 	private int y;
-	
+
 	public SaveablePoint()
 	{
 		x = 0;
 		y = 0;
 	}
-	
+
 	public SaveablePoint(int x, int y)
 	{
 		this.x = x;
@@ -34,7 +34,7 @@ public class SaveablePoint implements Saveable
 	{
 		return y;
 	}
-	
+
 	public void setX(int x)
 	{
 		this.x = x;
@@ -44,23 +44,23 @@ public class SaveablePoint implements Saveable
 	{
 		this.y = y;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public JSONObject save() 
+	public JSONObject save()
 	{
 		JSONObject saveObj = new JSONObject();
 		saveObj.put("type", "SaveablePoint");
-		saveObj.put("x",x); 
+		saveObj.put("x",x);
 		saveObj.put("y",y);
 		return saveObj;
 	}
-	
-	public void load(JSONObject saveJSON) 
+
+	public void load(JSONObject saveJSON)
 	{
 		x = ((Long)saveJSON.get("x")).intValue();
 		y = ((Long)saveJSON.get("y")).intValue();
 	}
-	
+
 	@Override
 	public boolean equals(Object o)
 	{
@@ -72,7 +72,7 @@ public class SaveablePoint implements Saveable
 		return false;
 	}
 
-	public SaveablePoint copy() 
+	public SaveablePoint copy()
 	{
 		return new SaveablePoint(x,y);
 	}

@@ -8,13 +8,22 @@ import Group3.gameMaker.Controller.PlayGameController.PlayGameController;
 import Group3.gameMaker.Model.CreateGameModel.CreateGameModel;
 import Group3.gameMaker.Model.PlayGameModel.PlayGameModel;
 import Group3.gameMaker.View.View;
+import Group3.gameMaker.View.CreateGameView.MainWindow;
+import javafx.stage.Stage;
 
 public class PlayGameView implements View
 {
 	private Controller playGameController;
 	private HashMap<Integer,Integer> spriteIds;
+	private MainWindow mainWindow;
+	private MainWindow metaButtonWindow;
 
-	public PlayGameView() 
+	public PlayGameView(Stage appStage) 
+	{
+		spriteIds = new HashMap<>();
+	}
+	
+	public PlayGameView()
 	{
 		spriteIds = new HashMap<>();
 	}

@@ -11,7 +11,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 public interface ShapeStrategy extends Saveable
 {
-	public void draw(GraphicsContext g);
+	public void draw(GraphicsContext g, int posX, int posY);
 	public int getWidth();
 	public int getHeight();
 	public SaveableColor getColor();

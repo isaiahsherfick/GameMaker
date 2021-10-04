@@ -1,6 +1,13 @@
 package Group3.gameMaker.View.CreateGameView;
 
 import javafx.animation.TranslateTransition;
+
+import java.nio.file.Paths;
+import java.util.ArrayList;
+
+import Group3.gameMaker.Constants.*;
+import Group3.gameMaker.Sprite.Sound;
+import Group3.gameMaker.View.CreateGameView.Location.LayoutType;
 import javafx.scene.SubScene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -10,77 +17,76 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.util.Duration;
 
-public class SpaceRunnerSubScene extends SubScene{
-	
+// TODO pull constants to Constants class
+public class SpaceRunnerSubScene extends SubScene {
+
+
 	private final static String FONT_PATH = "/Group3/gameMaker/Resource/kenvector_future.ttf";
 	private final static String BACKGROUND_IMAGE = "/Group3/gameMaker/Resource/red_panel.png";
-	
+	private final static String WHOOSH_IN_SOUND_PATH = "src/main/resources/mixkit-arrow-whoosh-1491.wav";
+	private final static String WHOOSH_OUT_SOUND_PATH = "src/main/resources/mixkit-electric-whoosh-2596.wav";
 	private  boolean isHidden;
-	
-	
+
+
 	public SpaceRunnerSubScene() {
-		super(new AnchorPane(), 400, 275);
-		prefWidth(400);
-		prefHeight(275);
-		
-		BackgroundImage image = new BackgroundImage(new Image(BACKGROUND_IMAGE, 400, 275, false, true),
+		super(new AnchorPane(), Constants.ADD_SPRITE_SUBSCENE_WIDTH, Constants.ADD_SPRITE_SUBSCENE_HEIGHT);
+		prefWidth(Constants.ADD_SPRITE_SUBSCENE_WIDTH);
+		prefHeight(Constants.ADD_SPRITE_SUBSCENE_HEIGHT);
+
+		BackgroundImage image = new BackgroundImage(new Image(BACKGROUND_IMAGE, Constants.ADD_SPRITE_SUBSCENE_WIDTH, Constants.ADD_SPRITE_SUBSCENE_HEIGHT, false, true),
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, null);
-		
+
 		AnchorPane root2 = (AnchorPane) this.getRoot();
 		root2.setBackground(new Background(image));
-		
+
 		isHidden = true ;
-		
-		setLayoutX(1200);
-		setLayoutY(200);
-		
+
+		setLayoutX(Constants.ADD_SPRITE_SUBSCENE_SOURCE_X);
+		setLayoutY(Constants.ADD_SPRITE_SUBSCENE_SOURCE_Y);
+
 	}
-	
-	public void moveSubScene() {
+
+	public void moveInSubScene() {
 		TranslateTransition transition = new TranslateTransition();
 		transition.setDuration(Duration.seconds(0.3));
 		transition.setNode(this);
-		
+
 		if (isHidden) {
-			
-			transition.setToX(-1150);
-			transition.setToY(200);
 			isHidden = false;
-			
-		} else {
-			
-			transition.setToX(0);
-			transition.setToY(0);
-			isHidden = true ;
+
+			transition.setToX(Constants.ADD_SPRITE_SUBSCENE_DEST_X);
+			transition.setToY(Constants.ADD_SPRITE_SUBSCENE_DEST_Y);
+			transition.play();
 		}
-		
-		
-		transition.play();
+		Sound sound = new Sound(WHOOSH_IN_SOUND_PATH);
+		try {
+			sound.play();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
-	public void moveSubScene2() {
+
+	public void moveOutSubScene() {
 		TranslateTransition transition = new TranslateTransition();
 		transition.setDuration(Duration.seconds(0.3));
 		transition.setNode(this);
-		
-		if (isHidden) {
-			
-			transition.setToX(-1150);
-			transition.setToY(0);
-			isHidden = false;
-			
-		} else {
-			
-			transition.setToX(0);
-			transition.setToY(0);
+
+		if (!isHidden) {
 			isHidden = true ;
+			transition.setToX(Constants.ADD_SPRITE_SUBSCENE_SOURCE_X);
+			transition.setToY(Constants.ADD_SPRITE_SUBSCENE_SOURCE_Y);
+			transition.play();
 		}
-		
-		
-		transition.play();
+
+		Sound sound = new Sound(WHOOSH_OUT_SOUND_PATH);
+		try {
+			sound.play();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
-	
+
+
 	public AnchorPane getPane() {
 		return (AnchorPane) this.getRoot();
 	}

@@ -98,6 +98,7 @@ public class CreateGameModel implements Model
 	public void saveFile() throws IOException
 	{
 		ArrayList<Sprite> sprites = spriteMaster.getAllSprites();
+		saveFileManager.clearSaveObjects();
 		for (int i = 0; i < sprites.size(); i++)
 		{
 			saveFileManager.addSaveObject((Saveable)sprites.get(i));
