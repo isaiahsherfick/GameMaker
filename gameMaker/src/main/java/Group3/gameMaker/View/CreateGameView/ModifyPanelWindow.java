@@ -201,7 +201,7 @@ public class ModifyPanelWindow implements Layable {
 
 
 	public void displaySprite(Sprite sprite) {
-		System.out.println("This is the sprite: "+sprite.getSpriteId());
+		System.out.println(sprite.getSpriteId());
 		coordinates.setText(String.format("Coordinates: %d, %d",sprite.getX(), sprite.getY()));
 		sprite.getCoordinates();
 		sprite.getShapeStrategy();

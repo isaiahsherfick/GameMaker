@@ -28,7 +28,7 @@ public class MainWindow implements Layable{
 
 	private CreateGameView createGameView;
     private Group root;
-    private GraphicsContext graphics;
+    private GraphicsContext graphicsContext;
 
 	// Accessible only within the CreateGameView package
 	// This one needs a canvas
@@ -48,13 +48,18 @@ public class MainWindow implements Layable{
 		Scene s = new Scene(root);
 		appStage.setScene(s);
 
-		final Canvas canvas = new Canvas(250,250);
+		final Canvas canvas = new Canvas(Constants.MAIN_WINDOW_WIDTH,Constants.MAIN_WINDOW_HEIGHT);
 		canvas.setOnMousePressed(onMousePressedEventHandler);
-		GraphicsContext gc = canvas.getGraphicsContext2D();
+		graphicsContext = canvas.getGraphicsContext2D();
 
-		gc.setFill(Color.BLUE);
-		gc.fillRect(0, 0, 250, 250);
+		graphicsContext.setFill(Color.GRAY);
+		graphicsContext.fillRect(0, 0, Constants.MAIN_WINDOW_WIDTH, Constants.MAIN_WINDOW_HEIGHT);
 		root.getChildren().add(canvas);
+	}
+	
+	public GraphicsContext getGraphicsContext()
+	{
+		return graphicsContext;
 	}
 
 
@@ -103,7 +108,7 @@ public class MainWindow implements Layable{
 
 
 	public Canvas getCanvas() {
-		return gameCanvas;
+		return canvas;
 	}
 
 	@Override
@@ -128,32 +133,23 @@ public class MainWindow implements Layable{
 
 
 
-	EventHandler<MouseEvent> onMousePressedEventHandler = new EventHandler<MouseEvent>() {
+	EventHandler<MouseEvent> onMousePressedEventHandler = new EventHandler<MouseEvent>() 
+	{
 
-		@Override
-		public void handle(MouseEvent t) {
+		public void handle(MouseEvent t) 
+		{
 			double orgSceneX = t.getSceneX();
 			double orgSceneY = t.getSceneY();
-//    		double offsetX = t.getSceneX() - orgSceneX;
-//    		double offsetY = t.getSceneY() - orgSceneY;
-			System.out.println("x: "+(int)orgSceneX+ " y: "+(int)orgSceneY);
 			ArrayList<Sprite> allSprites = createGameView.getAllSprites();
-			for(Sprite s: allSprites) {
-				if(s.contains((int)orgSceneX - Constants.MAIN_WINDOW_ORIGIN_OFFSET_X, (int)orgSceneY - Constants.MAIN_WINDOW_ORIGIN_OFFSET_Y)) {
+			for(Sprite s: allSprites) 
+			{
+				if(s.contains((int)orgSceneX, (int)orgSceneY)) 
+				{
 					createGameView.setCurrentSpriteId(s.getSpriteId());
-					System.out.println(s.getSpriteId());
 				}
-				System.out.println(s.getX()+"    "+s.getY());
 			}
-
-
-//			orgTranslateX = ((Node)(t.getSource())).getTranslateX();
-//			orgTranslateY = ((Node)(t.getSource())).getTranslateY();
-
-
-
-	        }
-	    };
+	    }
+	};
 
 	    EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
 

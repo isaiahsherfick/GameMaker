@@ -23,7 +23,7 @@ public class SaveableColor implements Saveable
 	//default: white
 	public SaveableColor()
 	{
-		this.color = new Color(0,0,0,1);
+		this.color = new Color(1,0,0,1);
 	}
 	public SaveableColor(Color c)
 	{

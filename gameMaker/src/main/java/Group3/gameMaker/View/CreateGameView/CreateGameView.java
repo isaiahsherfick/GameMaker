@@ -10,6 +10,7 @@ import Group3.gameMaker.Sprite.Sprite;
 import Group3.gameMaker.Sprite.Strategy.EventStrategy.EventStrategy;
 import Group3.gameMaker.View.View;
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import Group3.gameMaker.Constants.*;
 
@@ -85,7 +86,11 @@ public class CreateGameView implements View
 	public void drawSprite(int spriteId)
 	{
 		createGameController.getSprite(spriteId).draw(mainWindow.getCanvas().getGraphicsContext2D());
-		//System.out.printf("Drawing Sprite#%d\n",spriteId);
+		Sprite s = createGameController.getSprite(spriteId);
+		GraphicsContext c = mainWindow.getGraphicsContext();
+		s.draw(c);
+		
+		System.out.printf("Drawing Sprite#%d\n",spriteId);
 	}
 
 	public void drawSprites()
@@ -96,7 +101,6 @@ public class CreateGameView implements View
 		{
 			drawSprite(entry.getKey());
 		}
-		//System.out.printf("Done drawing sprites\n");
 	}
 
 	public void update()
