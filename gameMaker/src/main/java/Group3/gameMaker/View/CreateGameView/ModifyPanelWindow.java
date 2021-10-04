@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -20,6 +21,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import Group3.gameMaker.Constants.*;
+import Group3.gameMaker.Sprite.Sprite;
 
 public class ModifyPanelWindow implements Layable {
 
@@ -28,6 +30,8 @@ public class ModifyPanelWindow implements Layable {
 	List<LayableButton> menuButtons;
 	public LayablePane modifyPane;
 	Scene propertyScene;
+	Label coordinates;
+//	LayableButton coordinates;
 	private SpaceRunnerSubScene eventChooserSubscene;
 	private EVENT choosenevent;
 	List<eventPicker> eventList;
@@ -39,19 +43,19 @@ public class ModifyPanelWindow implements Layable {
 		layables = new ArrayList<Layable>();
 		propertyStage.setWidth(Constants.MODIFY_PANEL_WIDTH);
 		propertyStage.setHeight(Constants.MODIFY_PANEL_HEIGHT);
-		panelStage.setWidth(Constants.MODIFY_PANEL_WIDTH);
-		panelStage.setHeight(Constants.MODIFY_PANEL_HEIGHT);
 //		panelStage.setX(Constants.MODIFY_PANEL_X);
 //		panelStage.setY(Constants.MODIFY_PANEL_Y);
 	}
 
 
 	public void makeStage () {
-		
+
 		//menuButtons = new ArrayList<>();
 		Group rootGroup = new Group();
 		//Pane rootPane = new Pane();
-		
+
+		coordinates = new Label("Coordinates: ");
+		rootGroup.getChildren().add(coordinates);
 		modifyPane = new LayablePane();
 //		controlPane.setStyle("-fx-background-color: #FF00FF");
 		layables.add(modifyPane);
@@ -62,18 +66,23 @@ public class ModifyPanelWindow implements Layable {
 		createBackground();
 		createEventChooserSubScene();
 		createeventButton();
-		
+
+
+//		coordinates = new LayableButton("Coordinates:");
+		modifyPane.getChildren().add(coordinates);
+//		layables.add(coordinates);
+
 		propertyScene = new Scene(rootGroup, Constants.MODIFY_PANEL_WIDTH, Constants.MODIFY_PANEL_HEIGHT);
 		propertyStage.setScene(propertyScene);
 	}
-	
+
 	public void createBackground() {
 		Image backgroundImage = new Image("/Group3/gameMaker/Resource/deep_blue.png", 256, 256, false, false);
 		BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, null);
 		modifyPane.setBackground(new Background(background));
-		
+
 	}
-	
+
 	private void createEventChooserSubScene() {
 		eventChooserSubscene = new SpaceRunnerSubScene();
 		modifyPane.getChildren().add(eventChooserSubscene);
@@ -85,7 +94,7 @@ public class ModifyPanelWindow implements Layable {
 		eventChooserSubscene.getPane().getChildren().add(createeventToChoose());
 		eventChooserSubscene.getPane().getChildren().add(createButtonToStartEvent());
 	}
-	
+
 	private HBox createeventToChoose() {
 		HBox box = new HBox();
 		box.setSpacing(60);
@@ -112,30 +121,30 @@ public class ModifyPanelWindow implements Layable {
 		box.setLayoutY(100);
 		return box;
 	}
-	
+
 	private LayableButton createButtonToStartEvent() {
 		LayableButton starteventButton = new LayableButton("ADD EVENT");
 		starteventButton.setLayoutX(105);
 		starteventButton.setLayoutY(220);
-		
-		
+
+
 		starteventButton.setOnAction(new EventHandler<ActionEvent>() {
 
-			
+
 
 			@Override
 			public void handle(ActionEvent event) {
-					
+
 				if (choosenevent != null) {
 //					GameViewManager gameManager = new GameViewManager();
 //					gameManager.createNewGameEvent(choosenevent);;
 				}
 			}
 		});
-		
+
 		return starteventButton;
 	}
-	
+
 	private void createeventButton() {
 		LayableButton eventbutton = new LayableButton("Event");
 		//AddMenuButtons( eventbutton);
@@ -151,25 +160,25 @@ public class ModifyPanelWindow implements Layable {
 	});
 		addButtonToControlPanel(eventbutton);
 	}
-	
+
 	public void addButtonToControlPanel(LayableButton button) {
 		modifyPane.AddChild(button);
 	}
-	
-	
+
+
 	private void showSubScene(SpaceRunnerSubScene subScene) {
-		if (sceneToHide != null) {
-			sceneToHide.moveSubScene();
+		if (subScene != null) {
+			subScene.moveInSubScene();
 		}
 
-		subScene.moveSubScene();
-		sceneToHide = subScene;
+//		subScene.moveOutSubScene();
+//		sceneToHide = subScene;
 	}
-		
+
 	public void showStage() {
 		propertyStage.show();
 	}
-	
+
 
 	@Override
 	public void changeLayout(LayoutType currentLayout, int parentX, int parentY, int index) {
@@ -188,5 +197,17 @@ public class ModifyPanelWindow implements Layable {
 	@Override
 	public void removeLayable(Layable layable) {
 		layables.remove(layable);
+	}
+
+
+	public void displaySprite(Sprite sprite) {
+		System.out.println("This is the sprite: "+sprite.getSpriteId());
+		coordinates.setText(String.format("Coordinates: %d, %d",sprite.getX(), sprite.getY()));
+		sprite.getCoordinates();
+		sprite.getShapeStrategy();
+		sprite.getSound();
+		sprite.getCollisionStrategyMap();
+		sprite.getEventStrategyList();
+		sprite.getCustomCollisionMap();
 	}
 }

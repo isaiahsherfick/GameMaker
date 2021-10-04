@@ -17,7 +17,7 @@ public class RectangleStrategy implements ShapeStrategy
 		height = -1;
 		color = new SaveableColor();
 	}
-	
+
 	public RectangleStrategy(int w, int h, SaveableColor c)
 	{
 		width = w;
@@ -26,7 +26,7 @@ public class RectangleStrategy implements ShapeStrategy
 	}
 
 	@SuppressWarnings("unchecked")
-	public JSONObject save() 
+	public JSONObject save()
 	{
 		JSONObject obj = new JSONObject();
 		obj.put("type","RectangleStrategy");
@@ -36,7 +36,7 @@ public class RectangleStrategy implements ShapeStrategy
 		return obj;
 	}
 
-	public void load(JSONObject saveJSON) 
+	public void load(JSONObject saveJSON)
 	{
 		width = (int)saveJSON.get("width");
 		height = (int)saveJSON.get("height");
@@ -45,35 +45,36 @@ public class RectangleStrategy implements ShapeStrategy
 		color = c;
 	}
 
-	public int getWidth() 
+	public int getWidth()
 	{
 		return width;
 	}
 
-	public int getHeight() 
+	public int getHeight()
 	{
 		return height;
 	}
 
 
-	public void draw(GraphicsContext g) 
+	public void draw(GraphicsContext g, int posX, int posY)
 	{
-				//TODO draw a rectangle
+		g.setFill(color.getColor());
+		g.fillRect(posX, posY, width, height);
 	}
-	public SaveableColor getColor() 
+	public SaveableColor getColor()
 	{
 		return color;
 	}
 
-	public void setColor(SaveableColor c) 
+	public void setColor(SaveableColor c)
 	{
 		color = c;
 	}
 
 	@Override
-	public ShapeStrategy copy() 
+	public ShapeStrategy copy()
 	{
 		return new RectangleStrategy(width, height, color.copy());
 	}
-	
+
 }

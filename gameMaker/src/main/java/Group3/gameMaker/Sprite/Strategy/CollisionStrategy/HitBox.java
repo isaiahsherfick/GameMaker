@@ -35,6 +35,15 @@ public class HitBox {
 		return HitBoxOverlapType.NO_OVERLAP;
 	}
 
+	public boolean contains(SaveablePoint point) {
+		SaveablePoint bottomLeft  = new SaveablePoint(sprite.getX(), sprite.getY());
+		SaveablePoint topRight = new SaveablePoint(sprite.getX() + sprite.getShapeStrategy().getWidth(), sprite.getY() + sprite.getShapeStrategy().getHeight());
+		if((bottomLeft.getX() <= point.getX() && topRight.getX() >= point.getX()) &&
+				((bottomLeft.getY() <= point.getX() && topRight.getY() >= point.getY())))
+				return true;
+		return false;
+	}
+
 	public SaveablePoint getBottomLeft() {
 		return new SaveablePoint(sprite.getX(), sprite.getY());
 	}

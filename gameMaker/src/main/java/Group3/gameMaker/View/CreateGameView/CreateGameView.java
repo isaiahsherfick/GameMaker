@@ -17,12 +17,16 @@ public class CreateGameView implements View
 {
 	private Controller createGameController;
 	private HashMap<Integer,Integer> spriteIds;
+	private MainWindow mainWindow;
+	private CreatePanelWindow createPanelWindow;
+	private ModifyPanelWindow modifyPanelWindow;
+	private int currentSpriteId = -2;
 
 	public CreateGameView()
 	{
-		
+
 	}
-	
+
 	public CreateGameView(Stage appStage) {
 //		appStage.setX(Constants.MAIN_WINDOW_X);
 //		appStage.setY(Constants.MAIN_WINDOW_Y);
@@ -30,7 +34,7 @@ public class CreateGameView implements View
 		appStage.setHeight(Constants.MAIN_WINDOW_HEIGHT);
 		appStage.setWidth(Constants.MAIN_WINDOW_WIDTH);
 		appStage.setTitle("Main Window");
-		MainWindow mainWindow = new MainWindow(appStage);
+		mainWindow = new MainWindow(this, appStage);
 //		appStage.setResizable(false);
 		mainWindow.makeStage();
 
@@ -41,7 +45,7 @@ public class CreateGameView implements View
 		createStage.setWidth(Constants.CREATE_PANEL_WIDTH);
 		createStage.setTitle("Create Panel");
 //		createStage.setResizable(false);
-		CreatePanelWindow createPanelWindow = new CreatePanelWindow(createStage);
+		createPanelWindow = new CreatePanelWindow(this, createStage);
 		createPanelWindow.makeStage();
 		createPanelWindow.createButtons();
 
@@ -52,7 +56,7 @@ public class CreateGameView implements View
 		modifyStage.setWidth(Constants.MODIFY_PANEL_WIDTH);
 		modifyStage.setTitle("Sprite Properties");
 //		modifyStage.setResizable(false);
-		ModifyPanelWindow modifyPanelWindow = new ModifyPanelWindow(modifyStage);
+		modifyPanelWindow = new ModifyPanelWindow(modifyStage);
 		modifyPanelWindow.makeStage();
 
 //		LayoutManager layoutManager = new LayoutManager(appStage);
@@ -72,12 +76,22 @@ public class CreateGameView implements View
 //		layoutManager.showStage();
 
 	}
-	
+
+	public int getCurrentSpriteId() {
+		return currentSpriteId;
+	}
+
+	public void setCurrentSpriteId(int spriteId) {
+		this.currentSpriteId = spriteId;
+		modifyPanelWindow.displaySprite(createGameController.getSprite(spriteId));
+	}
+
 	public void drawSprite(int spriteId)
 	{
+		createGameController.getSprite(spriteId).draw(mainWindow.getCanvas().getGraphicsContext2D());
 		//System.out.printf("Drawing Sprite#%d\n",spriteId);
 	}
-	
+
 	public void drawSprites()
 	{
 		spriteIds = createGameController.getSpriteIds();
@@ -92,24 +106,36 @@ public class CreateGameView implements View
 	{
 		drawSprites();
 		spriteIds = createGameController.getSpriteIds();
+		modifyPanelWindow.displaySprite(createGameController.getSprite(currentSpriteId));
 	}
-	
+
 	public void setCreateGameController(CreateGameController c)
 	{
 		createGameController = c;
 	}
 
-	public void createSprite() 
+	public void createSprite()
 	{
 		Sprite s = new Sprite();
 		createGameController.createSprite(s);
 	}
-	
+
 	public Sprite getSprite(int spriteId)
 	{
 		return createGameController.getSprite(spriteId);
 	}
-	
+
+	public void modifySprite(Sprite sprite) {
+		createGameController.modifySprite(sprite);
+	}
+
+	public ArrayList<Sprite> getAllSprites()
+	{
+		return createGameController.getAllSprites();
+	}
+
+
+
 	public void addEventStrategy(EventStrategy e, int spriteId)
 	{
 
@@ -117,14 +143,14 @@ public class CreateGameView implements View
 		s.addEventStrategy(e);
 		createGameController.modifySprite(s);
 	}
-	
 
-	public void undo() 
+
+	public void undo()
 	{
 		createGameController.undo();
 	}
 
-	public void redo() 
+	public void redo()
 	{
 		createGameController.redo();
 	}

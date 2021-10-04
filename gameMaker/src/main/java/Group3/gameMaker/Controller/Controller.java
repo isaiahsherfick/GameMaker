@@ -1,5 +1,6 @@
 package Group3.gameMaker.Controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import Group3.gameMaker.Sprite.Sprite;
@@ -14,4 +15,5 @@ public interface Controller
 	public void redo();
 	public HashMap<Integer, Integer> getSpriteIds();
 	public void update();
+	public ArrayList<Sprite> getAllSprites();
 }

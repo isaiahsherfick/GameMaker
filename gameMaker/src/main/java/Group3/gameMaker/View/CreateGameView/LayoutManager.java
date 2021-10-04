@@ -12,7 +12,7 @@ import java.util.List;
 
 import Group3.gameMaker.App;
 import Group3.gameMaker.View.CreateGameView.LayableButton;
-import Group3.gameMaker.View.CreateGameView.SHAPE;
+import Group3.gameMaker.View.CreateGameView.Shape;
 import Group3.gameMaker.View.CreateGameView.Location.LayoutType;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -493,18 +493,18 @@ public class LayoutManager implements Layable {
 		return box;
 	}
 
-	
-	
+
+
 	private LayableButton createButtonToStartShape() {
 		LayableButton startshapeButton = new LayableButton("ADD SHAPES");
 		startshapeButton.setLayoutX(105);
 		startshapeButton.setLayoutY(280);
 		startshapeButton.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-  
-					
-				if (choosenShape != null) {
-					createNewGameShape(choosenShape);
+
+
+				if (chosenShape != null) {
+					createNewGameShape(chosenShape);
 //					GameViewManager gameManager = new GameViewManager();
 //					gameManager.createNewGameShape(choosenaudio);;
 				}
@@ -516,85 +516,80 @@ public class LayoutManager implements Layable {
 		return  startshapeButton;
 	}
 
-	
+
 	private LayableButton createButtonToStartAudio() {
 		LayableButton startaudioButton = new LayableButton("ADD AUDIO");
 		startaudioButton.setLayoutX(105);
 		startaudioButton.setLayoutY(280);
-		
-		
+
+
 		startaudioButton.setOnAction(new EventHandler<ActionEvent>() {
 
-			
+
 
 			@Override
-<<<<<<< Updated upstream
-			public void handle(ActionEvent event) { 
-					
-				if (choosenaudio != null) {
-=======
 			public void handle(ActionEvent event) {
-				if (chosenShape != null) {
->>>>>>> Stashed changes
+
+				if (choosenaudio != null) {
 //					GameViewManager gameManager = new GameViewManager();
 //					gameManager.createNewGameAudio(choosenaudio);;
 				}
 			}
 		});
-		
+
 		return startaudioButton;
 	}
-	
+
 	private LayableButton createButtonToStartEvent() {
 		LayableButton starteventButton = new LayableButton("ADD EVENT");
 		starteventButton.setLayoutX(105);
 		starteventButton.setLayoutY(280);
-		
-		
+
+
 		starteventButton.setOnAction(new EventHandler<ActionEvent>() {
 
-			
+
 
 			@Override
 			public void handle(ActionEvent event) {
-					
+
 				if (choosenevent != null) {
 //					GameViewManager gameManager = new GameViewManager();
 //					gameManager.createNewGameEvent(choosenevent);;
 				}
 			}
 		});
-		
+
 		return starteventButton;
 	}
-	
-	
+
+
 	private LayableButton createButtonToStartMove() {
 		LayableButton startmoveButton = new LayableButton("ADD MOVEMENT");
 		startmoveButton.setLayoutX(105);
 		startmoveButton.setLayoutY(280);
-		
-		
+
+
 		startmoveButton.setOnAction(new EventHandler<ActionEvent>() {
 
-			
+
 
 			@Override
 			public void handle(ActionEvent event) {
-					
+
 				if (choosenmove != null) {
 //					GameViewManager gameManager = new GameViewManager();
 //					gameManager.createNewGameMove(choosenmove);;
 				}
 			}
 		});
-		
+
 		return startmoveButton;
 	}
-	
-	public void createNewGameShape(SHAPE choosenShape) {
+
+	public void createNewGameShape(Shape choosenShape) {
 		//appStage.hide();
-		if (choosenShape == SHAPE.BLUE)
+		if (choosenShape == Shape.BLUE)
 		{
 			Circle circle = new Circle();
 		      //Setting the properties of the circle
@@ -605,11 +600,11 @@ public class LayoutManager implements Layable {
 		      circle.setLayoutY(300);
 		      //Setting other properties
 		      circle.setFill(Color.DARKCYAN);
-		      
+
 		      circle.setCursor(Cursor.HAND);
 		        circle.setOnMousePressed(OnMousePressedEventHandler);
 		        circle.setOnMouseDragged(OnMouseDraggedEventHandler);
-		        
+
 		      rootPane.getChildren().add(circle);
 		}
 		else
@@ -618,30 +613,30 @@ public class LayoutManager implements Layable {
 			 rectangle.setLayoutX(500);
 			 rectangle.setLayoutY(100);
 			 rectangle.setFill(Color.BLUE);
-		      rootPane.getChildren().add(rectangle); 
-		      
+		      rootPane.getChildren().add(rectangle);
+
 		      rectangle.setCursor(Cursor.HAND);
 		      rectangle.setOnMousePressed(OnMousePressedEventHandler);
 		      rectangle.setOnMouseDragged(OnMouseDraggedEventHandler);
 		}
 	}
-	
-	EventHandler<MouseEvent> OnMousePressedEventHandler = 
+
+	EventHandler<MouseEvent> OnMousePressedEventHandler =
 	        new EventHandler<MouseEvent>() {
 
 	        @Override
 	        public void handle(MouseEvent t) {
 	            orgSceneX = t.getSceneX();
 	            orgSceneY = t.getSceneY();
-	            
+
 
 	            orgTranslateX = ((Node)(t.getSource())).getTranslateX();
 	            orgTranslateY = ((Node)(t.getSource())).getTranslateY();
-	            
+
 	        }
 	    };
-	    
-	    EventHandler<MouseEvent> OnMouseDraggedEventHandler = 
+
+	    EventHandler<MouseEvent> OnMouseDraggedEventHandler =
 		        new EventHandler<MouseEvent>() {
 
 		        @Override
@@ -650,16 +645,16 @@ public class LayoutManager implements Layable {
 		            double offsetY = t.getSceneY() - orgSceneY;
 		            double newTranslateX = orgTranslateX + offsetX;
 		            double newTranslateY = orgTranslateY + offsetY;
-		            
-		            
+
+
 		            ((Node)(t.getSource())).setTranslateX(newTranslateX);
 		            ((Node)(t.getSource())).setTranslateY(newTranslateY);
-		            
+
 		        }
 		    };
-		    
-	
-		
+
+
+
 
 
 

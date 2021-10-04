@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Group3.gameMaker.Constants.Constants;
+import Group3.gameMaker.Sprite.Sprite;
 import Group3.gameMaker.View.CreateGameView.Location.LayoutType;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,6 +32,7 @@ public class CreatePanelWindow implements Layable {
 	public Group rootGroup;
 
 	private SpaceRunnerSubScene addSpriteSubScene;
+	private CreateGameView createGameView;
 
 	List<ShapePicker> shapesList;
 	private Shape chosenShape = null;
@@ -40,12 +42,13 @@ public class CreatePanelWindow implements Layable {
 
 
 	// Accessible only within the CreateGameView package
-	CreatePanelWindow(Stage panelStage) {
+	CreatePanelWindow(CreateGameView createGameView, Stage panelStage) {
 		this.panelStage = panelStage;
 		layables = new ArrayList<Layable>();
 		panelStage.setHeight(Constants.CREATE_PANEL_HEIGHT);
 		panelStage.setWidth(Constants.CREATE_PANEL_WIDTH);
 		panelStage.setMaxHeight(Constants.VISUAL_HEIGHT);
+		this.createGameView = createGameView;
 //		panelStage.setMaxWidth(Constants.CREATE_PANEL_WIDTH);
 //		panelStage.setMaxHeight(Constants.CREATE_PANEL_HEIGHT);
 //		panelStage.setX(Constants.CREATE_PANEL_X);
@@ -115,8 +118,6 @@ public class CreatePanelWindow implements Layable {
 	}
 
 
-		}
-
 	public void createButtons () {
 
 		final LayableButton spriteButton = new LayableButton("New Sprite");
@@ -125,6 +126,7 @@ public class CreatePanelWindow implements Layable {
 		spriteButton.setOnAction(e -> {
 			startAddSpriteSubScene();
 			showSubScene(addSpriteSubScene);
+			createGameView.createSprite();
 		});
 
 
@@ -187,16 +189,16 @@ public class CreatePanelWindow implements Layable {
 //		menuButtons.add(button);
 		controlPane.getChildren().add(button);
 	}
-	
-	private void showSubScene(SpaceRunnerSubScene subScene) {
-		if (sceneToHide != null) {
-			sceneToHide.moveSubScene();
-		}
 
-		subScene.moveSubScene();
-		sceneToHide = subScene;
-	}
-	
+//	private void showSubScene(SpaceRunnerSubScene subScene) {
+//		if (sceneToHide != null) {
+//			sceneToHide.moveSubScene();
+//		}
+//
+//		subScene.moveSubScene();
+//		sceneToHide = subScene;
+//	}
+
 
 	public void addButtonToControlPanel(LayableButton button) {
 		controlPane.AddChild(button);

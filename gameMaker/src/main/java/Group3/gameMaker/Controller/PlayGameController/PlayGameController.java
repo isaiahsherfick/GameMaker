@@ -17,80 +17,80 @@ public class PlayGameController implements Controller
 	private Model playGameModel;
 	private GameClock clock;
 
-	public PlayGameController() 
+	public PlayGameController()
 	{
 		CollisionDetector collisionDetector = new CollisionDetector();
 		clock = new GameClock();
 		clock.addObserver(this);
 	}
 
-	public View getPlayGameView() 
+	public View getPlayGameView()
 	{
 		return playGameView;
 	}
 
-	public void setPlayGameView(PlayGameView playGameView) 
+	public void setPlayGameView(PlayGameView playGameView)
 	{
 		this.playGameView = playGameView;
 	}
 
-	public Model getPlayGameModel() 
+	public Model getPlayGameModel()
 	{
 		return playGameModel;
 	}
 	@Override
-	public Sprite getSprite(int spriteId) 
+	public Sprite getSprite(int spriteId)
 	{
 		return playGameModel.getSprite(spriteId);
 	}
 
 	@Override
-	public void deleteSprite(int spriteId) 
+	public void deleteSprite(int spriteId)
 	{
 		//Not needed for play context
 	}
 
 	@Override
-	public void createSprite(Sprite s) 
+	public void createSprite(Sprite s)
 	{
 		//Not needed for play context
 	}
 
 	@Override
-	public void modifySprite(Sprite s) 
+	public void modifySprite(Sprite s)
 	{
 		//Not needed for play context
 	}
 
 	@Override
-	public void undo() 
+	public void undo()
 	{
 		//Not yet possible in play context
 	}
 
 	@Override
-	public void redo() 
+	public void redo()
 	{
 		//Not yet possible in play context
 	}
 
 	@Override
-	public HashMap<Integer, Integer> getSpriteIds() 
+	public HashMap<Integer, Integer> getSpriteIds()
 	{
 		return playGameModel.getSpriteMaster().getViewMap();
 	}
 
-	public void setPlayGameModel(Model m) 
+	public void setPlayGameModel(Model m)
 	{
 		playGameModel = m;
 	}
 
 	//Force the clock to tick for unit testing
-	public void forceTick() 
+	public void forceTick()
 	{
 		clock.tick();
 	}
-	
+
 	//called whenever the clock ticks
 	public void update()
 	{
@@ -100,29 +100,34 @@ public class PlayGameController implements Controller
 			sprite.onClockTick();
 		}
 	}
-	
+
 	public void onKeyPress()
 	{
-		
+
 	}
 
-	public void startClock() 
+	public void startClock()
 	{
 		clock.start();
 	}
 
-	public void stopClock() 
+	public void stopClock()
 	{
 		clock.stop();
 	}
 
-	public void pause() 
+	public void pause()
 	{
 		clock.pause();
 	}
-	
+
 	public void unpause()
 	{
 		clock.unpause();
+	}
+
+	@Override
+	public ArrayList<Sprite> getAllSprites() {
+		return playGameModel.getSpriteMaster().getAllSprites();
 	}
 }

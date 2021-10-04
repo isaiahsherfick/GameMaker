@@ -27,6 +27,9 @@ public class Constants {
 	public static final int MODIFY_PANEL_X = WINDOW_PADDING + CREATE_PANEL_WIDTH + MAIN_WINDOW_WIDTH;
 	public static final int MODIFY_PANEL_Y = WINDOW_SPACING;
 
+	public static final int DEFAULT_CIRCLE_RADIUS = 50;
+	public static final int MAIN_WINDOW_ORIGIN_OFFSET_X = 353;
+	public static final int MAIN_WINDOW_ORIGIN_OFFSET_Y = 21;
 
 	public static final int ANIMATION_START_X = 1200;
 	public static final int ANIMATION_START_Y = 200;

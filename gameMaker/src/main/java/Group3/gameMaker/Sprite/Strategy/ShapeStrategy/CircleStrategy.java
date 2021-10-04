@@ -1,6 +1,7 @@
 package Group3.gameMaker.Sprite.Strategy.ShapeStrategy;
 
 import org.json.simple.JSONObject;
+import Group3.gameMaker.Constants.*;
 
 import Group3.gameMaker.SaveAndLoad.SaveableColor;
 import javafx.scene.canvas.GraphicsContext;
@@ -9,14 +10,14 @@ public class CircleStrategy implements ShapeStrategy
 {
 	private int radius;
 	private SaveableColor color;
-	
+
 	//Default Circle
 	public CircleStrategy()
 	{
-		this.radius = 5;
+		this.radius = Constants.DEFAULT_CIRCLE_RADIUS;
 		this.color = new SaveableColor();
 	}
-	
+
 	public CircleStrategy(int radius, SaveableColor color)
 	{
 		this.radius = radius;
@@ -24,7 +25,7 @@ public class CircleStrategy implements ShapeStrategy
 	}
 
 	@SuppressWarnings("unchecked")
-	public JSONObject save() 
+	public JSONObject save()
 	{
 		JSONObject obj = new JSONObject();
 		obj.put("type","CircleStrategy");
@@ -33,7 +34,7 @@ public class CircleStrategy implements ShapeStrategy
 		return obj;
 	}
 
-	public void load(JSONObject saveJSON) 
+	public void load(JSONObject saveJSON)
 	{
 		radius = ((Long)saveJSON.get("radius")).intValue();
 		SaveableColor c = new SaveableColor();
@@ -41,35 +42,36 @@ public class CircleStrategy implements ShapeStrategy
 		color = c;
 	}
 
-	public int getWidth() 
+	public int getWidth()
 	{
 		return radius * 2;
 	}
 
-	public int getHeight() 
+	public int getHeight()
 	{
 		return radius * 2;
 	}
 
-	public void draw(GraphicsContext g) 
+	public void draw(GraphicsContext g, int posX, int posY)
 	{
-		//TODO draw a circle
+		g.setFill(color.getColor());
+		g.fillOval(posX, posY, radius, radius);
 	}
 
-	public SaveableColor getColor() 
+	public SaveableColor getColor()
 	{
 		return color;
 	}
 
-	public void setColor(SaveableColor c) 
+	public void setColor(SaveableColor c)
 	{
 		color = c;
 	}
 
 	@Override
-	public ShapeStrategy copy() 
+	public ShapeStrategy copy()
 	{
 		return new CircleStrategy(radius,color.copy());
 	}
-	
+
 }
