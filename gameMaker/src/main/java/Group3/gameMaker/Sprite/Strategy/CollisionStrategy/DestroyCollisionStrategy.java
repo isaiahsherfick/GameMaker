@@ -35,5 +35,10 @@ public class DestroyCollisionStrategy implements CollisionStrategy {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public String toString()
+	{
+		return "Destroy";
+	}
 
 }

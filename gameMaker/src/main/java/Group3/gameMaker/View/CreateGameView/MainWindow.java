@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Group3.gameMaker.Constants.Constants;
 import Group3.gameMaker.Sprite.Sprite;
+import Group3.gameMaker.View.View;
 import Group3.gameMaker.View.CreateGameView.Location.LayoutType;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
@@ -26,7 +27,7 @@ public class MainWindow implements Layable{
 
 	private LayableCanvas gameCanvas;
 
-	private CreateGameView createGameView;
+	private View createGameView;
     private Group root;
     private Scene scene;
     private GraphicsContext graphicsContext;
@@ -36,7 +37,7 @@ public class MainWindow implements Layable{
     
 	// Accessible only within the CreateGameView package
 	// This one needs a canvas
-	MainWindow(CreateGameView createGameView, Stage appStage)
+	public MainWindow(View createGameView, Stage appStage)
 	{
 		this.appStage = appStage;
 		layables = new ArrayList<Layable>();

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import java.util.List;
+import java.util.Map.Entry;
 
 import Group3.gameMaker.View.CreateGameView.Location.LayoutType;
 import javafx.event.EventHandler;
@@ -40,6 +41,12 @@ import Group3.gameMaker.Constants.*;
 import Group3.gameMaker.SaveAndLoad.SaveableColor;
 import Group3.gameMaker.Sprite.Sound;
 import Group3.gameMaker.Sprite.Sprite;
+import Group3.gameMaker.Sprite.Strategy.CollisionStrategy.BounceCollisionStrategy;
+import Group3.gameMaker.Sprite.Strategy.CollisionStrategy.CollisionStrategy;
+import Group3.gameMaker.Sprite.Strategy.CollisionStrategy.CustomCollisionMap;
+import Group3.gameMaker.Sprite.Strategy.CollisionStrategy.CustomCollisionPair;
+import Group3.gameMaker.Sprite.Strategy.CollisionStrategy.DestroyCollisionStrategy;
+import Group3.gameMaker.Sprite.Strategy.CollisionStrategy.NoCollisionStrategy;
 import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.*;
 import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.CircleStrategy;
 import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.RectangleStrategy;
@@ -57,6 +64,9 @@ public class ModifyPanelWindow
 	private Label spriteIdLabel, spriteLocationLabel;
 	private MenuButton spriteShapeStrategyDropdown;
 	private ColorPicker colorPicker;
+	private int collisionIndex = 1;
+	private static final int COLLISION_PADDING = 25;
+	private static final int COLLISION_DROPDOWN_LEFT_PADDING = 100;
 	Slider radiusSlider, widthSlider, heightSlider;
 
 	public ModifyPanelWindow(CreateGameView view, Stage panelStage)
@@ -250,6 +260,8 @@ public class ModifyPanelWindow
 		{
 			spriteIdLabel.setText(String.format("Sprite ID: %d", selectedSprite.getSpriteId()));
 			spriteLocationLabel.setText(String.format("X: %4d\tY: %4d",selectedSprite.getX(), selectedSprite.getY()));
+			
+			populateCollisionTab();
 		}
 		else
 		{
@@ -263,6 +275,7 @@ public class ModifyPanelWindow
 			widthSlider.setVisible(false);
 			radiusSlider.setOnDragDetected( e-> {
 				((CircleStrategy)(selectedSprite.getShapeStrategy())).setRadius((int)radiusSlider.getValue());
+				createGameView.modifySprite(selectedSprite);
 			});
 		}
 		else if(selectedSprite !=null && selectedSprite.getShapeStrategy() instanceof RectangleStrategy) {
@@ -271,14 +284,72 @@ public class ModifyPanelWindow
 			radiusSlider.setVisible(false);
 			heightSlider.setOnDragDetected( e-> {
 				((RectangleStrategy)(selectedSprite.getShapeStrategy())).setHeight((int)heightSlider.getValue());
+				createGameView.modifySprite(selectedSprite);
 			});
 			widthSlider.setOnDragDetected( e-> {
 				((RectangleStrategy)(selectedSprite.getShapeStrategy())).setWidth((int)widthSlider.getValue());
+				createGameView.modifySprite(selectedSprite);
 			});
 		}
 	}
 
+	private void populateCollisionTab()
+	{
+		collisionIndex = 0;
+		collisionPane.getChildren().clear();
+		CustomCollisionMap customCollisionMap = selectedSprite.getCustomCollisionMap();
+		for (Entry<Integer, CollisionStrategy> entry : customCollisionMap.entrySet())
+		{
+			//Uncomment to remove concurrentaccessexception
+			//displayCustomCollision(new CustomCollisionPair(entry.getKey(),entry.getValue()));
+			collisionIndex++;
+		}
+	}
 
+
+	private void displayCustomCollision(CustomCollisionPair customCollisionPair) 
+	{
+		Label currentCollisionLabel = new Label(String.format("SprideID: %d\tCollision:%s",customCollisionPair.getSpriteId(),customCollisionPair.getCollisionStrategy()));
+		currentCollisionLabel.setLayoutY(collisionIndex * COLLISION_PADDING);
+		currentCollisionLabel.setFont(new Font(17));
+		currentCollisionLabel.setTextFill(Color.web("#FFFFFF"));
+
+		MenuButton customCollisions = new MenuButton();
+		customCollisions.setLayoutY(collisionIndex * COLLISION_PADDING + 25);
+		customCollisions.setLayoutX(COLLISION_DROPDOWN_LEFT_PADDING);
+		MenuItem destroyCollision = new MenuItem("Be Destroyed");
+		destroyCollision.setOnAction( e ->
+		{
+			if (selectedSprite != null)
+			{
+				selectedSprite.addCustomCollision(customCollisionPair.getSpriteId(), new DestroyCollisionStrategy(selectedSprite));
+				createGameView.modifySprite(selectedSprite);
+			}
+		});
+		customCollisions.getItems().add(destroyCollision);
+		MenuItem bounceCollision = new MenuItem("Bounce");
+		destroyCollision.setOnAction( e ->
+		{
+			if (selectedSprite != null)
+			{
+				selectedSprite.addCustomCollision(customCollisionPair.getSpriteId(), new BounceCollisionStrategy(selectedSprite));
+				createGameView.modifySprite(selectedSprite);
+			}
+		});
+		customCollisions.getItems().add(destroyCollision);
+		MenuItem doNothingCollision = new MenuItem("Ignore Collision");
+		destroyCollision.setOnAction( e ->
+		{
+			if (selectedSprite != null)
+			{
+				selectedSprite.addCustomCollision(customCollisionPair.getSpriteId(), new NoCollisionStrategy());
+				createGameView.modifySprite(selectedSprite);
+			}
+		});
+		customCollisions.getItems().add(destroyCollision);
+		collisionPane.getChildren().add(customCollisions);
+		collisionPane.getChildren().add(currentCollisionLabel);
+	}
 
 	private void createBackground()
 	{

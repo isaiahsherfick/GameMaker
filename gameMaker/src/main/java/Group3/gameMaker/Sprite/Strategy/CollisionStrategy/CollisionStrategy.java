@@ -15,4 +15,7 @@ public interface CollisionStrategy extends Saveable
 	public void collide(Sprite collidee);
 
 	public void setCollider(Sprite sprite);
+	
+	@Override
+	public String toString();
 }

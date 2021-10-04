@@ -60,5 +60,10 @@ public class BounceCollisionStrategy implements CollisionStrategy {
 		};
 		collidee.getCollisionStrategyMap().get(collider.getSpriteId()).collide(collider);
 	}
+	
+	public String toString()
+	{
+		return "Bounce";
+	}
 
 }

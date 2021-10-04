@@ -2,6 +2,7 @@ package Group3.gameMaker.Sprite.Strategy.CollisionStrategy;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.json.simple.JSONObject;
 
@@ -16,6 +17,7 @@ public class CustomCollisionMap implements Saveable
 	public CustomCollisionMap()
 	{
 		map = new HashMap<>();
+		map.put(DEFAULT_COLLISION, new NoCollisionStrategy());
 	}
 	private CustomCollisionMap(HashMap<Integer,CollisionStrategy> map)
 	{
@@ -102,5 +104,9 @@ public class CustomCollisionMap implements Saveable
 		}	
 		
 		return new CustomCollisionMap(newMap);
+	}
+	public Set<Entry<Integer, CollisionStrategy>> entrySet() 
+	{
+		return map.entrySet();
 	}
 }

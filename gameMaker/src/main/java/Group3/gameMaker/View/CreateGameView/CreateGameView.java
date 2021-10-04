@@ -23,11 +23,15 @@ public class CreateGameView implements View
 	private CreatePanelWindow createPanelWindow;
 	private ModifyPanelWindow modifyPanelWindow;
 	private int currentSpriteId = -2;
+	private Stage createStage;
+	private Stage modifyStage;
+	private Stage appStage;
 
 
-	public CreateGameView(Stage appStage) {
+	public CreateGameView(Stage stage) {
 //		appStage.setX(Constants.MAIN_WINDOW_X);
 //		appStage.setY(Constants.MAIN_WINDOW_Y);
+		appStage = stage;
 		appStage.centerOnScreen();
 		appStage.setHeight(Constants.MAIN_WINDOW_HEIGHT);
 		appStage.setWidth(Constants.MAIN_WINDOW_WIDTH);
@@ -36,7 +40,7 @@ public class CreateGameView implements View
 //		appStage.setResizable(false);
 		//mainWindow.makeStage();
 
-		Stage createStage = new Stage();
+		createStage = new Stage();
 		createStage.setX(Constants.CREATE_PANEL_X);
 		createStage.setY(Constants.CREATE_PANEL_Y);
 		createStage.setHeight(Constants.CREATE_PANEL_HEIGHT);
@@ -46,7 +50,7 @@ public class CreateGameView implements View
 		createPanelWindow = new CreatePanelWindow(this, createStage);
 		createPanelWindow.createButtons();
 
-		Stage modifyStage = new Stage();
+		modifyStage = new Stage();
 		modifyStage.setX(Constants.MODIFY_PANEL_X);
 		modifyStage.setY(Constants.MODIFY_PANEL_Y);
 		modifyStage.setHeight(Constants.CREATE_PANEL_HEIGHT);
@@ -54,23 +58,19 @@ public class CreateGameView implements View
 		modifyStage.setTitle("Sprite Properties");
 		modifyStage.setResizable(false);
 		modifyPanelWindow = new ModifyPanelWindow(this, modifyStage);
-
-//		LayoutManager layoutManager = new LayoutManager(appStage);
-//		layoutManager.makeStage();
-
+	}
+	
+	public void show()
+	{
 		createStage.show();
 		modifyStage.show();
 		appStage.show();
-
-
-
-
-    	//Canvas gameCanvas = layoutManager.getGameCanvas();
-//		Scene gameScene = layoutManager.getGameScene();
-
-//		layoutManager.createButtons();
-//		layoutManager.showStage();
-
+	}
+	public void close()
+	{
+		createStage.close();
+		appStage.close();
+		modifyStage.close();
 	}
 
 	public CreateGameView() 
@@ -191,10 +191,8 @@ public class CreateGameView implements View
 
 	public void switchContexts() 
 	{
-		createPanelWindow.getStage().close();
-		mainWindow.getStage().close();
-		modifyPanelWindow.getStage().close();
-		App.switchContexts();
+		close();
+		App.switchToPlay();
 	}
 
 	public Sprite getSelectedSprite() 

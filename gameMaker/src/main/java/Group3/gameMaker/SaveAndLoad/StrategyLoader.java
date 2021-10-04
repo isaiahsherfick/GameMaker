@@ -4,6 +4,7 @@ import org.json.simple.JSONObject;
 
 import Group3.gameMaker.Null.NullObject;
 import Group3.gameMaker.Sprite.Strategy.CollisionStrategy.BounceCollisionStrategy;
+import Group3.gameMaker.Sprite.Strategy.CollisionStrategy.NoCollisionStrategy;
 import Group3.gameMaker.Sprite.Strategy.EventStrategy.ChangeColorOnTickStrategy;
 import Group3.gameMaker.Sprite.Strategy.EventStrategy.DoNothingStrategy;
 import Group3.gameMaker.Sprite.Strategy.EventStrategy.MoveOnClockTickStrategy;
@@ -50,6 +51,8 @@ public class StrategyLoader
 				MoveWithWASDStrategy mo = new MoveWithWASDStrategy();
 				mo.load(strategyJSON);
 				return mo;
+			case "NoCollisionStrategy":
+				return new NoCollisionStrategy();
 			//Add a case for each kind of strategy object we see
 			default:
 				return new NullObject();

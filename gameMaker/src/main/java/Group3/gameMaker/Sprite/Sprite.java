@@ -18,6 +18,7 @@ import Group3.gameMaker.SaveAndLoad.StrategyLoader;
 import Group3.gameMaker.Sprite.Strategy.CollisionStrategy.BounceCollisionStrategy;
 import Group3.gameMaker.Sprite.Strategy.CollisionStrategy.CollisionStrategy;
 import Group3.gameMaker.Sprite.Strategy.CollisionStrategy.CustomCollisionMap;
+import Group3.gameMaker.Sprite.Strategy.CollisionStrategy.DestroyCollisionStrategy;
 import Group3.gameMaker.Sprite.Strategy.CollisionStrategy.HitBox;
 import Group3.gameMaker.Sprite.Strategy.EventStrategy.EventStrategy;
 import Group3.gameMaker.Sprite.Strategy.EventStrategy.EventStrategyLinkedList;
@@ -249,6 +250,13 @@ public class Sprite implements Saveable
 	public void onClockTick()
 	{
 		eventStrategyList.onClockTick();
+	}
+
+
+	public void addCustomCollision(int spriteId2, CollisionStrategy c) 
+	{
+		c.setCollider(this);
+		customCollisionMap.addCustomCollision(spriteId2, c);
 	}
 
 }

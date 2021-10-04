@@ -6,14 +6,19 @@ import Group3.gameMaker.Sprite.Sprite;
 
 public class NoCollisionStrategy implements CollisionStrategy{
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public JSONObject save() {
-
-		return null;
+	public JSONObject save() 
+	{
+		JSONObject obj = new JSONObject();
+		obj.put("type", "NoCollisionStrategy");
+		return obj;
 	}
 
 	@Override
-	public void load(JSONObject saveJSON) {
+	public void load(JSONObject saveJSON) 
+	{
+
 	}
 
 	@Override
@@ -25,6 +30,11 @@ public class NoCollisionStrategy implements CollisionStrategy{
 	public void setCollider(Sprite sprite) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public String toString()
+	{
+		return "No Collision";
 	}
 
 }
