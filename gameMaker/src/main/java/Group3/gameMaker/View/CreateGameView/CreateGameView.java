@@ -94,6 +94,7 @@ public class CreateGameView implements View
 
 	public void drawSprites()
 	{
+		mainWindow.getCanvas().getGraphicsContext2D().clearRect(0, 0, mainWindow.getCanvas().getWidth(), mainWindow.getCanvas().getHeight());;
 		spriteIds = createGameController.getSpriteIds();
 		for (Entry<Integer, Integer> entry : spriteIds.entrySet())
 		{

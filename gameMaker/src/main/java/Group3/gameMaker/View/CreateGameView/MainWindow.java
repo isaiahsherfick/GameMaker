@@ -151,11 +151,14 @@ public class MainWindow implements Layable{
 					}
 				}
 
-	    		s_out.setX((int)orgSceneX - Constants.MAIN_WINDOW_ORIGIN_OFFSET_X);
-	    		s_out.setY((int)orgSceneY - Constants.MAIN_WINDOW_ORIGIN_OFFSET_Y);
-	    		createGameView.modifySprite(s_out);
-	    		((Node)(t.getSource())).setTranslateX(newTranslateX);
-	    		((Node)(t.getSource())).setTranslateY(newTranslateY);
+	    		if (s_out != null)
+	    		{
+					s_out.setX((int)orgSceneX - Constants.MAIN_WINDOW_ORIGIN_OFFSET_X);
+					s_out.setY((int)orgSceneY - Constants.MAIN_WINDOW_ORIGIN_OFFSET_Y);
+					createGameView.modifySprite(s_out);
+					((Node)(t.getSource())).setTranslateX(newTranslateX);
+					((Node)(t.getSource())).setTranslateY(newTranslateY);
+	    		}
 
 		    }
 		};

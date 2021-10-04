@@ -69,6 +69,10 @@ public class CreateGameController implements Controller
 
 	public Sprite getSprite(int spriteId)
 	{
+		if (createGameModel.getSprite(spriteId) == null)
+		{
+			return new Sprite();
+		}
 		return createGameModel.getSprite(spriteId);
 	}
 
