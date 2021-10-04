@@ -11,8 +11,10 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -20,23 +22,38 @@ public class MainWindow implements Layable{
 
 	private Stage appStage;
 	private ArrayList<Layable> layables;
+	private Canvas canvas;
+
 	private LayableCanvas gameCanvas;
-	double orgSceneX, orgSceneY;
-    double orgTranslateX, orgTranslateY;
-    private CreateGameView createGameView;
+
+	private CreateGameView createGameView;
+    private Group root;
+    private GraphicsContext graphics;
 
 	// Accessible only within the CreateGameView package
 	// This one needs a canvas
-	MainWindow(CreateGameView createGameView, Stage appStage) {
+	MainWindow(CreateGameView createGameView, Stage appStage)
+	{
 		this.appStage = appStage;
 		layables = new ArrayList<Layable>();
+
 		appStage.setWidth(Constants.MAIN_WINDOW_WIDTH);
 		appStage.setHeight(Constants.MAIN_WINDOW_HEIGHT);
-//		appStage.setX(Constants.MAIN_WINDOW_X);
-//		appStage.setY(Constants.MAIN_WINDOW_Y);
+
 		this.createGameView = createGameView;
 		appStage.centerOnScreen();
+		canvas = new Canvas();
 
+		Group root = new Group();
+		Scene s = new Scene(root, 300, 300, Color.CYAN);
+
+		final Canvas canvas = new Canvas(250,250);
+		canvas.setOnMousePressed(onMousePressedEventHandler);
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+
+		gc.setFill(Color.BLUE);
+		gc.fillRect(0, 0, 250, 250);
+		root.getChildren().add(canvas);
 	}
 
 
@@ -54,11 +71,15 @@ public class MainWindow implements Layable{
 //				rootPane.setStyle("-fx-background-color: #FF00FF");
 //				rootGroup.getChildren().add(rootPane);
 //
-//
+
 		gameCanvas = new LayableCanvas(Constants.MAIN_WINDOW_WIDTH, Constants.MAIN_WINDOW_HEIGHT);
-		gameCanvas.setOnMousePressed(OnMousePressedEventHandler);
-		gameCanvas.setOnMouseDragged(OnMouseDraggedEventHandler);
+		gameCanvas.setOnMousePressed(onMousePressedEventHandler);
+//		gameCanvas.setOnMouseDragged(OnMouseDraggedEventHandler);
 		layables.add(gameCanvas);
+		System.out.println(gameCanvas.getBoundsInLocal());
+		System.out.println(gameCanvas.getBoundsInParent());
+		System.out.println(gameCanvas.getBaselineOffset());
+
 		rootGroup.getChildren().add(gameCanvas);
 		gameCanvas.setLayoutX(Constants.MAIN_WINDOW_X);
 		gameCanvas.setLayoutY(Constants.MAIN_WINDOW_Y);
@@ -80,7 +101,7 @@ public class MainWindow implements Layable{
 	}
 
 
-	public LayableCanvas getCanvas() {
+	public Canvas getCanvas() {
 		return gameCanvas;
 	}
 
@@ -106,12 +127,12 @@ public class MainWindow implements Layable{
 
 
 
-	EventHandler<MouseEvent> OnMousePressedEventHandler = new EventHandler<MouseEvent>() {
+	EventHandler<MouseEvent> onMousePressedEventHandler = new EventHandler<MouseEvent>() {
 
 		@Override
 		public void handle(MouseEvent t) {
-			orgSceneX = t.getSceneX();
-			orgSceneY = t.getSceneY();
+			double orgSceneX = t.getSceneX();
+			double orgSceneY = t.getSceneY();
 //    		double offsetX = t.getSceneX() - orgSceneX;
 //    		double offsetY = t.getSceneY() - orgSceneY;
 			System.out.println("x: "+(int)orgSceneX+ " y: "+(int)orgSceneY);
@@ -124,6 +145,7 @@ public class MainWindow implements Layable{
 				System.out.println(s.getX()+"    "+s.getY());
 			}
 
+
 //			orgTranslateX = ((Node)(t.getSource())).getTranslateX();
 //			orgTranslateY = ((Node)(t.getSource())).getTranslateY();
 
@@ -132,37 +154,43 @@ public class MainWindow implements Layable{
 	        }
 	    };
 
-	    EventHandler<MouseEvent> OnMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
+	    EventHandler<MouseEvent> onMouseDraggedEventHandler = new EventHandler<MouseEvent>() {
 
 	    	@Override
 	    	public void handle(MouseEvent t) {
-	    		double offsetX = t.getSceneX() - orgSceneX;
-	    		double offsetY = t.getSceneY() - orgSceneY;
-	    		double newTranslateX = orgTranslateX + offsetX;
-	    		double newTranslateY = orgTranslateY + offsetY;
-	    		System.out.println(offsetX+ " "+offsetY);
-				ArrayList<Sprite> allSprites = createGameView.getAllSprites();
-				Sprite s_out = null;
-	    		for(Sprite s: allSprites) {
-					if(s.contains((int)orgSceneX - Constants.MAIN_WINDOW_ORIGIN_OFFSET_X, (int)orgSceneY - Constants.MAIN_WINDOW_ORIGIN_OFFSET_Y)) {
-						createGameView.setCurrentSpriteId(s.getSpriteId());
-						s_out = s.copy();
-						System.out.println(s.getSpriteId());
-					}
-				}
+//	    		double offsetX = t.getSceneX() - orgSceneX;
+//	    		double offsetY = t.getSceneY() - orgSceneY;
+//
 
-	    		if (s_out != null)
-	    		{
-					s_out.setX((int)orgSceneX - Constants.MAIN_WINDOW_ORIGIN_OFFSET_X);
-					s_out.setY((int)orgSceneY - Constants.MAIN_WINDOW_ORIGIN_OFFSET_Y);
-					createGameView.modifySprite(s_out);
-					((Node)(t.getSource())).setTranslateX(newTranslateX);
-					((Node)(t.getSource())).setTranslateY(newTranslateY);
-	    		}
+
+
+
+
+
+//	    		double newTranslateX = orgTranslateX + offsetX;
+//	    		double newTranslateY = orgTranslateY + offsetY;
+//	    		System.out.println(offsetX+ " "+offsetY);
+//				ArrayList<Sprite> allSprites = createGameView.getAllSprites();
+//				Sprite s_out = null;
+//	    		for(Sprite s: allSprites) {
+//					if(s.contains((int)orgSceneX - Constants.MAIN_WINDOW_ORIGIN_OFFSET_X, (int)orgSceneY - Constants.MAIN_WINDOW_ORIGIN_OFFSET_Y)) {
+//						createGameView.setCurrentSpriteId(s.getSpriteId());
+//						s_out = s.copy();
+//						System.out.println(s.getSpriteId());
+//					}
+//				}
+//
+//	    		if (s_out != null)
+//	    		{
+//					s_out.setX((int)orgSceneX - Constants.MAIN_WINDOW_ORIGIN_OFFSET_X);
+//					s_out.setY((int)orgSceneY - Constants.MAIN_WINDOW_ORIGIN_OFFSET_Y);
+//					createGameView.modifySprite(s_out);
+//					s_out = null;
+//	    		}
+//	    		((Node)(t.getSource())).setTranslateX(newTranslateX);
+//	    		((Node)(t.getSource())).setTranslateY(newTranslateY);
 
 		    }
 		};
-
-
 
 }

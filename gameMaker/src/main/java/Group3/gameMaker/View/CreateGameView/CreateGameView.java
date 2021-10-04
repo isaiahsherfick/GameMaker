@@ -32,7 +32,7 @@ public class CreateGameView implements View
 		appStage.setTitle("Main Window");
 		mainWindow = new MainWindow(this, appStage);
 //		appStage.setResizable(false);
-		mainWindow.makeStage();
+		//mainWindow.makeStage();
 
 		Stage createStage = new Stage();
 		createStage.setX(Constants.CREATE_PANEL_X);
