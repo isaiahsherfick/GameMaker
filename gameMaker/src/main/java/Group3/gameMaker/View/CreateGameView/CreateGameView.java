@@ -22,10 +22,6 @@ public class CreateGameView implements View
 	private ModifyPanelWindow modifyPanelWindow;
 	private int currentSpriteId = -2;
 
-	public CreateGameView()
-	{
-
-	}
 
 	public CreateGameView(Stage appStage) {
 //		appStage.setX(Constants.MAIN_WINDOW_X);

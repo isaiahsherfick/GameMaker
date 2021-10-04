@@ -13,8 +13,10 @@ public class PlayGameView implements View
 {
 	private Controller playGameController;
 	private HashMap<Integer,Integer> spriteIds;
+	private MainWindow mainWindow;
+	private MetaButtonWindow metaButtonWindow;
 
-	public PlayGameView() 
+	public PlayGameView(Stage appStage) 
 	{
 		spriteIds = new HashMap<>();
 	}
