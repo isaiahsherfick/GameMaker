@@ -74,4 +74,8 @@ public class CircleStrategy implements ShapeStrategy
 		return new CircleStrategy(radius,color.copy());
 	}
 
+	public void setRadius(int radius) {
+		this.radius = radius;
+	}
+
 }

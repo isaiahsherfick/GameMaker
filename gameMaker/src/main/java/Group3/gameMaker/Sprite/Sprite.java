@@ -26,6 +26,7 @@ import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.CircleStrategy;
 import Group3.gameMaker.Sprite.Strategy.ShapeStrategy.ShapeStrategy;
 import javafx.scene.canvas.GraphicsContext;
 
+
 public class Sprite implements Saveable
 {
 	//This is -2 so that it doesn't conflict with using -1 in SpriteMaster

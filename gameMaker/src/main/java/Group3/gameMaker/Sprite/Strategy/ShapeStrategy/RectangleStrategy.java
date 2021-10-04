@@ -80,4 +80,12 @@ public class RectangleStrategy implements ShapeStrategy
 		return new RectangleStrategy(width, height, color.copy());
 	}
 
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
 }
