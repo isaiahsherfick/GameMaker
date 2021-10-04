@@ -6,6 +6,7 @@ import java.util.HashMap;
 import Group3.gameMaker.Controller.Controller;
 import Group3.gameMaker.Model.Model;
 import Group3.gameMaker.Sprite.Sprite;
+import Group3.gameMaker.Sprite.SpriteMaster;
 import Group3.gameMaker.Sprite.Strategy.CollisionStrategy.CollisionDetector;
 import Group3.gameMaker.View.View;
 import Group3.gameMaker.View.PlayGameView.PlayGameView;
@@ -16,10 +17,11 @@ public class PlayGameController implements Controller
 	private View playGameView;
 	private Model playGameModel;
 	private GameClock clock;
+	private CollisionDetector collisionDetector;
 
 	public PlayGameController()
 	{
-		CollisionDetector collisionDetector = new CollisionDetector();
+		collisionDetector = new CollisionDetector();
 		clock = new GameClock();
 		clock.addObserver(this);
 	}
@@ -94,11 +96,13 @@ public class PlayGameController implements Controller
 	//called whenever the clock ticks
 	public void update()
 	{
-		ArrayList<Sprite> sprites = playGameModel.getSpriteMaster().getAllSprites();
+		SpriteMaster sm = playGameModel.getSpriteMaster();
+		ArrayList<Sprite> sprites = sm.getAllSprites();
 		for (Sprite sprite : sprites)
 		{
 			sprite.onClockTick();
 		}
+		collisionDetector.checkCollisions(sm);
 	}
 
 	public void onKeyPress()
